@@ -1,0 +1,55 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=widebox] (15) at (6.25, 5.5) {};
+		\node [style=widebox] (16) at (6.25, 5.5) {p};
+		\node [style=Bullet] (17) at (5.25, 7.25) {};
+		\node [style=Bullet] (18) at (7.75, 7.25) {};
+		\node [style=smallbox] (19) at (7, 8.75) {f};
+		\node [style=Blank] (20) at (7, 10.25) {T};
+		\node [style=widebox] (24) at (11.5, 5.5) {};
+		\node [style=widebox] (25) at (11.5, 5.5) {p};
+		\node [style=Bullet] (26) at (10.5, 7.25) {};
+		\node [style=Bullet] (27) at (13, 7.25) {};
+		\node [style=smallbox] (28) at (12.25, 8.75) {f};
+		\node [style=Blank] (30) at (14.5, 10) {X};
+		\node [style=Bullet] (31) at (9.25, 2.75) {};
+		\node [style=Blank] (32) at (9.25, 0) {A};
+		\node [style=Bullet] (33) at (8.75, 10.25) {};
+		\node [style=Bullet] (34) at (12.25, 10) {};
+		\node [style=widebox] (35) at (19.25, 5.5) {};
+		\node [style=widebox] (36) at (19.25, 5.5) {p};
+		\node [style=Bullet] (37) at (18.25, 7.25) {};
+		\node [style=smallbox] (39) at (19.75, 6.75) {f};
+		\node [style=Blank] (40) at (19.75, 8.25) {T};
+		\node [style=widebox] (41) at (24.5, 5.5) {};
+		\node [style=widebox] (42) at (24.5, 5.5) {p};
+		\node [style=Bullet] (43) at (23.5, 7.25) {};
+		\node [style=Blank] (46) at (25, 7.25) {X};
+		\node [style=Bullet] (47) at (22.25, 2.75) {};
+		\node [style=Blank] (48) at (22.25, 0) {A};
+		\node [style=none] (49) at (15.25, 4.5) {=};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (16) to (17);
+		\draw (16) to (18);
+		\draw (18) to (19);
+		\draw (19) to (20);
+		\draw (25) to (26);
+		\draw (25) to (27);
+		\draw (27) to (28);
+		\draw (27) to (30);
+		\draw (31) to (32);
+		\draw (31) to (16);
+		\draw (31) to (25);
+		\draw (33) to (18);
+		\draw (34) to (28);
+		\draw (36) to (37);
+		\draw (39) to (40);
+		\draw (42) to (43);
+		\draw (47) to (48);
+		\draw (47) to (36);
+		\draw (47) to (42);
+		\draw (39) to (36);
+		\draw (46) to (42);
+	\end{pgfonlayer}
+\end{tikzpicture}

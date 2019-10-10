@@ -1,0 +1,23 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=widebox] (0) at (-10.75, -7.25) {p};
+		\node [style=Bullet] (1) at (-9.5, -6) {};
+		\node [style=Blank] (2) at (-11.5, -5.75) {T};
+		\node [style=Blank] (3) at (-10.75, -9.75) {A};
+		\node [style=Bullet] (5) at (-4, -6.25) {};
+		\node [style=smallbox] (6) at (-2.5, -6.25) {f};
+		\node [style=widebox] (7) at (-3.25, -7.25) {p};
+		\node [style=Blank] (8) at (-3.25, -9.5) {A};
+		\node [style=Blank] (9) at (-2.5, -4.75) {T};
+		\node [style=none] (10) at (-7, -7.5) {=};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (3) to (0);
+		\draw (0) to (1);
+		\draw (0) to (2);
+		\draw (7) to (8);
+		\draw (7) to (5);
+		\draw (7) to (6);
+		\draw (6) to (9);
+	\end{pgfonlayer}
+\end{tikzpicture}
