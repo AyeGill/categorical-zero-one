@@ -1,0 +1,303 @@
+\ProvidesPackage{eigilscmds}[2019/03/06 Eigil Rischels commands]
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{listings}
+\usepackage{mathtools}
+\usepackage{hyperref}
+\usepackage{mathrsfs}
+\usepackage{xspace}
+\usepackage{braket}
+\usepackage{tikz-cd}
+
+\usepackage[colorinlistoftodos,textsize=tiny]{todonotes}
+
+
+%compatibility - prefer \bZ etc
+\newcommand{\Z}{\mathbb{Z}}
+
+
+\newcommand{\from}{\leftarrow}
+\newcommand{\op}{^{op}}
+\newcommand{\fibarr}{\twoheadrightarrow}
+\DeclareMathOperator{\fib}{fib}
+\newcommand{\inv}{^{-1}} %bemærk mærkelig opførsel ved ' -er og andre superskrift
+\usepackage{eufrak}
+\newcommand{\into}{\hookrightarrow}
+\newcommand{\superset}{\supset}
+\newcommand{\lps}{\Omega}
+\let\oldwedge\wedge
+\newcommand{\smsh}{\oldwedge}
+\renewcommand{\wedge}{\vee}
+\newcommand{\labelto}[1]{\overset{#1}{\to}}
+\newcommand{\labelfrom}[1]{\overset{#1}{\from}}
+\newcommand{\ltri}{\triangleleft}
+\newcommand{\rtri}{\triangleright}
+\newcommand{\frakc}{\mathfrak{C}}
+\newcommand{\cl}{\mathcal}
+\newcommand{\icat}{$\infty$-category\xspace}
+\newcommand{\icats}{$\infty$-categories\xspace}
+
+
+\DeclareMathOperator{\Syn}{Syn}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\pre}{pre}
+\DeclareMathOperator{\map}{map}
+\DeclareMathOperator{\Map}{Map}
+\DeclareMathOperator{\Fun}{Fun}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\CAlg}{CAlg}
+\DeclareMathOperator{\Alg}{Alg}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Id}{Id}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Spc}{Spc}
+\DeclareMathOperator{\colim}{colim}
+\DeclareMathOperator{\cofib}{cofib}
+\DeclareMathOperator{\hocolim}{hocolim}
+\DeclareMathOperator{\Ab}{Ab}
+\DeclareMathOperator{\Gr}{Gr}
+\DeclareMathOperator{\CRing}{CRing}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\Thick}{Thick}
+\DeclareMathOperator{\Perf}{Perf}
+\DeclareMathOperator{\Proj}{Proj}
+\DeclareMathOperator{\LRS}{LRS}
+\DeclareMathOperator{\2Ring}{2Ring}
+\DeclareMathOperator{\Span}{Span}
+\DeclareMathOperator{\Lie}{Lie}
+\DeclareMathOperator{\bLie}{\bL ie}
+\DeclareMathOperator{\Part}{Part}
+\DeclareMathOperator{\Cospan}{Cospan}
+
+\DeclareMathOperator{\Meas}{Meas}
+\DeclareMathOperator{\Pol}{Pol}
+\DeclareMathOperator{\LCH}{LCH}
+\DeclareMathOperator{\CRingSp}{CRingSp}
+\DeclareMathOperator{\gr}{gr}
+\DeclareMathOperator{\Cat}{\cC at}
+\DeclareMathOperator{\Sp}{Sp}
+\DeclareMathOperator{\Rel}{Rel}
+\DeclareMathOperator{\Ring}{Ring}
+\DeclareMathOperator{\coAlg}{coAlg}
+\DeclareMathOperator{\Ch}{Ch}
+\DeclareMathOperator{\Stone}{Stone}
+\DeclareMathOperator{\Top}{Top}
+\renewcommand{\Set}{\operatorname{Set}}
+\DeclareMathOperator{\sSet}{sSet}
+\DeclareMathOperator{\Fin}{Fin}
+\DeclareMathOperator{\Mod}{Mod}
+\DeclareMathOperator{\stab}{stab}
+\DeclareMathOperator{\Bord}{Bord}
+\DeclareMathOperator{\CHaus}{CHaus}
+\DeclareMathOperator{\Rep}{Rep}
+\newcommand{\actson}{\curvearrowright}
+\newcommand{\ol}{\overline}
+\newcommand{\tensor}{\otimes}
+\newcommand{\lsym}[2]{\left(\frac{#1}{#2}\right)}
+%Sætningmiljøer
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}[section] %Increment theorems by chapter
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{question}[theorem]{Question}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{construction}[theorem]{Construction}
+\newtheorem{notation}[theorem]{Notation}
+\newcommand{\unsure}[1]{\todo[linecolor=red,backgroundcolor=red!25]{#1}}
+\newcommand{\change}[1]{\todo[linecolor=blue,backgroundcolor=blue!25]{#1}}
+\newcommand{\improve}[1]{\todo[linecolor=yellow,backgroundcolor=yellow!25]{#1}}
+\newcommand{\why}{\todo[linecolor=red,backgroundcolor=red!25]{Hvorfor?}}
+\newcommand{\checkthis}{\todo[linecolor=blue,backgroundcolor=blue!25]{Tjek dette!}}
+\newcommand{\missref}{\todo[linecolor=blue,backgroundcolor=blue!25]{Mangler reference til en sætning}}
+
+\newcommand{\bA}{\mathbb{A}}
+\newcommand{\bB}{\mathbb{B}}
+\newcommand{\bC}{\mathbb{C}}
+\newcommand{\bD}{\mathbb{D}}
+\newcommand{\bE}{\mathbb{E}}
+\newcommand{\bF}{\mathbb{F}}
+\newcommand{\bG}{\mathbb{G}}
+\newcommand{\bH}{\mathbb{H}}
+\newcommand{\bI}{\mathbb{I}}
+\newcommand{\bJ}{\mathbb{J}}
+\newcommand{\bK}{\mathbb{K}}
+\newcommand{\bL}{\mathbb{L}}
+\newcommand{\bM}{\mathbb{M}}
+\newcommand{\bN}{\mathbb{N}}
+\newcommand{\bO}{\mathbb{O}}
+\newcommand{\bP}{\mathbb{P}}
+\newcommand{\bQ}{\mathbb{Q}}
+\newcommand{\bR}{\mathbb{R}}
+\newcommand{\bS}{\mathbb{S}}
+\newcommand{\bT}{\mathbb{T}}
+\newcommand{\bU}{\mathbb{U}}
+\newcommand{\bV}{\mathbb{V}}
+\newcommand{\bW}{\mathbb{W}}
+\newcommand{\bX}{\mathbb{X}}
+\newcommand{\bY}{\mathbb{Y}}
+\newcommand{\bZ}{\mathbb{Z}}
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cD}{\mathcal{D}}
+\newcommand{\cE}{\mathcal{E}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cG}{\mathcal{G}}
+\newcommand{\cH}{\mathcal{H}}
+\newcommand{\cI}{\mathcal{I}}
+\newcommand{\cJ}{\mathcal{J}}
+\newcommand{\cK}{\mathcal{K}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\cQ}{\mathcal{Q}}
+\newcommand{\cR}{\mathcal{R}}
+\newcommand{\cS}{\mathcal{S}}
+\newcommand{\cT}{\mathcal{T}}
+\newcommand{\cU}{\mathcal{U}}
+\newcommand{\cV}{\mathcal{V}}
+\newcommand{\cW}{\mathcal{W}}
+\newcommand{\cX}{\mathcal{X}}
+\newcommand{\cY}{\mathcal{Y}}
+\newcommand{\cZ}{\mathcal{Z}}
+\newcommand{\sA}{\mathscr{A}}
+\newcommand{\sB}{\mathscr{B}}
+\newcommand{\sC}{\mathscr{C}}
+\newcommand{\sD}{\mathscr{D}}
+\newcommand{\sE}{\mathscr{E}}
+\newcommand{\sF}{\mathscr{F}}
+\newcommand{\sG}{\mathscr{G}}
+\newcommand{\sH}{\mathscr{H}}
+\newcommand{\sI}{\mathscr{I}}
+\newcommand{\sJ}{\mathscr{J}}
+\newcommand{\sK}{\mathscr{K}}
+\newcommand{\sL}{\mathscr{L}}
+\newcommand{\sM}{\mathscr{M}}
+\newcommand{\sN}{\mathscr{N}}
+\newcommand{\sO}{\mathscr{O}}
+\newcommand{\sP}{\mathscr{P}}
+\newcommand{\sQ}{\mathscr{Q}}
+\newcommand{\sR}{\mathscr{R}}
+\newcommand{\sS}{\mathscr{S}}
+\newcommand{\sT}{\mathscr{T}}
+\newcommand{\sU}{\mathscr{U}}
+\newcommand{\sV}{\mathscr{V}}
+\newcommand{\sW}{\mathscr{W}}
+\newcommand{\sX}{\mathscr{X}}
+\newcommand{\sY}{\mathscr{Y}}
+\newcommand{\sZ}{\mathscr{Z}}
+
+\newcommand{\fA}{\mathfrak{A}}
+\newcommand{\fB}{\mathfrak{B}}
+\newcommand{\fC}{\mathfrak{C}}
+\newcommand{\fD}{\mathfrak{D}}
+\newcommand{\fE}{\mathfrak{E}}
+\newcommand{\fF}{\mathfrak{F}}
+\newcommand{\fG}{\mathfrak{G}}
+\newcommand{\fH}{\mathfrak{H}}
+\newcommand{\fI}{\mathfrak{I}}
+\newcommand{\fJ}{\mathfrak{J}}
+\newcommand{\fK}{\mathfrak{K}}
+\newcommand{\fL}{\mathfrak{L}}
+\newcommand{\fM}{\mathfrak{M}}
+\newcommand{\fN}{\mathfrak{N}}
+\newcommand{\fO}{\mathfrak{O}}
+\newcommand{\fP}{\mathfrak{P}}
+\newcommand{\fQ}{\mathfrak{Q}}
+\newcommand{\fR}{\mathfrak{R}}
+\newcommand{\fS}{\mathfrak{S}}
+\newcommand{\fT}{\mathfrak{T}}
+\newcommand{\fU}{\mathfrak{U}}
+\newcommand{\fV}{\mathfrak{V}}
+\newcommand{\fW}{\mathfrak{W}}
+\newcommand{\fX}{\mathfrak{X}}
+\newcommand{\fY}{\mathfrak{Y}}
+\newcommand{\fZ}{\mathfrak{Z}}
+
+
+
+
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}%
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}%
+
+% Swap the definition of \abs* and \norm*, so that \abs
+% and \norm resizes the size of the brackets, and the
+% starred version does not.
+\makeatletter
+\let\oldabs\abs
+\def\abs{\@ifstar{\oldabs}{\oldabs*}}
+%
+\let\oldnorm\norm
+\def\norm{\@ifstar{\oldnorm}{\oldnorm*}}
+\makeatother
+
+
+\usepackage{pict2e}
+
+\makeatletter
+\newcommand{\adjunction}{\@ifstar\named@adjunction\normal@adjunction}
+\newcommand{\normal@adjunction}[4]{%
+  % #1 : #2 <arrows> #3 : #4
+  #1\colon #2%
+  \mathrel{\vcenter{%
+    \offinterlineskip\m@th
+    \ialign{%
+      \hfil$##$\hfil\cr
+      \longrightharpoonup\cr
+      \noalign{\kern-.3ex}
+      \smallbot\cr
+      \longleftharpoondown\cr
+    }%
+  }}%
+  #3 \noloc #4%
+}
+\newcommand{\named@adjunction}[4]{%
+  % #1 : #2 <arrows> #3 : #4
+  #2%
+  \mathrel{\vcenter{%
+    \offinterlineskip\m@th
+    \ialign{%
+      \hfil$##$\hfil\cr
+      \scriptstyle#1\cr
+      \noalign{\kern.1ex}
+      \longrightharpoonup\cr
+      \noalign{\kern-.3ex}
+      \smallbot\cr
+      \longleftharpoondown\cr
+      \scriptstyle#4\cr
+    }%
+  }}%
+  #3%
+}
+\newcommand{\longrightharpoonup}{\relbar\joinrel\rightharpoonup}
+\newcommand{\longleftharpoondown}{\leftharpoondown\joinrel\relbar}
+\newcommand\noloc{%
+  \nobreak
+  \mspace{6mu plus 1mu}
+  {:}
+  \nonscript\mkern-\thinmuskip
+  \mathpunct{}
+  \mspace{2mu}
+}
+\newcommand{\smallbot}{%
+  \begingroup\setlength\unitlength{.15em}%
+  \begin{picture}(1,1)
+  \roundcap
+  \polyline(0,0)(1,0)
+  \polyline(0.5,0)(0.5,1)
+  \end{picture}%
+  \endgroup
+}
+\makeatother
+
+\endinput
