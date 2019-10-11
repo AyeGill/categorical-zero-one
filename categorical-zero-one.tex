@@ -149,6 +149,69 @@ To see that the marginal $A \to T \tensor X \to T$ is deterministic as desired.
     which precisely means that $T$ is true or false with probability $1$.
 \end{proof}
 
+We can also prove a version of the Hewitt-Savage theorem
+\begin{definition}
+    Let $\alpha: J \to J$ be any map.
+    Then it induces a map 
+    \[]\hat{\alpha}: \bigotimes_{i\in J}X_i \to \bigotimes_{i \in J}X_{\alpha(i)},\]
+    which we may suggestively write as $(x_i)_{i\in J} \mapsto (x_{\alpha(i)})_{i\in J}$.
+    
+    It is clear that this map is always deterministic. Moreover, if $\alpha$ is a bijection, this map is an isomorphism.
+\end{definition}
+
+\begin{theorem}[Hewitt-Savage for Markov categories]
+    Let $\cC$ be a causal Markov category with infinite tensor products. Let $A \to \cC$ be a map in $\cC$, $J$ an infinite set, and let $f: \bigotimes_{i \in J}X \to T$ be a deterministic map.
+    Suppose for each finite permutation $\sigma: J \to J$, we have $f \circ \hat{\sigma} = f$ - in other words, $f$ is independent of finite permutations of the inputs.
+    Then the composite $A \to \tensor_J A \to \tensor_J X \to T$ is deterministic.
+\end{theorem}
+Again, we factor part of the proof into a lemma.
+\begin{lemma}
+    Let $\cC$ be a causal markov category, and let $f,g: B \to X$ be maps, $f$ deterministic.
+    Let $p: A \to B$ be any map.
+    Suppose the composites 
+    \[A \to B \to B \tensor B \labelto{f \tensor g} X \tensor X\]
+    and
+    \[A \to B \to B \tensor B \labelto{f \tensor f} X \tensor X\]
+    agree. Then $f = g$ $p$-almost everywhere.
+\end{lemma}
+\begin{proof}[Sketch of sketch of proof]
+    Consider the map
+    $A \labelto{p} B \to B \tensor B \labelto{f \tensor g} X \tensor X \labelto{copy_{X \tensor X}} X \tensor X \tensor X \tensor X$.
+    Whether we marginalize on the first or second factor of $X$, we get equal morphisms, because we may replace the first part of this with
+    $A \to B \labelto{f} B \to X \tensor X \tensor X \tensor X$ by using the assumptions and determinism.
+
+    Then applying causality, with $f = p$, $g= (f \tensor g) \circ copy_B$, $h_1 = (del_X \tensor 1_X)$, $h_2  = (1_X \tensor del_X)$.
+    Marginalizing the resulting (equal) diagrams, one of them is 
+    \[A \to B \to B \tensor B \labelto{f, 1_B} B \tensor B,\]
+    one of them is 
+    \[A \to B \to B \tensor B \labelto{g,1_B} B \tensor B,\]
+    and this is precisely what must hold for them to agree $p$-a.e.
+\end{proof}
+
+\begin{proof}[Proof of theorem]
+    Consider the map 
+
+    \[e: A \to \tensor_J A \labelto{\tensor p} (\tensor_J X) \to (\tensor_J X) \tensor (\tensor_J X) \to T \tensor (\tensor_J X)\]
+
+    Denote by $e_\sigma$ the composite of $e$ with $1_T \tensor \hat{\sigma}$
+    Note that if $\sigma$ is a finite permutation, $e_\sigma = e$. To see this, note that we may add a $\hat{\sigma}$ before the $f$ as well, by assumption.
+    Now we can use the determinism of the $\hat{\sigma}$s, and the clear fact that 
+    \[A \to \tensor A \to \tensor B \labelto{\hat{\sigma}} \tensor B = A \to \tensor A \to \tensor B\]
+
+    Now let $\sigma$ instead be an injection. Then for each finite subset $F \subset J$, we can find a finite permutation of $J$, $\sigma_0$, such that $\sigma|_F = \sigma_0|_F$.
+    Then on this marginal, $e_\sigma = e_{\sigma_0} = e$, hence $e_\sigma = e$ in general.
+
+    Let $J = J_0 \sqcup J_1$ be a decomposition of $J$ into two disjoint subsets with the cardinality of $J$ (here we use $J$ infinite).
+    Let $\tau_0, \tau_1: J \to J$ be injections with image $J_0,J_1$ respectively.
+
+    Now consider the map $a_\sigma: A \to T \tensor T$ given by composing $e_\sigma$ with $t$.
+    By the above, they all agree.
+    By the lemma, we see that the maps $\tensor_J X \labelto{\hat{\sigma}} \tensor_J X \to T$ are all $\tensor_J p$ a.e. equal.
+    Applying this to $\tau_0,\tau_1$, we get that the map $A \to T$ must be deterministic.
+\end{proof}
+In the last step, the idea is that precomposing with $\hat{\tau_0}$ and $\hat{\tau_1}$ is essentially picking out two disjoint subsets and using them to determine $T$.
+Since all the variables are independent, these two are clearly independent, but also equal (by the preceding argument). Hence they are deterministic, but they also agree with the original map.
+
 \section{Speculation}
 It would good to have a way of using this theorem without assuming that the category in question has these infinite tensor products.
 We can always make sense of the notion of an infinite independent collection of random variables (just a collection of maps $I \to X_i$).
