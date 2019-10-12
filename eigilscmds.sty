@@ -11,6 +11,7 @@
 \usepackage{xspace}
 \usepackage{braket}
 \usepackage{tikz-cd}
+\usepackage{cleveref}
 
 \usepackage[colorinlistoftodos,textsize=tiny]{todonotes}
 
@@ -99,18 +100,18 @@
 \newcommand{\tensor}{\otimes}
 \newcommand{\lsym}[2]{\left(\frac{#1}{#2}\right)}
 %Sætningmiljøer
-\theoremstyle{definition}
 \newtheorem{theorem}{Theorem}[section] %Increment theorems by chapter
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{example}[theorem]{Example}
 \newtheorem{corollary}[theorem]{Corollary}
 \newtheorem{definition}[theorem]{Definition}
-\newtheorem{remark}[theorem]{Remark}
 \newtheorem{question}[theorem]{Question}
 \newtheorem{problem}[theorem]{Problem}
-\newtheorem{construction}[theorem]{Construction}
 \newtheorem{notation}[theorem]{Notation}
+\theoremstyle{definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{construction}[theorem]{Construction}
 \newcommand{\unsure}[1]{\todo[linecolor=red,backgroundcolor=red!25]{#1}}
 \newcommand{\change}[1]{\todo[linecolor=blue,backgroundcolor=blue!25]{#1}}
 \newcommand{\improve}[1]{\todo[linecolor=yellow,backgroundcolor=yellow!25]{#1}}
@@ -146,7 +147,7 @@
 \newcommand{\bZ}{\mathbb{Z}}
 \newcommand{\cA}{\mathcal{A}}
 \newcommand{\cB}{\mathcal{B}}
-\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cC}{\mathsf{C}}	% T: I've changed this to have consistent notation with my Markov cats paper
 \newcommand{\cD}{\mathcal{D}}
 \newcommand{\cE}{\mathcal{E}}
 \newcommand{\cF}{\mathcal{F}}
@@ -224,6 +225,7 @@
 \newcommand{\fY}{\mathfrak{Y}}
 \newcommand{\fZ}{\mathfrak{Z}}
 
+\newcommand{\detc}{\mathrm{det}}		% subcategory of deterministic morphisms
 
 
 

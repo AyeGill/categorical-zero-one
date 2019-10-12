@@ -1,36 +1,67 @@
-\documentclass{article}
+\documentclass[11pt]{article}
 \usepackage{eigilscmds}
 \usepackage{tikzit}
-\input{/home/eigil/Downloads/tikzit/styles/foo.tikzstyles}
+\usepackage{geometry}
+\input{foo.tikzstyles}
+
+% draft packages
 \usepackage{todonotes}
-\author{Eigil Fjeldgren Rischel}
-\title{A Kolmogorov zero to one law for Markov Categories}
-\date{}
+\usepackage{showkeys}
+
+\author{Tobias Fritz and Eigil Fjeldgren Rischel}
+\title{The zero--one laws of Kolmogorov and Hewitt--Savage in categorical probability}
+\date{\today}
+
 \renewcommand{\sf}{\mathsf}
 \DeclareMathOperator{\del}{del}
 \begin{document}
 \maketitle
+
+\begin{abstract}
+	We state and prove the zero--one laws of Kolmogorov and Hewitt--Savage within the setting of \emph{Markov categories}, a category-theoretic approach to the foundations of probability and statistics. This gives general versions of these results which can be instantiated not only in measure-theoretic probability, where they specialize to the standard ones, but also in other contexts such as categories of closed relations between topological spaces, 
+	\improve{T: this abstract states what we can hopefully achieve. To be adjusted}
+\end{abstract}
+
+\tableofcontents
+
 \section{Introduction}
-This is a treatment of Kolmogorov's zero to one law in the setting of Markov categories.
-Throughout, $J$ is a possibly infinite set and $F \subset J$ is a finite subset.
 
-\section{Definitions and preliminaries}
+This is a treatment of the zero--one laws of Kolmogorov and of Hewitt--Savage in the setting of Markov categories.
+
+\paragraph*{Notation.} 
+
+Throughout, $\cC$ is a Markov category in the sense of \cite[Definition~2.1]{markov_cats} (see also the closely related earlier work of Golubtsov~\cite{golubtsov} and Cho and Jacobs~\cite{cho_jacobs}). $J$ is a possibly infinite set, used for indexing products of objects, and $F \subset J$ ranges over finite subsets.
+
+\section{Background on Markov categories}
+
+\todo[inline]{to be written}
+
+\section{Infinite tensor products}
+
 Suppose $\cC$ is a Markov category.
-To make sense of infinite families of random variables,
-we will want to have a notion of infinite tensor product.
-Of course, there is no reason such a thing should exist - for instance, it would be very strange for $\sf{FinStoch}$ to have infinite tensor products.
-But in cases where the subcategory $\cC_{det}$ of deterministic maps has infinite products as well as finite ones, it seems natural to ask whether this is compatible with the structure of $\cC$ in a suitable sense.
-We introduce the following notion
-\begin{definition}
-    Let $\{X_i\}_{i \in J}$ be a collection of objects in $\cC$.
-    Then we may form the diagram \[F \mapsto \bigotimes_{i \in F} X_i\]
-    indexed over the poset of finite subsets $F \subset J$, ordered by reverse inclusion, where the structure maps are induced by $\del_{X_i}: X_i \to I$ and the coherence isomorphisms.
+To make sense of infinite families of random variables within $\cC$,
+we will want to have a notion of infinite tensor product in $\cC$. By Kolmogorov's extension theorem, the joint distribution of infinitely many random variables is uniquely determined by the family of distributions of all finite subsets of these variables. This motivates a general definition of the infinite tensor product of a family of objects $(X_i)_{i \in J}$, based on the observation that if $F \subseteq F' \subseteq J$ are two finite subset, then the fact that $\cC$ is semicartesian monoidal gives us morphisms
+\[
+	\bigotimes_{i \in F'} X_i \longrightarrow \bigotimes_{i \in F} X_i
+\]
+to be interpreted as \emph{marginalization}. Via these maps, the finite tensor products $\bigotimes_{i \in F} X_i$ make up a cofiltered diagram in the form of a functor from the poset of finite subsets of $J$, ordered by reverse inclusion, to $\cC$.
 
-    We define $\bigotimes_{i \in J}X_i$ to be the limit of this (cofiltered) diagram in $\cC$, if it exists.
+\begin{definition}
+    Let $(X_i)_{i \in J}$ be a family of objects in $\cC$.
+    Then the \emph{infinite tensor product} $\bigotimes_{i \in J} X_i$ is the limit of the diagram \[F \longmapsto \bigotimes_{i \in F} X_i,\]
+    indexed by the poset of finite subsets $F \subset J$ ordered by reverse inclusion, if this limit exists.
 \end{definition}
+
+Similar definitions of infinite tensor products of algebraic structures as \emph{filtered colimits} of finite tensor products are well-known in the literature, e.g.~in the case of C*-algebras~\cite[p.~315]{blackadar}. Intuitively, our definition matches up with these under the categorical duality of algebra and geometry, where our definition is of a geometrical flavour.
+
+Of course, in a general Markov category the above limit need not exist, in which case the infinite tensor product does not exist either (\Cref{infprods_finstoch}).
+But in cases where the subcategory $\cC_{\det}$ of deterministic maps has infinite products as well as finite ones, it seems natural to ask whether this is compatible with the structure of $\cC$ in a suitable sense.
+We introduce the following notion
+
 \begin{remark}
-    If $J$ is finite, this coincides with the normal tensor product indexed over $J$.
+	If $J$ is finite, the infinite tensor product coincides with the standard tensor product $\bigotimes_{i \in J} X_i$.
 \end{remark}
+
 \begin{remark}
     It is easily verified that 
     \[\bigotimes_{i \in J} X_i \tensor \bigotimes_{i' \in J'} X_{i'} \cong \bigotimes_{i \in J \sqcup J'} X_i\]
@@ -38,15 +69,18 @@ We introduce the following notion
 
     Probably the similar theorem about infinite tensor products of infinite tensor products is true as well, although I have not verified it. 
 \end{remark}
+
 \begin{remark}
-    Supposing $\bigotimes_{i\in J}X_i$ exists, the structure morphisms $\pi_j: \bigotimes_{i \in J} X_i \to X_j$ are deterministic and exhibit it as the product in $\cC_{det}$ of $\{X_i\}$.
+    Supposing $\bigotimes_{i\in J}X_i$ exists, the structure morphisms $\pi_j: \bigotimes_{i \in J} X_i \to X_j$ are deterministic and exhibit it as the product in $\cC_{\det}$ of $\{X_i\}$.
 \end{remark}
+
 \begin{remark}
     If we take as input certain maps $I \to X_i$ as well, so that we have an infinite system of probability distributions, we can also try to define the infinite tensor product as a colimit, which will then be a space with a probability distribution, corresponding to an infinite system of random variables.
     It would also be possible to formulate the zero-to-one law in this setting, but I have not explored this.
 \end{remark}
 
 To actually use this idea to reproduce the usual Kolmogorov zero-one law, we need to do a bit of work:
+
 \begin{example}
 Let $\{(X_i,\Sigma_i)\}_{i\in J}$ be a set of measurable spaces in $\sf{Stoch}$.
 Then consider their product $X = \prod_i X_i$ with the $\sigma$-algebra generated by the projections $\pi_i: X \to X_i$, which we denote $\Sigma$.
@@ -65,6 +99,11 @@ Hence $p$ is a Markov kernel.
 
 This argument also shows that this Markov kernel is determined uniquely by the fact that $p(a,\pi_F\inv(B)) = p_F(a,B) = \pi_F \circ p$.
 This proves that $(X,\Sigma)$ is the limit of $(X_F,\Sigma_F)$, so that it is the tensor product $\bigotimes_{i\in J} X_i$.
+\end{example}
+
+\begin{example}
+	\label{infprods_finstoch}
+	$\sf{FinStoch}$ does not have infinite tensor products.
 \end{example}
 
 We will refer to the structure maps $\bigotimes_{i\in J} X_i \to \bigotimes_{i\in F} X_i$ as \emph{finite marginalizations}.
@@ -224,4 +263,9 @@ In this case, it would be desirable to be able to apply this theorem, given a co
 (which may be required to satisfy some condition like continuity in the product topology), without begin required to invent the larger category $\sf{Stoch}$.
 
 For instance, maybe there is a Markov category with objects the profinite sets, which can be obtained from $\sf{FinStoch}$ by some formal construction (maybe even simply as the pro-category), which admits infinite tensor products, and where one can profitably interpret this theorem.
+
+
+\bibliographystyle{plain}
+\bibliography{categorical-zero-one}
+
 \end{document}
