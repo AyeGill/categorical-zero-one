@@ -2,7 +2,8 @@
 \usepackage{eigilscmds}
 \usepackage{tikzit}
 \usepackage{geometry}
-\input{foo.tikzstyles}
+\input{comonoids.tikzdefs}
+\input{comonoids.tikzstyles}
 
 % draft packages
 \usepackage{todonotes}
@@ -36,9 +37,9 @@ Throughout, $\cC$ is a Markov category in the sense of \cite[Definition~2.1]{mar
 
 \todo[inline]{to be written}
 
-\section{Infinite tensor products}
+\section{Infinite tensor products in semicartesian monoidal categories}
 
-Suppose $\cC$ is a Markov category.
+Suppose $\cC$ is a semicartesian monoidal category.
 To make sense of infinite families of random variables within $\cC$,
 we will want to have a notion of infinite tensor product in $\cC$. By Kolmogorov's extension theorem, the joint distribution of infinitely many random variables is uniquely determined by the family of distributions of all finite subsets of these variables. This motivates a general definition of the infinite tensor product of a family of objects $(X_i)_{i \in J}$, based on the observation that if $F \subseteq F' \subseteq J$ are two finite subset, then the fact that $\cC$ is semicartesian monoidal gives us morphisms
 \[
@@ -52,27 +53,62 @@ to be interpreted as \emph{marginalization}. Via these maps, the finite tensor p
     indexed by the poset of finite subsets $F \subset J$ ordered by reverse inclusion, if this limit exists.
 \end{definition}
 
-Similar definitions of infinite tensor products of algebraic structures as \emph{filtered colimits} of finite tensor products are well-known in the literature, e.g.~in the case of C*-algebras~\cite[p.~315]{blackadar}. Intuitively, our definition matches up with these under the categorical duality of algebra and geometry, where our definition is of a geometrical flavour.
+We will refer to the structure maps $\pi_F : \bigotimes_{i\in J} X_i \to \bigotimes_{i\in F} X_i$ as \emph{finite marginalizations}, and also write $\pi_j$ as shorthand for $\pi_{\{j\}}$.
 
-Of course, in a general Markov category the above limit need not exist, in which case the infinite tensor product does not exist either (\Cref{infprods_finstoch}).
-But in cases where the subcategory $\cC_{\det}$ of deterministic maps has infinite products as well as finite ones, it seems natural to ask whether this is compatible with the structure of $\cC$ in a suitable sense.
-We introduce the following notion
+The dual definition of infinite tensor products of algebraic structures as \emph{filtered colimits} of finite tensor products is well-known in the literature, e.g.~in the case of C*-algebras~\cite[p.~315]{blackadar}. Intuitively, our definition matches up with these under the categorical duality of algebra and geometry, where our definition is on the geometrical side of the duality.
 
 \begin{remark}
-	If $J$ is finite, the infinite tensor product coincides with the standard tensor product $\bigotimes_{i \in J} X_i$.
+	If $J$ is finite, the infinite tensor product exists and coincides with the standard tensor product $\bigotimes_{i \in J} X_i$.
 \end{remark}
 
+Of course, in a general Markov category the above cofiltered limit need not exist for infinite $J$, in which case the infinite tensor product does not exist either (as in \Cref{infprods_finstoch}).
+
 \begin{remark}
+	\label{double_infinite_product}
     It is easily verified that 
     \[\bigotimes_{i \in J} X_i \tensor \bigotimes_{i' \in J'} X_{i'} \cong \bigotimes_{i \in J \sqcup J'} X_i\]
     i.e tensor products of infinite tensor products can be written as single infinite tensor products in the obvious way.
-
-    Probably the similar theorem about infinite tensor products of infinite tensor products is true as well, although I have not verified it. 
 \end{remark}
+    
+\todo[inline]{Probably the similar theorem about infinite tensor products of infinite tensor products is true as well, although I have not verified it.}
+
+\section{Infinite tensor products in Markov categories}
+
+If a Markov category $\cC$ has infinite tensor products, then one should expect a suitable compatibility condition between these infinite tensor products and the comonoid structures on the objects to be satisfied. In the following string diagrams, we draw the object associated to an infinite tensor product as a double wire.
+
+\begin{definition}
+	\label{defn_kolmogorov_ext}
+	A Markov category \emph{satisfies Kolmogorov extension} if it has infinite tensor products $\bigotimes_{i \in J} X_i$ such that 
+	\[
+		\tikzfig{infinite_product_copy}
+	\]
+\end{definition}
+
+\todo[inline]{Is this good terminology?}
+
+The idea is that this equation uniquely determines the comonoid structure: by \Cref{double_infinite_product}, the comultiplication
+\[
+	\mathsf{copy}_{\bigotimes_i X_i} \: : \: \bigotimes_i X_i \longrightarrow \left( \bigotimes_i X_i \right) \otimes \left( \bigotimes_i X_i \right)
+\]
+is uniquely determined by its composition with the maps $\pi_i \otimes \pi_j$ for all $i,j \in J$.
+
+\todo[inline]{Can we show that the comonoid laws automatically follow from \Cref{defn_kolmogorov_ext}?}
+
+In particular, the $i=j$ case of the equation above shows that the marginalizations $\pi_i$ are deterministic.
 
 \begin{remark}
-    Supposing $\bigotimes_{i\in J}X_i$ exists, the structure morphisms $\pi_j: \bigotimes_{i \in J} X_i \to X_j$ are deterministic and exhibit it as the product in $\cC_{\det}$ of $\{X_i\}$.
+	Isomorphic objects in a Markov category can have non-isomorphic comonoid structures~\cite[Remark~10.9]{markov_cats}. Therefore the condition of \Cref{defn_kolmogorov_ext} generally depends on the particular \emph{choice} of the infinite tensor product, rather than only on the mere existence of infinite tensor products in the underlying semicartesian monoidal category.
 \end{remark}
+
+But in case that the subcategory of deterministic maps $\cC_{\det}$ has infinite products in addition to finite ones, it seems natural to ask whether this is compatible with the structure of $\cC$ in a suitable sense.
+
+\begin{lemma}
+	If $\cC$ satisfies Kolmogorov extension, then an infinite tensor product $\bigotimes_i X_i$ is a product $\prod_i X_i$ with projections $\pi_i$ in the subcategory of deterministic morphisms $\cC_\detc \subseteq \cC$.
+\end{lemma}
+
+\begin{proof}
+	\todo[inline]{We probably have to show that all finite marginalization maps $\pi_F$ are deterministic}
+\end{proof}
 
 \begin{remark}
     If we take as input certain maps $I \to X_i$ as well, so that we have an infinite system of probability distributions, we can also try to define the infinite tensor product as a colimit, which will then be a space with a probability distribution, corresponding to an infinite system of random variables.
@@ -105,8 +141,6 @@ This proves that $(X,\Sigma)$ is the limit of $(X_F,\Sigma_F)$, so that it is th
 	\label{infprods_finstoch}
 	$\sf{FinStoch}$ does not have infinite tensor products.
 \end{example}
-
-We will refer to the structure maps $\bigotimes_{i\in J} X_i \to \bigotimes_{i\in F} X_i$ as \emph{finite marginalizations}.
 
 This notion of infinite tensor product describes a notion of infinite collection of random variable where all dependence must be witnessed on some finite subset of the variables.
 
@@ -146,22 +180,22 @@ This theorem is a consequence of two lemmas.
 The proof is a string diagram chase:
 First, the assumption that $T$ is a deterministic function of $X$ means precisely that we can find $f$ deterministic so that.
 
-\tikzfig{determinismlemma1}.
+%\tikzfig{determinismlemma1}.
 
 Now we can use the independence of $X$ and $T$, and the axioms, to rewrite this as
 
-\tikzfig{determinismlemma2}
+%\tikzfig{determinismlemma2}
 
 Applying the map $1_T \tensor f$ to the second and fourth diagram now gives an equality
 
-\tikzfig{determinismlemma3}
+%\tikzfig{determinismlemma3}
 
 Where we have also applied the determinism of $f$.
 This is precisely the statement that $A \to T \tensor X \to X \labelto{f} T$ is deterministic.
 
 Lastly, we use the equality 
 
-\tikzfig{determinismlemma4}
+%\tikzfig{determinismlemma4}
 
 To see that the marginal $A \to T \tensor X \to T$ is deterministic as desired.
 
