@@ -2,6 +2,7 @@
 \usepackage{eigilscmds}
 \usepackage{tikzit}
 \usepackage{geometry}
+\usepackage{enumerate}
 \input{comonoids.tikzdefs}
 \input{comonoids.tikzstyles}
 
@@ -62,58 +63,59 @@ The dual definition of infinite tensor products of algebraic structures as \emph
 \end{remark}
 
 Of course, in a general Markov category the above cofiltered limit need not exist for infinite $J$, in which case the infinite tensor product does not exist either (as in \Cref{infprods_finstoch}).
-
-\begin{remark}
-	\label{double_infinite_product}
-    It is easily verified that 
-    \[\bigotimes_{i \in J} X_i \tensor \bigotimes_{i' \in J'} X_{i'} \cong \bigotimes_{i \in J \sqcup J'} X_i\]
-    i.e tensor products of infinite tensor products can be written as single infinite tensor products in the obvious way.
-\end{remark}
-    
-\todo[inline]{Probably the similar theorem about infinite tensor products of infinite tensor products is true as well, although I have not verified it.}
-
 \section{Infinite tensor products in Markov categories}
 
 If a Markov category $\cC$ has infinite tensor products, then one should expect a suitable compatibility condition between these infinite tensor products and the comonoid structures on the objects to be satisfied. In the following string diagrams, we draw the object associated to an infinite tensor product as a double wire.
 
 \begin{definition}
-	\label{defn_kolmogorov_ext}
-	A Markov category \emph{satisfies Kolmogorov extension} if it has infinite tensor products $\bigotimes_{i \in J} X_i$ such that 
-	\[
-		\tikzfig{infinite_product_copy}
-	\]
+    \label{defn_kolmogorov_ext}
+    Let $\cC$ be a Markov category, let $\{X_i\}_{i\in J}$ be an infinite family of objects, and let $\bigotimes_i X_i$ be an infinite tensor product.
+    We say this product \emph{satisfies Kolmogorov extension} if the following two conditions hold:
+    \begin{enumerate}[(1)]
+        \item The finite marginals \[\pi_F: \bigotimes_{i\in J} X_i \to \bigotimes_{i \in F} X_i\] are deterministic
+        \item These maps exhibit $\bigotimes_{i\in J} X_i$ as the cofiltered limit of the diagram $F \mapsto \bigotimes_{i \in F} X_i$ \emph{in $\cC_{\rm det}$}.
+    \end{enumerate}
 \end{definition}
 
 \todo[inline]{Is this good terminology?}
 
-The idea is that this equation uniquely determines the comonoid structure: by \Cref{double_infinite_product}, the comultiplication
-\[
-	\mathsf{copy}_{\bigotimes_i X_i} \: : \: \bigotimes_i X_i \longrightarrow \left( \bigotimes_i X_i \right) \otimes \left( \bigotimes_i X_i \right)
-\]
-is uniquely determined by its composition with the maps $\pi_i \otimes \pi_j$ for all $i,j \in J$.
-
-\todo[inline]{Can we show that the comonoid laws automatically follow from \Cref{defn_kolmogorov_ext}?}
-
-In particular, the $i=j$ case of the equation above shows that the marginalizations $\pi_i$ are deterministic.
 
 \begin{remark}
-	Isomorphic objects in a Markov category can have non-isomorphic comonoid structures~\cite[Remark~10.9]{markov_cats}. Therefore the condition of \Cref{defn_kolmogorov_ext} generally depends on the particular \emph{choice} of the infinite tensor product, rather than only on the mere existence of infinite tensor products in the underlying semicartesian monoidal category.
+    Since the (finite) tensor product is the product in $\cC_{\rm det}$, condition (2) is equivalent to the statement that the marginals
+    \[\pi_j: \bigotimes_i X_i \to X_j\]
+    exhibit $\bigotimes_i X_i$ as the product of the $X_j$ in $\cC_{\rm det}$,
+    since in any category, \[\lim_{F \subset J} \prod_{i \in F}X_i \cong \prod_{i \in J}X_i\]
 \end{remark}
 
-But in case that the subcategory of deterministic maps $\cC_{\det}$ has infinite products in addition to finite ones, it seems natural to ask whether this is compatible with the structure of $\cC$ in a suitable sense.
+\begin{remark}
+    Condition (2) is also equivalent to the statement that, given a compatible family of deterministic maps $a_F: A \to \bigotimes_{i \in F}$, the induced map $a: A \to \bigotimes_i X_i$ is deterministic.
+\end{remark}
+
+
+This determines the comonoid structure uniquely: $\mathsf{copy}_{\bigotimes_i X_i}$ has to be the diagonal map in $\cC_{\rm det}$,
+and this condition determines $\bigotimes_i X_i$ up to \emph{deterministic} isomorphism.
+
+\begin{remark}
+    Isomorphic objects in a Markov category can have non-isomorphic comonoid structures~\cite[Remark~10.9]{markov_cats}.
+    Therefore the condition of \Cref{defn_kolmogorov_ext} generally depends on the particular \emph{choice} of the infinite tensor product, rather than only on the mere existence of infinite tensor products in the underlying semicartesian monoidal category.
+\end{remark}
 
 \begin{lemma}
-	If $\cC$ satisfies Kolmogorov extension, then an infinite tensor product $\bigotimes_i X_i$ is a product $\prod_i X_i$ with projections $\pi_i$ in the subcategory of deterministic morphisms $\cC_\detc \subseteq \cC$.
+    Let $J,J'$ be possibly infinite sets, and $\{X_i\}_{i\in J}, \{Y_i\}_{i\in J'}$ two families of objects in $\cC$, so that both have infinite tensor products with Kolmogorov extension.
+    Let $\{Z_i\}_{i\in J \sqcup J'}$ be a family of objects indexed by the disjoint union, where $Z_i = X_i$ for $i\in J$, $Z_i = Y_i$ for $i \in J'$,
+    and suppose $\{Z_i\}$ admits an infinite tensor product with Kolmogorov extension, too.
+    Consider the family of maps
+    \[\rho_F: \bigotimes_{i\in J}X_i \tensor \bigotimes_{i\in J'} Y_i \labelto{\pi_{F \cap J} \tensor \pi_{F \cap J'}} \bigotimes_{i \in F \cap J}X_i \tensor \bigotimes_{i\in F \cap J'}Y_i\]
+    indexed by finite subsets $F \subset J \sqcup J'$ of the disjoint union.
+    The induced map
+    \[\bigotimes_{i\in J}X_i \tensor \bigotimes_{i\in J'} Y_i \to \bigotimes_{i \in J \sqcup J'} Z_i\]
+    is a deterministic isomorphism.
 \end{lemma}
-
 \begin{proof}
-	\todo[inline]{We probably have to show that all finite marginalization maps $\pi_F$ are deterministic}
+    It is clear that the $\rho_F$ are deterministic, and that they form a limit diagram in $\cC_{\rm det}$.
+    Hence the induced map into the actual limit in $\cC_{\rm det}$ is an isomorphism.
 \end{proof}
 
-\begin{remark}
-    If we take as input certain maps $I \to X_i$ as well, so that we have an infinite system of probability distributions, we can also try to define the infinite tensor product as a colimit, which will then be a space with a probability distribution, corresponding to an infinite system of random variables.
-    It would also be possible to formulate the zero-to-one law in this setting, but we have not explored this.
-\end{remark}
 
 To actually use this idea to reproduce the usual Kolmogorov zero-one law, we need to do a bit of work:
 
@@ -135,12 +137,16 @@ Hence $p$ is a Markov kernel.
 
 This argument also shows that this Markov kernel is determined uniquely by the fact that $p(a,\pi_F\inv(B)) = p_F(a,B) = \pi_F \circ p$.
 This proves that $(X,\Sigma)$ is the limit of $(X_F,\Sigma_F)$, so that it is the tensor product $\bigotimes_{i\in J} X_i$.
+It is simple to verify that it also has Kolmogorov extension, using e.g. \cite[Example~10.4]{markov_cats}
 \end{example}
 
 \begin{example}
 	\label{infprods_finstoch}
 	$\sf{FinStoch}$ does not have infinite tensor products.
 \end{example}
+\todo[inline]{Add an example where $\cC_{\rm det}$ has infinite products, but $\cC$ lacks infinite tensor products? Like sets and multivalued functions?}
+
+From this point, the term \emph{infinite tensor product} will refer always to an infinite tensor product with Kolmogorov extension.
 
 This notion of infinite tensor product describes a notion of infinite collection of random variable where all dependence must be witnessed on some finite subset of the variables.
 
@@ -303,7 +309,7 @@ By intepreting them in other Markov categories, we obtain other nontrivial (alth
     Then $f$ is constant.
 \end{corollary}
 \begin{proof}
-    The theorems follow from \cref{thm:kolmog} and \cref{thm:hevsav}, applied to the Kleisli category $Kl(H)$ of the hyperspace monad,
+    The theorems follow from \cref{thm:kolmog} and \cref{thm:hewsav}, applied to the Kleisli category $Kl(H)$ of the hyperspace monad,
     using the maps $* \to X_i$ and $* \to X$ given by the closed subsets $X_i \subseteq X_i, X \subset X$.
     The conclusion is that the closure of the image, call it $A$, has the following property: $\overline{\{(a,a) \mid a \in A\}} = A \times A$ as subsets of $Y \times Y$.
     But since the diagonal is closed in $Y$, this clearly implies that $A$ must be a singleton.
