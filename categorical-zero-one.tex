@@ -100,6 +100,22 @@ and this condition determines $\bigotimes_i X_i$ up to \emph{deterministic} isom
     Therefore the condition of \Cref{defn_kolmogorov_ext} generally depends on the particular \emph{choice} of the infinite tensor product, rather than only on the mere existence of infinite tensor products in the underlying semicartesian monoidal category.
 \end{remark}
 
+\begin{example}
+    Suppose $\cC$ is a Cartesian monoidal category. Then it has a unique Markov category structure given by the diagonal maps,
+    where every map is deterministic.
+    An infinite collection of objects $\{X_i\}$ has an infinite tensor product with Kolmogorov extension if and only if it has a categorical product in $\cC$.
+\end{example}
+
+\begin{proposition}
+    \todo[inline]{write proof once we've figured out the order of things. But this is one for the "wishlist"}
+    Let $\cC$ be a Markov category, and let $T$ be an affine symmetric monoidal monad on $\cC$, so that the Kleisli category $Kl(T)$ is a Markov category.
+    Let $\{X_i\}_{i\in J}$ be a possibly infinite family of objects in $\cC$, and suppose it has an infinite tensor product in $\cC$ with Kolmogorov extension, $\bigotimes X_i$.
+    Then the limit
+    \[\lim_{F \subset J} \prod_{i\in F}X_i\]
+    exists in $\cC$ (by assumption, it is $\bigotimes X_i$).
+    Suppose further that $T$ preserves this limit.
+    Then $\bigotimes X_i$ is also an infinite tensor product of $\{X_i\}$ in $Kl(T)$.
+\end{proposition}
 \begin{lemma}
     Let $J,J'$ be possibly infinite sets, and $\{X_i\}_{i\in J}, \{Y_i\}_{i\in J'}$ two families of objects in $\cC$, so that both have infinite tensor products with Kolmogorov extension.
     Let $\{Z_i\}_{i\in J \sqcup J'}$ be a family of objects indexed by the disjoint union, where $Z_i = X_i$ for $i\in J$, $Z_i = Y_i$ for $i \in J'$,
