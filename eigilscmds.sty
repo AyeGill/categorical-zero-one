@@ -11,10 +11,12 @@
 \usepackage{xspace}
 \usepackage{braket}
 \usepackage{tikz-cd}
-\usepackage{cleveref}
 
 \usepackage[colorinlistoftodos,textsize=tiny]{todonotes}
 
+% cleveref configuration
+\usepackage{cleveref}
+\Crefname{equation}{}{}	% refer to equations simply by equation number
 
 %compatibility - prefer \bZ etc
 \newcommand{\Z}{\mathbb{Z}}
@@ -77,6 +79,7 @@
 \DeclareMathOperator{\Meas}{Meas}
 \DeclareMathOperator{\Pol}{Pol}
 \DeclareMathOperator{\Stoch}{\mathsf{Stoch}}
+\DeclareMathOperator{\perfStoch}{\mathsf{perfStoch}}
 \DeclareMathOperator{\FinStoch}{\mathsf{FinStoch}}
 \DeclareMathOperator{\LCH}{LCH}
 \DeclareMathOperator{\CRingSp}{CRingSp}
