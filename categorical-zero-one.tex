@@ -32,16 +32,62 @@ This is a treatment of the zero--one laws of Kolmogorov and of Hewitt--Savage in
 
 \paragraph*{Notation.} 
 
-Throughout, $\cC$ is a Markov category in the sense of \cite[Definition~2.1]{markov_cats} (see also the closely related earlier work of Golubtsov~\cite{golubtsov} and Cho and Jacobs~\cite{cho_jacobs}). $J$ is a possibly infinite set, used for indexing products of objects, and $F \subset J$ ranges over finite subsets.
+For monoidal categories, we make frequent use of string diagram notation. We omit object labels whenever these are obvious from the context.
+
+In \Cref{infprod_semicartesian}, $\cC$ denotes a semicartesian monoidal category. In \Cref{infprod_markov} and after, $\cC$ denotes a Markov category in the sense of \Cref{markov_cat}. $J$ is a set used for indexing products of objects; the definitions and results of this paper are nontrivial only when $J$ is infinite. $F$ denotes either an arbitrary finite set or more concretely a finite subset of $J$.
 
 \section{Background on Markov categories}
+
+A monoidal category $\cC$ is \emph{semicartesian} if the monoidal unit $I \in \cC$ is terminal. Equivalently, it is a monoidal category equipped with morphisms
+\[
+	X \otimes Y \longrightarrow X, \qquad X \otimes Y \longrightarrow Y,
+\]
+which are natural in $X$ and $Y$ and coincide with the monoidal structure isomorphisms whenever $X = I$ or $Y = I$. Here are the main examples that we will be considering.
+
+\begin{example}
+	$\FinStoch$ is the category of finite sets with \emph{stochastic maps}, where a stochastic map $f : X \to Y$ is a matrix $(f_{xy})_{x \in X,y \in Y}$ of nonnegative real numbers such that $\sum_y f_{xy} = 1$ for every $x$. Stochastic maps compose by matrix multiplication, which in this context is also known as the \emph{Chapman--Kolmogorov equation}. We consider $\FinStoch$ as a monoidal category with respect to the cartesian product of sets on objects, and as one would expect the Kronecker product of stochastic maps on morphisms.
+\end{example}
+
+\begin{example}
+	Let $\CRing_+$ be the category of commutative rings with maps which are merely additive and unit-preserving, considered as a monoidal category in the obvious way with respect to the tensor product of rings. Then since $\CRing_+$ has the monoidal unit $\Z$ as its initial object, we can conclude that $\CRing_+\op$ is semicartesian monoidal.
+\end{example}
+
+\begin{example}
+	$\Stoch$ is the category of measurable spaces $(X,\Sigma_X)$ as objects and Markov kernels as morphisms. We sketch the definition here and refer to~\cite[Section~4]{markov_cats} and references therein for the details. A \emph{Markov kernel} $(X,\Sigma_X) \to (Y,\Sigma_Y)$ is a function
+	\[
+		f \: : \: \Sigma_Y \times X \longrightarrow [0,1], \quad (S,x) \longmapsto f(S|x)
+	\]
+	assigning to every $x \in X$ a probability measure $f(-|x) : \Sigma_Y \to [0,1]$ in such a way that for every $S \in \Sigma_Y$, the function $x \mapsto f(S|x)$ is measurable. Intuitively, $f$ assigns to every $x \in X$ a random element of $Y$. Composition is again defined by a variant of the Chapman--Kolmogorov equation, and the monoidal structure is defined in terms of the usual product of measurable spaces.
+\end{example}
+
+In the graphical calculus, the unique morphism $X \to I$ for an object $X \in \cC$ is denoted by
+\[
+	\tikzfig{terminal}
+\]
+The projection maps $X \otimes Y \to X$ and $X \otimes Y \to Y$ are correspondingly written as
+\[
+	\tikzfig{marginals}
+\]
+
+Our goal is to use semicartesian monoidal categories such as the above in order to develop aspects of probability theory in categorical terms. As it turns out, doing so requires a bit more structure, in a form which has been axiomatized in the notion of \emph{Markov category} \cite[Definition~2.1]{markov_cats}. 
+
+\begin{definition}
+	A Markov category $\cC$ is a semicartesian monoidal category \ldots
+	\label{markov_cat}
+\end{definition}
+
+A closely related definition was also used in earlier work of Golubtsov~\cite{golubtsov}, who had proposed a closely related definition, and Cho and Jacobs~\cite{cho_jacobs}, where an equivalent definition was used under the term \emph{affine CD-category}.
 
 \todo[inline]{to be written}
 
 \section{Infinite tensor products in semicartesian monoidal categories}
+\label{infprod_semicartesian}
 
-Suppose $\cC$ is a semicartesian monoidal category.
-To make sense of infinite families of random variables within $\cC$,
+\todo[inline]{Let's also simplify notation by writing $X_J$ and $X_F$ instead of writing $\bigotimes$ every time. This is quite standard}
+
+Suppose $\cC$ is a semicartesian monoidal category. In our 
+
+In order to make sense of infinite families of random variables within $\cC$,
 we will want to have a notion of infinite tensor product in $\cC$. By Kolmogorov's extension theorem, the joint distribution of infinitely many random variables is uniquely determined by the family of distributions of all finite subsets of these variables. This motivates a general definition of the infinite tensor product of a family of objects $(X_i)_{i \in J}$, based on the observation that if $F \subseteq F' \subseteq J$ are two finite subset, then the fact that $\cC$ is semicartesian monoidal gives us morphisms
 \[
 	\bigotimes_{i \in F'} X_i \longrightarrow \bigotimes_{i \in F} X_i
@@ -63,7 +109,25 @@ The dual definition of infinite tensor products of algebraic structures as \emph
 \end{remark}
 
 Of course, in a general Markov category the above cofiltered limit need not exist for infinite $J$, in which case the infinite tensor product does not exist either (as in \Cref{infprods_finstoch}).
+
+\begin{lemma}
+    Let $J,J'$ be possibly infinite sets, and $\{X_i\}_{i\in J}, \{Y_i\}_{i\in J'}$ two families of objects in $\cC$, so that both have infinite tensor products with Kolmogorov extension.
+    Let $\{Z_i\}_{i\in J \sqcup J'}$ be a family of objects indexed by the disjoint union, where $Z_i = X_i$ for $i\in J$, $Z_i = Y_i$ for $i \in J'$,
+    and suppose $\{Z_i\}$ admits an infinite tensor product with Kolmogorov extension, too.
+    Consider the family of maps
+    \[\rho_F: \bigotimes_{i\in J}X_i \tensor \bigotimes_{i\in J'} Y_i \labelto{\pi_{F \cap J} \tensor \pi_{F \cap J'}} \bigotimes_{i \in F \cap J}X_i \tensor \bigotimes_{i\in F \cap J'}Y_i\]
+    indexed by finite subsets $F \subset J \sqcup J'$ of the disjoint union.
+    The induced map
+    \[\bigotimes_{i\in J}X_i \tensor \bigotimes_{i\in J'} Y_i \to \bigotimes_{i \in J \sqcup J'} Z_i\]
+    is a deterministic isomorphism.
+\end{lemma}
+\begin{proof}
+    It is clear that the $\rho_F$ are deterministic, and that they form a limit diagram in $\cC_{\rm det}$.
+    Hence the induced map into the actual limit in $\cC_{\rm det}$ is an isomorphism.
+\end{proof}
+
 \section{Infinite tensor products in Markov categories}
+\label{infprod_markov}
 
 If a Markov category $\cC$ has infinite tensor products, then one should expect a suitable compatibility condition between these infinite tensor products and the comonoid structures on the objects to be satisfied. In the following string diagrams, we draw the object associated to an infinite tensor product as a double wire.
 
@@ -77,8 +141,7 @@ If a Markov category $\cC$ has infinite tensor products, then one should expect 
     \end{enumerate}
 \end{definition}
 
-\todo[inline]{Is this good terminology?}
-
+\todo[inline]{Perhaps we could change the terminology to ``Kolmogorov product''. I'll tentatively use this in the following}
 
 \begin{remark}
     Since the (finite) tensor product is the product in $\cC_{\rm det}$, condition (2) is equivalent to the statement that the marginals
@@ -88,7 +151,7 @@ If a Markov category $\cC$ has infinite tensor products, then one should expect 
 \end{remark}
 
 \begin{remark}
-    Condition (2) is also equivalent to the statement that, given a compatible family of deterministic maps $a_F: A \to \bigotimes_{i \in F}$, the induced map $a: A \to \bigotimes_i X_i$ is deterministic.
+    Condition (2) is also equivalent to the statement that, given a compatible family of deterministic maps $a_F: A \to \bigotimes_{i \in F} X_i$, the induced map $a: A \to \bigotimes_i X_i$ is deterministic.
 \end{remark}
 
 
