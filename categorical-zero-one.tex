@@ -46,12 +46,12 @@ which are natural in $X$ and $Y$ and coincide with the monoidal structure isomor
 
 \begin{example}
 	\label{finstoch}
-	$\FinStoch$ is the category of finite sets with \emph{stochastic matrices}, which means that $f : X \to Y$ is a matrix $(f_{xy})_{x \in X,y \in Y}$ of nonnegative real numbers such that $\sum_y f_{xy} = 1$ for every $x$. Stochastic matrices compose by matrix multiplication, which in this context is also known as the \emph{Chapman--Kolmogorov equation}. We consider $\FinStoch$ as a monoidal category with respect to the cartesian product of sets on objects, and as one would expect the Kronecker product of stochastic matrices on morphisms.
+	$\FinStoch$ is the category of finite sets with \emph{stochastic matrices}, which means that $f : X \to Y$ is a matrix $(f_{xy})_{x \in X,y \in Y}$ of nonnegative real numbers such that $\sum_y f_{xy} = 1$ for every $x$. Stochastic matrices compose by matrix multiplication, which in this context is also known as the \emph{Chapman--Kolmogorov equation}. We consider $\FinStoch$ as a symmetric monoidal category with respect to the cartesian product of sets on objects, and as one would expect the Kronecker product of stochastic matrices on morphisms.
 \end{example}
 
 \begin{example}
 	\label{cring}
-	Let $\CRing_+$ be the category of commutative rings with maps which are merely additive and unit-preserving, considered as a monoidal category in the obvious way with respect to the tensor product of rings. Then since $\CRing_+$ has the monoidal unit $\Z$ as its initial object, we can conclude that $\CRing_+\op$ is semicartesian monoidal.
+	Let $\CRing_+$ be the category of commutative rings with maps which are merely additive and unit-preserving, considered as a symmetric monoidal category in the obvious way with respect to the tensor product of rings. Then since $\CRing_+$ has the monoidal unit $\Z$ as its initial object, we can conclude that $\CRing_+\op$ is semicartesian monoidal.
 \end{example}
 
 \begin{example}
@@ -60,12 +60,12 @@ which are natural in $X$ and $Y$ and coincide with the monoidal structure isomor
 	\[
 		f \: : \: \Sigma_Y \times X \longrightarrow [0,1], \quad (S,x) \longmapsto f(S|x)
 	\]
-	assigning to every $x \in X$ a probability measure $f(-|x) : \Sigma_Y \to [0,1]$ in such a way that for every $S \in \Sigma_Y$, the function $x \mapsto f(S|x)$ is measurable. Intuitively, $f$ assigns to every $x \in X$ a random element of $Y$. Composition is again defined by a variant of the Chapman--Kolmogorov equation, and the monoidal structure is defined in terms of the usual product of measurable spaces.
+	assigning to every $x \in X$ a probability measure $f(-|x) : \Sigma_Y \to [0,1]$ in such a way that for every $S \in \Sigma_Y$, the function $x \mapsto f(S|x)$ is measurable. Intuitively, $f$ assigns to every $x \in X$ a random element of $Y$. Composition is again defined by a variant of the Chapman--Kolmogorov equation, and the symmetric monoidal structure is defined in terms of the usual product of measurable spaces. The monoidal unit $I$ is given by any one-element set with its unique $\sigma$-algebra. As a special case, morphisms $I \to (X,\Sigma_X)$ can be identified with probability measures $\sigma_X \to [0,1]$.
 
-	There is a subcategory that will be of relevance to us later on in this paper: we define $\perfStoch \subseteq \Stoch$ to be the subcategory of all measurable spaces and those Markov kernels $f : \Sigma_Y \times X \to [0,1]$ which have the following additional property \ldots
+	There is a well-known subclass of particularly well-behaved measurable spaces, the \emph{standard Borel spaces} or equivalently Polish spaces equipped with their Borel $\sigma$-algebras. We write $\BorelStoch \subseteq \Stoch$ for the full subcategory of standard Borel spaces with Markov kernels. Since finite products of standard Borel spaces are again standard Borel, $\BorelStoch$ is again semicartesian symmetric monoidal.
 \end{example}
 
-In the graphical calculus, the unique morphism $X \to I$ for an object $X \in \cC$ is denoted by
+Returning to the general theory, in string diagrams the unique morphism $X \to I$ for an object $X \in \cC$ is denoted by
 \[
 	\tikzfig{terminal}
 \]
@@ -122,7 +122,7 @@ Zero--one laws involve infinitely many random variables. In the setting of Marko
 
 Suppose that $(X_i)_{i \in J}$ is any family of objects, where the indexing set $J$ is typically infinite. For any finite subset $F \subseteq J$, we also write $X_F := \bigotimes_{i \in F} X_i$ for simplicity of notation. By Kolmogorov's extension theorem, the joint distribution of infinitely many random variables is uniquely determined by the family of distributions of all finite subsets of these variables. This motivates our general definition of the infinite tensor product: if $F \subseteq F' \subseteq J$ are two finite subsets, then the fact that $\cC$ is semicartesian monoidal gives us \emph{marginalization morphisms}
 \[
-	X_{F'} \longrightarrow X_F.
+	\pi_{F',F} \: : \: X_{F'} \longrightarrow X_F.
 \]
 Via these maps, the finite tensor products $(X_F)_{F \subseteq J}$ make up a cofiltered diagram in the form of a functor from the poset of finite subsets of $J$, ordered by reverse inclusion, to $\cC$.
 
@@ -138,40 +138,32 @@ Via these maps, the finite tensor products $(X_F)_{F \subseteq J}$ make up a cof
 We will refer to the structure maps $\pi_F : X_J \to X_F$ as \emph{finite marginalizations}. % We also write $\pi_j$ as shorthand for $\pi_{\{j\}}$.
 
 \begin{remark}
-	If $J$ is finite, then the infinite tensor product exists and coincides with the standard tensor product $\bigotimes_{i \in J} X_i$.
-\end{remark}
-
-\begin{remark}
-	The dual definition of infinite tensor products of algebraic structures as \emph{filtered colimits} of finite tensor products is well-known in the literature, e.g.~in the case of C*-algebras~\cite[p.~315]{blackadar}. Thus in the case where our Markov category is $\CRing_+\op$, we recover the usual folklore definition of an infinite tensor product of rings $\bigotimes_{i \in J} R_i$ in terms of formal sums of elementary tensors, where an elementary tensor is a family of elements $(r_i)_{i \in J}$ such that all but finitely many are equal to the respective unit. Note that we do not yet consider the multiplication on $\bigotimes_{i \in J} R_i$, since \Cref{semicartesian_infproduct} is not yet concerned with the comonoid structures on the objects. We will get to this in the next section.
-	
-	Intuitively, our definition matches up with these algebraic ones under the categorical duality of algebra and geometry, where our definition is on the geometrical side of the duality.
+	If $J$ is finite, then the infinite tensor product exists and coincides with the standard tensor product $\bigotimes_{i \in J} X_i$. In a general Markov category, the relevant cofiltered limit need not exist for infinite $J$, in which case the infinite tensor product does not exist either (as in \Cref{infprods_finstoch}).
 \end{remark}
 
 \begin{example}
-	To consider infinite tensor products in $\Stoch$, let $\left((X_i,\Sigma_i)\right)_{i\in J}$ be a family of measurable spaces. Then consider their cartesian product $X_J = \prod_{i \in J} X_i$ with the $\sigma$-algebra generated by the projections $\pi_i: X_J \to X_i$, which we denote $\Sigma_J$. Let us write in general $\Sigma_F$ for the product $\sigma$-algebra on finite products $X_F = \prod_{i\in F}X_F$, and $\pi_F: X_J \to X_F$ for the corresponding measurable projection.
-
-	In order to prove that this defines an infinite tensor product in $\Stoch$, let $(A,\Sigma_A)$ be another measurable space and let
-	\[
-		\left(g_F: A \times \Sigma_F \to [0,1]\right)_{F \subseteq J}
-	\]
-	be a collection of Markov kernels $A \to X_F$, one for each finite $F$, compatible with the marginalization morphisms. Consider an element $a \in A$ and a generating measurable set $\pi_F\inv(B) \in \Sigma_J$, where $B \in \Sigma_F$. Then we define a Markov kernel $h : A \to X_J$ by putting
-	\[
-		h(a,\pi_F\inv(B)) := g_F(a,B).
-	\]
-	The assumed compatibility condition guarantees that this is well-defined with respect to changing the choice of $F$. Since the collection of such $\pi_F\inv(B)$ is a ring of sets on $X$ which generates $\Sigma$ - hence by Carath\'eodory extension, there is a unique probability measure
-$p(a,-)$ on $X$ extending it. This is how we define $p(a,A)$ for general subsets $A \subset X$.
-
-Now consider the class of subsets $A \in \Sigma$ such that $p(-,A):A \to X$ is measurable.
-This class is a $\sigma$-algebra, which contains $\pi_F\inv(B)$, since $p(-,\pi_F\inv(B)) = p_F(-,B)$, which is measurable by assumption.
-Since these generate $\Sigma$, the map is always measurable.
-Hence $p$ is a Markov kernel.
-
-This argument also shows that this Markov kernel is determined uniquely by the fact that $p(a,\pi_F\inv(B)) = p_F(a,B) = \pi_F \circ p$.
-This proves that $(X,\Sigma)$ is the limit of $(X_F,\Sigma_F)$, so that it is the tensor product $\bigotimes_{i\in J} X_i$.
-It is simple to verify that it also has Kolmogorov extension, using e.g. \cite[Example~10.4]{markov_cats}
+	The dual definition of infinite tensor products of algebraic structures as \emph{filtered colimits} of finite tensor products is well-known in the literature, e.g.~in the case of C*-algebras~\cite[p.~315]{blackadar}. Thus in the case where our Markov category is $\CRing_+\op$, we recover the usual folklore definition of an infinite tensor product of rings $\bigotimes_{i \in J} R_i$ in terms of formal sums of elementary tensors, where an elementary tensor is a family of elements $(r_i)_{i \in J}$ such that all but finitely many are equal to the respective unit. Note that we do not yet consider the multiplication on $\bigotimes_{i \in J} R_i$, since \Cref{semicartesian_infproduct} is not yet concerned with the comonoid structures on the objects. We will get to this in the next section.
+	
+	Intuitively, our definition matches up with these algebraic ones under the categorical duality of algebra and geometry, where our definition is on the geometrical side of the duality.
 \end{example}
 
-Of course, in a general Markov category the above cofiltered limit need not exist for infinite $J$, in which case the infinite tensor product does not exist either (as in \Cref{infprods_finstoch}).
+\begin{remark}
+	In those semicartesian monoidal categories $\cC$ that are of interest to us, morphisms $I \to X$ play the role of \emph{probability measures} on $X$. Thus applying the universal property with respect to maps out of $I$ amounts to requiring the \emph{Kolmogorov extension theorem} to hold in $\cC$: probability measures on an infinite product $X_J$ are in bijection with consistent families of probability measures on the finite products $X_F$ for $F \subseteq J$.
+\end{remark}
+
+\begin{example}
+	We now consider infinite tensor products in $\Stoch$, where we would like infinite tensor products to be given by the corresponding infinite products of measurable spaces in the usual sense. Since the Kolmogorov extension theorem does not hold for general (even merely countable) products of measurable spaces~\cite{AJ}, this is not the case without further additional assumptions on the measurable spaces involved. Thus we do not know whether $\Stoch$ has infinite tensor products, although we suspect that it does not; but even if it does, they are in general not the ones that one would like to have for the purposes of probability theory.
+
+	However, the situation improves for countable products in $\BorelStoch$, for which the Kolmogorov extension theorem holds~\cite[Theorem~14.35]{klenke}. In other words, if $\left( (X_i, \Sigma_i) \right)_{i \in \bN}$ is a sequence of standard Borel spaces, then the cartesian product $X_\bN = \prod_{i \in \bN} X_i$ carrying the product $\sigma$-algebra $\Sigma_\bN$ satisfies the universal property of an infinite tensor product with respect to maps out of $I$. In the following, we show that this implies the universal property in general.
+
+	Suppose that
+	\[
+		\Big( g_F : (A,\Sigma_A) \longrightarrow (X_F, \Sigma_F) \Big)_{F \subseteq J \text{ finite}}
+	\]
+	is a family of Markov kernels satisfying the compatibility condition $\pi_{F',F} \circ g_{F'} = g_F$ for all finite $F \subseteq F' \subseteq J$. Then for every $a \in A$, the probability measures $g_F(-|a) : \Sigma_F \to [0,1]$ are a compatible family to which the Kolmogorov extension theorem in the form~\cite[Theorem~14.35]{klenke} applies, and we obtain a unique probability measure $g_J(-|a) : \Sigma_J \to [0,1]$ which has the $g_F(-|a)$ as its finite marginals. It remains to be shown that for every $S \in \Sigma_J$, the map $a \mapsto g_J(S|a)$ is measurable. Since limits of pointwise convergent sequences of measurable real-valued functions are again measurable, the set of $S$ for which this measurability holds is closed under countable disjoint union, and it is clearly closed under complements. We therefore have a $\lambda$-system. Since the map is measurable by assumption whenever $S$ is a measurable cylinder set, and the cylinder sets form a $\pi$-system, the $\pi$-$\lambda$-theorem implies that $a \mapsto g_J(S|a)$ is measurable for all $S$ in the $\sigma$-algebra generated by the measurable cylinder sets, which is exactly the product $\sigma$-algebra $\Sigma_J$.
+
+	In conclusion, $\BorelStoch$ indeed has countable tensor products. It is plausible that there is is another subcategory of $\Stoch$ strictly larger than $\BorelStoch$ which has all infinite tensor products; for example, one can try to construct such a subcategory by imposing compactness or perfectness conditions~\cite[\S{451}]{fremlin4}, for which there is a version of the Kolmogorov extension theorem~\cite[Corollary~454G]{fremlin4}. However, we have so far not been able to find a suitable condition on Markov kernels which would be closed under composition, due to problems of perfect measures under mixtures~\cite{ramachandran}.
+\end{example}
 
 \begin{example}
 	\label{infprods_finstoch}
@@ -181,22 +173,6 @@ Of course, in a general Markov category the above cofiltered limit need not exis
 \todo[inline]{Add an example where $\cC_{\rm det}$ has infinite products, but $\cC$ lacks infinite tensor products? Like sets and multivalued functions?}
 
 \todo[inline]{T: sounds good to me, can you put it in?}
-
-\begin{lemma}
-    Let $J,J'$ be possibly infinite sets, and $\{X_i\}_{i\in J}, \{Y_i\}_{i\in J'}$ two families of objects in $\cC$, so that both have infinite tensor products with Kolmogorov extension.
-    Let $\{Z_i\}_{i\in J \sqcup J'}$ be a family of objects indexed by the disjoint union, where $Z_i = X_i$ for $i\in J$, $Z_i = Y_i$ for $i \in J'$,
-    and suppose $\{Z_i\}$ admits an infinite tensor product with Kolmogorov extension, too.
-    Consider the family of maps
-    \[\rho_F: \bigotimes_{i\in J}X_i \tensor \bigotimes_{i\in J'} Y_i \labelto{\pi_{F \cap J} \tensor \pi_{F \cap J'}} \bigotimes_{i \in F \cap J}X_i \tensor \bigotimes_{i\in F \cap J'}Y_i\]
-    indexed by finite subsets $F \subset J \sqcup J'$ of the disjoint union.
-    The induced map
-    \[\bigotimes_{i\in J}X_i \tensor \bigotimes_{i\in J'} Y_i \to \bigotimes_{i \in J \sqcup J'} Z_i\]
-    is a deterministic isomorphism.
-\end{lemma}
-\begin{proof}
-    It is clear that the $\rho_F$ are deterministic, and that they form a limit diagram in $\cC_{\rm det}$.
-    Hence the induced map into the actual limit in $\cC_{\rm det}$ is an isomorphism.
-\end{proof}
 
 \section{Infinite tensor products in Markov categories}
 \label{infprod_markov}
@@ -226,6 +202,9 @@ If a Markov category $\cC$ has infinite tensor products, then one should expect 
     Condition (2) is also equivalent to the statement that, given a compatible family of deterministic maps $a_F: A \to \bigotimes_{i \in F} X_i$, the induced map $a: A \to \bigotimes_i X_i$ is deterministic.
 \end{remark}
 
+\begin{example}
+	It is simple to verify that $\BorelStoch$ also has Kolmogorov extension, using e.g. \cite[Example~10.4]{markov_cats}
+\end{example}
 
 This determines the comonoid structure uniquely: $\mathsf{copy}_{\bigotimes_i X_i}$ has to be the diagonal map in $\cC_{\rm det}$,
 and this condition determines $\bigotimes_i X_i$ up to \emph{deterministic} isomorphism.
@@ -248,7 +227,25 @@ We can codify this in the following definition
     We say it exhibits the independence of $\{X_i\}$ given $A$ if each finite marginalization $A \to \bigotimes_{i \in F}X_i$ exhibits the independence of $\{X_i\}_{i \in F}$ given $A$.
 \end{definition}
 
-\section{Theorem}
+\begin{lemma}
+	Let $J = J_1 \sqcup J_2$ be a disjoint union, and $(X_i)_{i \in J}$ a family of objects in a semicartesian monoidal category $\cC$. Suppose that the infinite tensor products $X_{J_1}$ and $X_{J_2}$ exist. Then the object
+	\[
+		X_{J_1} \otimes X_{J_2} 
+	\]
+	is an infinite tensor product $X_J$ with respect to the finite marginalizations morphisms given by, for $F \subseteq J$,
+	\[
+		\begin{tikzcd}[column sep=huge]
+			X_{J_1} \otimes X_{J_2} \ar{r}{\pi_{F\cap J_1} \otimes \pi_{F\cap J_2}} & X_{F \cap J_1} \otimes X_{F \cap J_2}
+		\end{tikzcd}
+	\]
+\end{lemma}
+\begin{proof}
+    It is clear that the $\rho_F$ are deterministic, and that they form a limit diagram in $\cC_{\rm det}$.
+    Hence the induced map into the actual limit in $\cC_{\rm det}$ is an isomorphism.
+\end{proof}
+
+\section{The zero--one laws}
+
 \begin{theorem}
     \label{thm:kolmog}
     Suppose we are given $p: A \to T \tensor \bigotimes_{i \in J} X_i$ satisfying the following conditions:
