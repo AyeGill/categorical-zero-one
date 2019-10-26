@@ -32,13 +32,13 @@ This is a treatment of the zero--one laws of Kolmogorov and of Hewitt--Savage in
 
 \paragraph*{Notation.} 
 
-For monoidal categories, we make frequent use of string diagram notation. We omit object labels whenever these are obvious from the context.
+Throughout, $\cC$ is a symmetric monoidal category. To simplify notation, we generally omit mention of the structure isomorphisms by assuming that $\cC$ is strict without loss of generality. We make frequent use of string diagram notation, and in doing so we omit object labels whenever these are obvious from the context.
 
-In \Cref{infprod_semicartesian}, $\cC$ denotes a semicartesian monoidal category. In \Cref{infprod_markov} and after, $\cC$ denotes a Markov category in the sense of \Cref{markov_cat}. $J$ is a set used for indexing products of objects; the definitions and results of this paper are nontrivial only when $J$ is infinite. $F$ denotes either an arbitrary finite set or more concretely a finite subset of $J$.
+In \Cref{infprod_semicartesian}, $\cC$ denotes more concretely a semicartesian strict symmetric monoidal category. In \Cref{infprod_markov} and after, $\cC$ denotes a Markov category in the sense of \Cref{markov_cat}. $J$ is a set used for indexing products of objects; the definitions and results of this paper are nontrivial only when $J$ is infinite. $F$ denotes either an arbitrary finite set or more concretely a finite subset of $J$.
 
 \section{Background on Markov categories}
 
-A monoidal category $\cC$ is \emph{semicartesian} if the monoidal unit $I \in \cC$ is terminal. Equivalently, it is a monoidal category equipped with morphisms
+A symmetric monoidal category $\cC$ is \emph{semicartesian} if the monoidal unit $I \in \cC$ is terminal. Equivalently, it is a monoidal category equipped with morphisms
 \[
 	X \otimes Y \longrightarrow X, \qquad X \otimes Y \longrightarrow Y,
 \]
@@ -65,11 +65,11 @@ which are natural in $X$ and $Y$ and coincide with the monoidal structure isomor
 	There is a well-known subclass of particularly well-behaved measurable spaces, the \emph{standard Borel spaces} or equivalently Polish spaces equipped with their Borel $\sigma$-algebras. We write $\BorelStoch \subseteq \Stoch$ for the full subcategory of standard Borel spaces with Markov kernels. Since finite products of standard Borel spaces are again standard Borel, $\BorelStoch$ is again semicartesian symmetric monoidal.
 \end{example}
 
-Returning to the general theory, in string diagrams the unique morphism $X \to I$ for an object $X \in \cC$ is denoted by
+Returning to the general theory, in string diagrams the unique morphism $\discard{X} : X \to I$ for an object $X \in \cC$ is denoted by
 \[
 	\tikzfig{terminal}
 \]
-The projection maps $X \otimes Y \to X$ and $X \otimes Y \to Y$ are correspondingly written as
+The projection maps $\id \otimes \discard{Y} : X \otimes Y \to X$ and $X \otimes Y \to Y$ are correspondingly written as
 \[
 	\tikzfig{marginals}
 \]
@@ -89,6 +89,8 @@ Our goal is to use semicartesian monoidal categories such as the above in order 
 	\end{equation}
 	\label{markov_cat}
 \end{definition}
+
+There is a strictification result~\cite[Theorem~10.16]{markov_cats} which guarantees that $\cC$ can be assumed to be strict monoidal, as we do throughout.
 
 A closely related definition was also used in earlier work of Golubtsov~\cite{golubtsov}, who had proposed a closely related definition, and Cho and Jacobs~\cite{cho_jacobs}, where an equivalent definition was used under the term \emph{affine CD-category}.
 
@@ -142,6 +144,7 @@ We will refer to the structure maps $\pi_F : X_J \to X_F$ as \emph{finite margin
 \end{remark}
 
 \begin{example}
+	\label{infprods_cring}
 	The dual definition of infinite tensor products of algebraic structures as \emph{filtered colimits} of finite tensor products is well-known in the literature, e.g.~in the case of C*-algebras~\cite[p.~315]{blackadar}. Thus in the case where our Markov category is $\CRing_+\op$, we recover the usual folklore definition of an infinite tensor product of rings $\bigotimes_{i \in J} R_i$ in terms of formal sums of elementary tensors, where an elementary tensor is a family of elements $(r_i)_{i \in J}$ such that all but finitely many are equal to the respective unit. Note that we do not yet consider the multiplication on $\bigotimes_{i \in J} R_i$, since \Cref{semicartesian_infproduct} is not yet concerned with the comonoid structures on the objects. We will get to this in the next section.
 	
 	Intuitively, our definition matches up with these algebraic ones under the categorical duality of algebra and geometry, where our definition is on the geometrical side of the duality.
@@ -152,6 +155,7 @@ We will refer to the structure maps $\pi_F : X_J \to X_F$ as \emph{finite margin
 \end{remark}
 
 \begin{example}
+	\label{infprods_stoch}
 	We now consider infinite tensor products in $\Stoch$, where we would like infinite tensor products to be given by the corresponding infinite products of measurable spaces in the usual sense. Since the Kolmogorov extension theorem does not hold for general (even merely countable) products of measurable spaces~\cite{AJ}, this is not the case without further additional assumptions on the measurable spaces involved. Thus we do not know whether $\Stoch$ has infinite tensor products, although we suspect that it does not; but even if it does, they are in general not the ones that one would like to have for the purposes of probability theory.
 
 	However, the situation improves for countable products in $\BorelStoch$, for which the Kolmogorov extension theorem holds~\cite[Theorem~14.35]{klenke}. In other words, if $\left( (X_i, \Sigma_i) \right)_{i \in \bN}$ is a sequence of standard Borel spaces, then the cartesian product $X_\bN = \prod_{i \in \bN} X_i$ carrying the product $\sigma$-algebra $\Sigma_\bN$ satisfies the universal property of an infinite tensor product with respect to maps out of $I$. In the following, we show that this implies the universal property in general.
@@ -167,82 +171,122 @@ We will refer to the structure maps $\pi_F : X_J \to X_F$ as \emph{finite margin
 
 \begin{example}
 	\label{infprods_finstoch}
-	$\FinStoch$ does not have infinite tensor products: if the family $(X_i)$ is such that no $X_i$ is empty and infinitely many of them contain at least two elements, then $\bigotimes_i X_i$ does not exist. One way to see this is to use the fact that the hom-sets of $\FinStoch$ are convex sets in the space of matrices, and that composition distributes over these convex combinations, making $\FinStoch$ into a category enriched in convex sets. Since these hom-sets are finite-dimensional, for every $Y$ and $Z$ there is $n \in \bN$ such that among every $n$ morphism $Y \to Z$, one of them can be written as a convex combination of the others. Now suppose that the product $\bigotimes_i X_i$ existed. Then by choosing varying elements of each $X_i$, we can construct uncountably many morphisms $1 \to \bigotimes_i X_i$ whose marginalizations $1 \to X_F$ are all deterministic. Per the above, one of these hypothetical morphisms can be written as a convex combination of finitely many others. By choosing $F \subseteq J$ suitably, we can achieve that the finite marginalizations $1 \to X_F$ are all distinct. Since they are deterministic by construction, and no deterministic morphism in $\FinStoch$ can be written as a convex combination of other deterministic morphisms, we have arrived at a contradiction.
+	Infinite tensor products never exist in $\FinStoch$, in the following sense: if the family $(X_i)$ is such that no $X_i$ is empty and infinitely many of them contain at least two elements, then $\bigotimes_i X_i$ does not exist. One way to see this is to use the fact that the hom-sets of $\FinStoch$ are convex sets in the space of matrices, and that composition distributes over these convex combinations, making $\FinStoch$ into a category enriched in convex sets. Since these hom-sets are finite-dimensional, for every $Y$ and $Z$ there is $n \in \bN$ such that among every $n$ morphism $Y \to Z$, one of them can be written as a convex combination of the others. Now suppose that the product $\bigotimes_i X_i$ existed. Then by choosing varying elements of each $X_i$, we can construct uncountably many morphisms $1 \to \bigotimes_i X_i$ whose marginalizations $1 \to X_F$ are all deterministic. Per the above, one of these hypothetical morphisms can be written as a convex combination of finitely many others. By choosing $F \subseteq J$ suitably, we can achieve that the finite marginalizations $1 \to X_F$ are all distinct. Since they are deterministic by construction, and no deterministic morphism in $\FinStoch$ can be written as a convex combination of other deterministic morphisms, we have arrived at a contradiction.
 \end{example}
+
+It is natural to require different infinite tensor products to interact well with another. If $X_J$ is an infinite tensor product of a family $(X_i)_{i \in J}$ and we are given an additional object $X_\ast$ for $\ast \not \in J$, then one will want $X_J \otimes X_\ast$ to be the infinite tensor product $X_{J \sqcup \{\ast\}}$ of the original family together with $X_\ast$, with finite marginalization morphisms given by
+\[
+		\pi_{F \setminus \{\ast\}} \otimes \id \: : \: X_J \otimes X_\ast \longrightarrow X_{F \setminus \{\ast\}} \otimes X_\ast
+\]
+for $\ast \in F$, and simply
+\[
+		\pi_F \otimes \discard{X_\ast} : X_J \otimes X_\ast \longrightarrow X_F 
+\]
+in case $\ast \not \in F$. It is straightforward to check that these morphisms exhibit $X_J \otimes X_\ast$ as the infinite tensor product $X_{J \sqcup \{\ast\}}$ if and only if the functor $- \otimes X_\ast$ preserves the defining cofiltered limit of the infinite tensor product $X_J$. This motivates the following definition.
+
+\begin{definition}
+	\label{has_infprods}
+	Let $\cC$ be a semicartesian symmetric monoidal category. We say that $\cC$ \emph{has infinite tensor products} if for every family of objects $(X_i)_{i \in J}$ with $|J| < \kappa$, the infinite tensor product $X_J$ exists, and its defining cofiltered limit is preserved by every functor $Y \otimes -$.
+
+	For $\kappa$ a regular cardinal, we say that $\cC$ \emph{has tensor products of size $<\kappa$} if these conditions hold as soon as $|J| < \kappa$. For $\kappa = \aleph_1$, we also simply say that $\cC$ \emph{has countable tensor products}.
+\end{definition}
+
+\todo[inline]{We could also make the preservation condition part of the definition of infinite tensor product. Thoughts?}
+
+As per the above, the preservation condition in this definition amounts to the requirement that the canonical comparison morphism
+\[
+	X_J \otimes X_\ast \longrightarrow X_{J \sqcup \{\ast\}}
+\]
+must be an isomorphism, as one would expect intuitively from a notion of infinite tensor product. The explicit constructions of \Cref{infprods_cring,infprods_stoch} show that $\CRing_+\op$ has infinite tensor products and that $\BorelStoch$ has countable tensor products, respectively.
+
+\begin{lemma}
+	\label{two_infproducts}
+	Suppose that $\cC$ has tensor products of size $< \kappa$. Let $J = J_1 \sqcup J_2$ be a disjoint union with $|J| < \kappa$, and $(X_i)_{i \in J}$ a family of objects in $\cC$. Suppose that the infinite tensor products $X_{J_1}$ and $X_{J_2}$ exist. Then the object
+	\[
+		X_{J_1} \otimes X_{J_2} 
+	\]
+	is an infinite tensor product $X_J$ with respect to the finite marginalizations morphisms given by, for every finite $F \subseteq J$,
+	\[
+		\begin{tikzcd}[column sep=huge]
+			\rho_F \: : \: X_{J_1} \otimes X_{J_2} \ar{r}{\pi_{F\cap J_1} \otimes \pi_{F\cap J_2}} & X_{F \cap J_1} \otimes X_{F \cap J_2}.
+		\end{tikzcd}
+	\]
+\end{lemma}
+\begin{proof}
+	For fixed finite $F_1 \subseteq J_1$, the morphisms
+	\[
+		\id \otimes \pi_{F_2} \: : \: X_{F_1} \otimes X_{J_2} \longrightarrow X_{F_1} \otimes X_{F_2}
+	\]
+	exhibit $X_{F_1} \otimes X_{J_2}$ as the cofiltered limit of the $X_{F_1} \otimes X_{F_2}$ by the preservation assumption. Similarly, the morphisms
+	\[
+		\pi_{F_1} \otimes \id \: : \: X_{J_1} \otimes X_{J_2} \longrightarrow X_{F_1} \otimes X_{J_2}
+	\]
+	exhibit $X_{J_1} \otimes X_{J_2}$ as the cofiltered limit of the $X_{F_1} \otimes X_{J_2}$. The claim follows as a limit of limits is a limit, and it is easy to see that the diagram shapes much up: the poset of finite subsets of $J_1 \sqcup J_2$ is the product of the posets of finite subsets of $J_1$ and $J_2$.
+\end{proof}
+
+More generally, we may consider infinite tensor products of infinite tensor products, $\bigotimes_{k \in K} \bigotimes_{i \in J_k} X_{k,i}$, where now $(J_k)_{k \in K}$ is a family of sets and $(X_{k,i})$ a doubly indexed family of objects. One may think that this doubly infinite tensor product should be isomorphic to the single-step infinite tensor product $\bigotimes_{k \in K, \: i \in J_k} X_{k,i}$. And indeed, if for every finite $F \subseteq \prod_{k \in K} J_k$ we choose any finite $G \subseteq K$ such that $(k,i) \in F$ implies $k \in G$, then we have morphisms
+\begin{equation}
+	\label{double_infproduct}
+	\begin{tikzcd}[column sep=huge]
+		\rho_F \: : \: \bigotimes_{k \in K} \bigotimes_{i \in J_k} X_{k,i} \ar{r}{\pi_G} & \bigotimes_{k \in G} \bigotimes_{i \in J_k} X_{k,i} \ar{r}{\bigotimes_{k \in G} \pi_{F \cap J_k}} & \bigotimes_{k \in G, \: i \in F \cap J_k} X_{k,i}
+	\end{tikzcd}
+\end{equation}
+where the object on the right can also be written as $\bigotimes_{(k,i) \in F} X_{k,i}$. It is straightforward to see that this $\rho_F$ does not depend on the particular choice of $G$. We now show that these $\rho_F$'s are finite marginalization morphisms which make the doubly infinite tensor product $\bigotimes_{k \in K} \bigotimes_{i \in J_k} X_{k,i}$ into the single infinite tensor product $\bigotimes_{k \in K, \: i \in J_k} X_{k,i}$.
+
+\begin{lemma}
+	Suppose that $\cC$ has tensor products of size $< \kappa$, and let $(J_k)_{k \in K}$ be a family of sets with $|K| < \kappa$ and $|J_k| < \kappa$, and $(X_{k,i})_{i \in J_k, k \in K}$ a doubly indexed family of objects. Then the above $\rho_F$ exhibit the infinite tensor product of infinite tensor products $\bigotimes_{k \in K} \bigotimes_{i \in J_k} X_{k,i}$ as the infinite tensor product $\bigotimes_{k \in K, \: i \in J_k} X_{k,i}$.
+\end{lemma}
+\begin{proof}
+	By repeated application of \Cref{two_infproducts}, the second half of~\Cref{double_infproduct} exhibits $\bigotimes_{k \in G} \bigotimes_{i \in J_k} X_{k,i}$ as the infinite product of the $X_{k,i}$ for $k \in G$ and $i \in J_k$. The claim then follows from a straightforward diagram chase.
+\end{proof}
+
+\section{Infinite tensor products in Markov categories}
+\label{infprod_markov}
+
+If a Markov category $\cC$ has infinite tensor products, then one should expect a compatibility condition between these infinite tensor products and the comonoid structures on the objects. % In the following string diagrams, we draw the object associated to an infinite tensor product as a double wire.
+
+\begin{definition}
+    \label{defn_kolmogorov_ext}
+    Let $\cC$ be a Markov category and $(X_i)_{i \in J}$ a family of objects. We say that an infinite product $X_J = \bigotimes_{i \in J} X_i$ is a \emph{Kolmogorov product} if the finite marginalization morphisms $\pi_F : X_J \to X_F$ are deterministic, and the universal property is preserved by every functor $Y \otimes -$.
+    
+    We say that $\cC$ \emph{has Kolmogorov products} if every family of objects has a Kolmogorov product. For $\kappa$ a regular cardinal, we say that $\cC$ has \emph{Kolmogorov products of size $<\kappa$} if families of size $<\kappa$ have a Kolmogorov product. For $\kappa = \aleph_1$, we say that $\cC$ has \emph{countable Kolmogorov products}.
+\end{definition}
+
+In $\BorelStoch$, the infinite tensor products constructed in \Cref{infprods_stoch} are Kolmogorov products. In $\CRing_+\op$, the infinite tensor products from \Cref{infprods_cring} are Kolmogorov products as well as long as one equips $\bigotimes_i R_i$ with the tensor product ring structure, since this one is the only one which makes the canonical inclusions $R_i \to \bigotimes_i R_i$ into ring homomorphisms. These examples illustrate an important point: in some Markov categories, such as $\CRing_+\op$, not all isomorphisms are deterministic, and there may even be isomorphic objects which have no deterministic isomorphism~\cite[Remark~10.9]{markov_cats}. In these categories, whether a given object is an infinite tensor product or not generally depends on the specific choice of that object. In particular, there may be infinite tensor products which are not Kolmogorov products. For example in $\CRing_+\op$, we may take the tensor product of abelian groups $\bigotimes_i R_i$ and equip it with a different multiplication than the tensor product of rings one (as long as it has the same unit).
+
+\begin{proposition}
+	Every Kolmogorov product is a categorical product in $\cC_\detc$.	
+\end{proposition}
+
+\begin{proof}
+	For $(X_i)_{i \in J}$ a family of objects with Kolmogorov product $X_J$ and finite marginalizations $\pi_F : X_J \to X_F$, we first show that if we have a compatible family of deterministic morphisms $g_F : A \to X_F$, then also the induced $g_J : A \to X_J$ is deterministic. Drawing the Kolmogorov product $X_J$ as a double wire, we need to prove the determinism equation
+	\[
+		\tikzfig{gJ_det}
+	\]
+	By \Cref{two_infproducts}, the codomain object $X_J \otimes X_J$ is itself an infinite tensor product, and it is therefore enough to prove
+	\[
+		\tikzfig{gJ_det2}
+	\]
+	where we have assumed without loss of generality that the two finite marginalization maps are the same, which we can by replacing the corresponding finite subsets by their union. Using the determinism assumption for $\pi_F$ on the right as well as the assumption that $g_F = \pi_F \circ g_J$ is deterministic implies the claim.
+
+	Now since every finite tensor product $X_F$ is a categorical product in $\cC_\detc$, we can use the fact that in every category,
+    	\[
+		\lim_{F \subseteq J \text{ finite}} \: \prod_{i \in F} X_i \: \cong \: \prod_{i \in J} X_i,
+	\]
+	and this is what was to be shown.
+\end{proof}
+
+In particular, this proves that the comonoid structure on a Kolmogorov product is determined uniquely: $\cop{\bigotimes_i X_i}$ has to be the diagonal map in $\cC_{\rm det}$, and this condition determines $\bigotimes_i X_i$ up to \emph{deterministic} isomorphism.
 
 \todo[inline]{Add an example where $\cC_{\rm det}$ has infinite products, but $\cC$ lacks infinite tensor products? Like sets and multivalued functions?}
 
 \todo[inline]{T: sounds good to me, can you put it in?}
 
-\section{Infinite tensor products in Markov categories}
-\label{infprod_markov}
-
-If a Markov category $\cC$ has infinite tensor products, then one should expect a suitable compatibility condition between these infinite tensor products and the comonoid structures on the objects to be satisfied. In the following string diagrams, we draw the object associated to an infinite tensor product as a double wire.
+The notion of Kolmogorov product describes a notion of infinite collection of random variables where all dependence must be encoded in the finite subsets of the variables. We capture this in the following definition.
 
 \begin{definition}
-    \label{defn_kolmogorov_ext}
-    Let $\cC$ be a Markov category, let $\{X_i\}_{i\in J}$ be an infinite family of objects, and let $\bigotimes_i X_i$ be an infinite tensor product.
-    We say this product \emph{satisfies Kolmogorov extension} if the following two conditions hold:
-    \begin{enumerate}[(1)]
-        \item The finite marginals \[\pi_F: \bigotimes_{i\in J} X_i \to \bigotimes_{i \in F} X_i\] are deterministic
-        \item These maps exhibit $\bigotimes_{i\in J} X_i$ as the cofiltered limit of the diagram $F \mapsto \bigotimes_{i \in F} X_i$ \emph{in $\cC_{\rm det}$}.
-    \end{enumerate}
+	We say that a morphism $p_J : A \to \bigotimes_{i \in J} X_i$ \emph{displays the conditional independence} $\perp_{i \in J}  X_i \:|\: A$ if each finite marginalization $p_F : A \to \bigotimes_{i \in F}X_i$ displays the conditional independence $\perp_{i \in F} X_i \:|\: A$.
 \end{definition}
-
-\todo[inline]{Perhaps we could change the terminology to ``Kolmogorov product''. I'll tentatively use this in the following}
-
-\begin{remark}
-    Since the (finite) tensor product is the product in $\cC_{\rm det}$, condition (2) is equivalent to the statement that the marginals
-    \[\pi_j: \bigotimes_i X_i \to X_j\]
-    exhibit $\bigotimes_i X_i$ as the product of the $X_j$ in $\cC_{\rm det}$,
-    since in any category, \[\lim_{F \subset J} \prod_{i \in F}X_i \cong \prod_{i \in J}X_i\]
-\end{remark}
-
-\begin{remark}
-    Condition (2) is also equivalent to the statement that, given a compatible family of deterministic maps $a_F: A \to \bigotimes_{i \in F} X_i$, the induced map $a: A \to \bigotimes_i X_i$ is deterministic.
-\end{remark}
-
-\begin{example}
-	It is simple to verify that $\BorelStoch$ also has Kolmogorov extension, using e.g. \cite[Example~10.4]{markov_cats}
-\end{example}
-
-This determines the comonoid structure uniquely: $\mathsf{copy}_{\bigotimes_i X_i}$ has to be the diagonal map in $\cC_{\rm det}$,
-and this condition determines $\bigotimes_i X_i$ up to \emph{deterministic} isomorphism.
-
-\begin{remark}
-    Isomorphic objects in a Markov category can have non-isomorphic comonoid structures~\cite[Remark~10.9]{markov_cats}.
-    Therefore the condition of \Cref{defn_kolmogorov_ext} generally depends on the particular \emph{choice} of the infinite tensor product, rather than only on the mere existence of infinite tensor products in the underlying semicartesian monoidal category.
-\end{remark}
-
-
-To actually use this idea to reproduce the usual Kolmogorov zero-one law, we need to do a bit of work:
-
-From this point, the term \emph{infinite tensor product} will refer always to an infinite tensor product with Kolmogorov extension.
-
-This notion of infinite tensor product describes a notion of infinite collection of random variable where all dependence must be witnessed on some finite subset of the variables.
-
-We can codify this in the following definition
-\begin{definition}
-    Let $p: A \to \bigotimes_{i\in J}X_i$ be a map in $\cC$.
-    We say it exhibits the independence of $\{X_i\}$ given $A$ if each finite marginalization $A \to \bigotimes_{i \in F}X_i$ exhibits the independence of $\{X_i\}_{i \in F}$ given $A$.
-\end{definition}
-
-\begin{lemma}
-	Let $J = J_1 \sqcup J_2$ be a disjoint union, and $(X_i)_{i \in J}$ a family of objects in a semicartesian monoidal category $\cC$. Suppose that the infinite tensor products $X_{J_1}$ and $X_{J_2}$ exist. Then the object
-	\[
-		X_{J_1} \otimes X_{J_2} 
-	\]
-	is an infinite tensor product $X_J$ with respect to the finite marginalizations morphisms given by, for $F \subseteq J$,
-	\[
-		\begin{tikzcd}[column sep=huge]
-			X_{J_1} \otimes X_{J_2} \ar{r}{\pi_{F\cap J_1} \otimes \pi_{F\cap J_2}} & X_{F \cap J_1} \otimes X_{F \cap J_2}
-		\end{tikzcd}
-	\]
-\end{lemma}
-\begin{proof}
-    It is clear that the $\rho_F$ are deterministic, and that they form a limit diagram in $\cC_{\rm det}$.
-    Hence the induced map into the actual limit in $\cC_{\rm det}$ is an isomorphism.
-\end{proof}
 
 \section{The zero--one laws}
 

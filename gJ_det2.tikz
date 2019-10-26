@@ -1,0 +1,45 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (0) at (-3, -2.5) {};
+		\node [style=bn] (1) at (-3, -1.25) {};
+		\node [style=none] (2) at (-4, -0.25) {};
+		\node [style=none] (3) at (-2, -0.25) {};
+		\node [style=none] (4) at (-2, -0.25) {};
+		\node [style=morphism] (5) at (-4, 0) {$g_J$};
+		\node [style=morphism] (6) at (-2, 0) {$g_J$};
+		\node [style=none] (7) at (3, -2.5) {};
+		\node [style=bn] (8) at (3, -0.25) {};
+		\node [style=none] (9) at (2, 0.75) {};
+		\node [style=none] (10) at (4, 0.75) {};
+		\node [style=none] (11) at (4, 0.75) {};
+		\node [style=morphism] (12) at (-4, 1.25) {$\pi_F$};
+		\node [style=morphism] (13) at (-2, 1.25) {$\pi_F$};
+		\node [style=morphism] (14) at (2, 1) {$\pi_F$};
+		\node [style=morphism] (15) at (4, 1) {$\pi_F$};
+		\node [style=none] (16) at (0, 0) {$=$};
+		\node [style=morphism] (17) at (3, -1.25) {$g_J$};
+		\node [style=none] (18) at (-4, 2.25) {};
+		\node [style=none] (19) at (-2, 2.25) {};
+		\node [style=none] (20) at (2, 2.25) {};
+		\node [style=none] (21) at (4, 2.25) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=none] (0.center) to (1);
+		\draw [style=none, bend left=45] (1) to (2.center);
+		\draw [style=none, bend right=45] (1) to (3.center);
+		\draw [style=double line, bend left=45] (8) to (9.center);
+		\draw [style=double line, bend right=45] (8) to (10.center);
+		\draw [style=double line] (12) to (5);
+		\draw [style=double line, in=90, out=-90] (13) to (6);
+		\draw [style=double line] (14) to (9.center);
+		\draw [style=double line] (15) to (11.center);
+		\draw (2.center) to (5);
+		\draw (4.center) to (6);
+		\draw [style=double line] (8) to (17);
+		\draw (17) to (7.center);
+		\draw (19.center) to (13);
+		\draw (18.center) to (12);
+		\draw (21.center) to (11.center);
+		\draw (14) to (20.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

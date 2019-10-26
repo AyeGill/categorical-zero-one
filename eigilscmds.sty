@@ -18,6 +18,18 @@
 \usepackage{cleveref}
 \Crefname{equation}{}{}	% refer to equations simply by equation number
 
+% categories of probability
+\DeclareMathOperator{\Meas}{Meas}
+\DeclareMathOperator{\Pol}{Pol}
+\DeclareMathOperator{\Stoch}{\mathsf{Stoch}}
+\DeclareMathOperator{\FinStoch}{\mathsf{FinStoch}}
+\DeclareMathOperator{\BorelStoch}{\mathsf{BorelStoch}}
+
+% structure morphisms
+\newcommand{\id}{\mathsf{id}}
+\newcommand{\cop}[1]{\mathsf{copy}_{#1}}
+\newcommand{\discard}[1]{\mathsf{del}_{#1}}
+
 %compatibility - prefer \bZ etc
 \newcommand{\Z}{\mathbb{Z}}
 
@@ -75,13 +87,6 @@
 \DeclareMathOperator{\bLie}{\bL ie}
 \DeclareMathOperator{\Part}{Part}
 \DeclareMathOperator{\Cospan}{Cospan}
-
-% categories of probability
-\DeclareMathOperator{\Meas}{Meas}
-\DeclareMathOperator{\Pol}{Pol}
-\DeclareMathOperator{\Stoch}{\mathsf{Stoch}}
-\DeclareMathOperator{\FinStoch}{\mathsf{FinStoch}}
-\DeclareMathOperator{\BorelStoch}{\mathsf{BorelStoch}}
 
 \DeclareMathOperator{\LCH}{LCH}
 \DeclareMathOperator{\CRingSp}{CRingSp}
