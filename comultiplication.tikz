@@ -7,6 +7,7 @@
 		\node [style=none] (4) at (-1, 1.5) {$X$};
 		\node [style=none] (6) at (1, 1.5) {$X$};
 		\node [style=none] (7) at (0, -1.5) {$X$};
+		\node [style=none] (8) at (-4, 0) {$\cop{X} \quad =$};
 	\end{pgfonlayer}
 	\begin{pgfonlayer}{edgelayer}
 		\draw [bend right=45] (1.center) to (0);

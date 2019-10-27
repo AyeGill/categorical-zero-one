@@ -27,6 +27,8 @@
 
 \section{Introduction}
 
+\todo[inline]{Add some motivation and summary}
+
 This is a treatment of the zero--one laws of Kolmogorov and of Hewitt--Savage in the setting of Markov categories.
 
 \paragraph*{Notation.} 
@@ -68,7 +70,7 @@ Returning to the general theory, in string diagrams the unique morphism $\discar
 \[
 	\tikzfig{terminal}
 \]
-The projection maps $\id \otimes \discard{Y} : X \otimes Y \to X$ and $X \otimes Y \to Y$ are correspondingly written as
+The projection maps $\id \otimes \discard{Y} : X \otimes Y \to X$ and $\discard{Y} \otimes \id : X \otimes Y \to Y$ are correspondingly written as
 \[
 	\tikzfig{marginals}
 \]
@@ -81,11 +83,12 @@ Our goal is to use semicartesian monoidal categories such as the above in order 
 		\label{comultiplication}
 		\tikzfig{comultiplication}
 	\end{equation}
-	which, together with the unique $X \to I$, makes $X$ into a commutative comonoid, and such that
+	which, together with $\discard{X} : X \to I$, makes $X$ into a commutative comonoid, and such that
 	\begin{equation}
 		\label{multiplicativity}
 		\tikzfig{multiplicativity}
 	\end{equation}
+	for all $X, Y \in \cC$.
 	\label{markov_cat}
 \end{definition}
 
@@ -115,7 +118,7 @@ As per~\cite[Remark~10.12]{markov_cats}, the deterministic morphisms form a symm
 In $\FinStoch$, the deterministic morphisms $X \to Y$ are exactly the $\{0,1\}$-valued stochastic matrices. Since these can be identified with honest functions $X \to Y$, we conclude that $\FinStoch_\detc$ is equivalent to the category of finite sets. In $\Stoch$, the deterministic morphisms $f : X \to Y$ are exactly those Markov kernels for which $f(S|x) \in \{0,1\}$ for every $S \in \Sigma_Y$ and $x \in X$. In other words, as the term suggests, the deterministic morphisms are those which do not involve any randomness. In $\CRing_+\op$, the deterministic morphisms $R \to S$ are precisely those morphisms which are represented by additive unital maps $S \to R$, i.e.~the ring homomorphisms. Thus the subcategory of deterministic morphisms is exactly the opposite of the usual category of commutative rings.
 
 
-We introduce two more definitions that we will be using later on.
+We state some more definitions that we will be using later on.
 
 \begin{definition}[{\cite[Definition~11.30]{markov_cats}}]
 	A Markov category $\cC$ is \emph{causal} if whenever
@@ -131,9 +134,10 @@ We introduce two more definitions that we will be using later on.
 
 It is known that $\Stoch$ is causal~\cite[Example~11.34]{markov_cats}, and therefore so are the subcategories $\BorelStoch$ and $\FinStoch$. We do not know whether $\CRing_+\op$ is causal, although we suspect that~\cite[Example~11.31]{markov_cats} can be modified to show that it is not.
 
-The following definition goes back to Cho and Jacobs~\cite[Definition~5.1]{cho_jacobs}, but also appears as~\cite[Definition~13.1]{markov_cats}.
+The following definition goes back to Cho and Jacobs~\cite[Definition~5.1]{cho_jacobs}. A more detailed investigation of its properties can be found in~\cite[Section~13]{markov_cats}.
 
 \begin{definition}
+	\label{defnasequal}
 	Given morphisms $p : A \to X$ and $f,g : X \to Y$ in a Markov category, we say that $f$ and $g$ are \emph{$p$-a.s.~equal} if
 	\[
 		\tikzfig{asequal}
@@ -141,14 +145,24 @@ The following definition goes back to Cho and Jacobs~\cite[Definition~5.1]{cho_j
 	and we also write this more concisely as $f =_{p\as} g$.
 \end{definition}
 
+We finally introduce a straightforward generalization of~\cite[Defnition~12.12]{markov_cats} from binary conditional independence to $n$-ary conditional independence.
 
+\begin{definition}
+	Given a morphism $p : A \to X_1 \otimes \ldots \otimes X_n$ in a Markov category, we say that $p$ \emph{displays the conditional independence} $X_1 \perp \ldots X_n \mid\mid A$ if the equation
+	\[
+		\tikzfig{cond_ind}
+	\]
+	holds.
+\end{definition}
+
+If $\bigotimes_{j \in F} X_j$ is a finite product without any particular order on the factors\footnote{See e.g.~\cite[Proposition~II.1.5]{DMOS} for how to make sense of tensor products in symmetric monoidal categories without a prescribed order of the factors.}, then we also write $\perp_{j \in F} X_j \mid\mid A$ to denote the corresponding conditional independence for given $p : A \to \bigotimes_{j \in F} X_j$.
 
 \section{Infinite tensor products in semicartesian monoidal categories}
 \label{infprod_semicartesian}
 
-Zero--one laws involve infinitely many random variables. In the setting of Markov categories, this means that we need to consider morphisms whose codomain is an ``infinite tensor product'' in a suitable sense. We start in this section by considering infinite tensor products in semicartesian symmetric monoidal categories.
+Zero--one laws involve infinitely many random variables. In the setting of Markov categories, this means that we need to consider morphisms whose codomain is an ``infinite tensor product'' in a suitable sense. In this section, we start by considering infinite tensor products in semicartesian symmetric monoidal categories.
 
-Suppose that $(X_i)_{i \in J}$ is any family of objects, where the indexing set $J$ is typically infinite. For any finite subset $F \subseteq J$, we also write $X_F := \bigotimes_{i \in F} X_i$ for simplicity of notation. By Kolmogorov's extension theorem, the joint distribution of infinitely many random variables is uniquely determined by the family of distributions of all finite subsets of these variables. This motivates our general definition of the infinite tensor product: if $F \subseteq F' \subseteq J$ are two finite subsets, then the fact that $\cC$ is semicartesian monoidal gives us \emph{marginalization morphisms}
+Suppose that $(X_i)_{i \in J}$ is any family of objects, where the indexing set $J$ is typically infinite. For any finite subset $F \subseteq J$, we also write $X_F := \bigotimes_{i \in F} X_i$ for simplicity of notation. In the spirit of Kolmogorov's extension theorem, we believe that a good definition of joint distribution of infinitely many random variables will be such that such a joint distribution is uniquely determined by the family of its finite marginals. This motivates our general definition of the infinite tensor product, which we now introduce. If $F \subseteq F' \subseteq J$ are two finite subsets, then the fact that $\cC$ is semicartesian monoidal gives us \emph{marginalization morphisms}
 \[
 	\pi_{F',F} \: : \: X_{F'} \longrightarrow X_F.
 \]
@@ -156,35 +170,58 @@ Via these maps, the finite tensor products $(X_F)_{F \subseteq J}$ make up a cof
 
 \begin{definition}
 	\label{semicartesian_infproduct}
-	Let $(X_i)_{i \in J}$ be a family of objects in $\cC$. Then the \emph{infinite tensor product}
+	Let $(X_j)_{j \in J}$ be a family of objects in $\cC$. An \emph{infinite tensor product}
 	\[
-		X_J \: := \: \bigotimes_{i \in J} X_i
+		X_J \: := \: \bigotimes_{j \in J} X_j
 	\]
-	is the limit of the diagram $F \mapsto X_F$, indexed by the poset of finite subsets $F \subset J$ ordered by reverse inclusion, if this limit exists.
+	is the limit of the diagram $F \mapsto X_F$, indexed by the poset of finite subsets $F \subset J$ ordered by reverse inclusion, if this limit exists and is preserved by the functor $- \otimes Y$ for every object $Y \in \cC$.
 \end{definition}
 
-We will refer to the structure maps $\pi_F : X_J \to X_F$ as \emph{finite marginalizations}. % We also write $\pi_j$ as shorthand for $\pi_{\{j\}}$.
+We will refer to the structure maps $\pi_F : X_J \to X_F$ as \emph{finite marginalizations}. The extra preservation condition will be motivated in \Cref{preserve}.
 
 \begin{remark}
-	If $J$ is finite, then the infinite tensor product exists and coincides with the standard tensor product $\bigotimes_{i \in J} X_i$. In a general Markov category, the relevant cofiltered limit need not exist for infinite $J$, in which case the infinite tensor product does not exist either (as in \Cref{infprods_finstoch}).
+	If $J$ is finite, then the infinite tensor product exists and coincides with the tensor product $X_J = \bigotimes_{i \in J} X_i$ specified by the monoidal structure. In a general Markov category, the relevant cofiltered limit need not exist for infinite $J$, in which case the infinite tensor product does not exist either (as in \Cref{infprods_finstoch}).
+\end{remark}
+
+\begin{remark}
+	\label{preserve}
+	It is natural to require different infinite tensor products to interact well with another. If $X_J$ is an infinite tensor product of a family $(X_i)_{i \in J}$ and we are given an additional object $X_\ast$ for $\ast \not \in J$, then one will want the canonical comparison morphism
+	\begin{equation}
+		\label{comparison}
+		X_J \otimes X_\ast \longrightarrow X_{J \,\sqcup\, \{\ast\}}
+	\end{equation}
+	to be an isomorphism, where $X_{J \,\sqcup\, \{\ast\}}$ is the infinite tensor product of the original family with $X_\ast$ thrown in.
+	
+	If we do not yet assume that $X_{J \,\sqcup\, \{\ast\}}$ exists, then we can exhibit $X_J \otimes X_\ast$ as the relevant cofiltered limit as follows. The object $X_J \otimes X_\ast$ can be equipped finite marginalization morphisms with respect to $F \subseteq J \sqcup \{\ast\}$ given by
+	\[
+		\pi_{F \setminus \{\ast\}} \otimes \id \: : \: X_J \otimes X_\ast \longrightarrow X_{F \setminus \{\ast\}} \otimes X_\ast
+	\]
+	for $\ast \in F$, and just
+	\[
+		\pi_F \otimes \discard{X_\ast} : X_J \otimes X_\ast \longrightarrow X_F 
+	\]
+	in case $\ast \not \in F$. It is straightforward to check that these morphisms equip $X_J \otimes X_\ast$ with the right universal property of the infinite tensor product $X_{J \sqcup \{\ast\}}$ if only if the functor $- \otimes X_\ast$ preserves the defining cofiltered limit of the infinite tensor product $X_J$. It is also easy to see that this new cofiltered limit is again preserved by every functor $- \otimes Y$, based on the assumption that, based on the assumption that the defining cofiltered limit of the original infinite tensor product is preserved by $- \otimes (X_\ast \otimes Y)$ as well.
+
+	In other words, the preservation condition in this definition amounts to the requirement that the canonical comparison morphism
+	must be an isomorphism, as one would expect intuitively from a notion of infinite tensor product. 
 \end{remark}
 
 \begin{example}
 	\label{infprods_cring}
-	The dual definition of infinite tensor products of algebraic structures as \emph{filtered colimits} of finite tensor products is well-known in the literature, e.g.~in the case of C*-algebras~\cite[p.~315]{blackadar}. Thus in the case where our Markov category is $\CRing_+\op$, we recover the usual folklore definition of an infinite tensor product of rings $\bigotimes_{i \in J} R_i$ in terms of formal sums of elementary tensors, where an elementary tensor is a family of elements $(r_i)_{i \in J}$ such that all but finitely many are equal to the respective unit. Note that we do not yet consider the multiplication on $\bigotimes_{i \in J} R_i$, since \Cref{semicartesian_infproduct} is not yet concerned with the comonoid structures on the objects. We will get to this in the next section.
+	The dual definition of infinite tensor products of algebraic structures as \emph{filtered colimits} of finite tensor products is well-known in the literature, e.g.~in the case of C*-algebras~\cite[p.~315]{blackadar}. Thus in the case where our Markov category is $\CRing_+\op$, we recover the usual folklore definition of an infinite tensor product of rings $\bigotimes_{j \in J} R_j$ in terms of formal sums of elementary tensors, where an elementary tensor is a family of elements $(r_j)_{j \in J}$ such that all but finitely many are equal to the respective unit. The necessary preservation condition is easily seen to hold. Note that we do not yet consider the multiplication on $\bigotimes_{j \in J} R_j$, since \Cref{semicartesian_infproduct} is not yet concerned with the comonoid structures on the objects. We will get to this in the next section.
 	
-	Intuitively, our definition matches up with these algebraic ones under the categorical duality of algebra and geometry, where our definition is on the geometrical side of the duality.
+	Intuitively, our definition matches up with the known algebraic ones under the categorical duality of algebra and geometry, where our definition is on the geometrical side of the duality.
 \end{example}
 
 \begin{remark}
-	In those semicartesian monoidal categories $\cC$ that are of interest to us, morphisms $I \to X$ play the role of \emph{probability measures} on $X$. Thus applying the universal property with respect to maps out of $I$ amounts to requiring the \emph{Kolmogorov extension theorem} to hold in $\cC$: probability measures on an infinite product $X_J$ are in bijection with consistent families of probability measures on the finite products $X_F$ for $F \subseteq J$.
+	In those semicartesian monoidal categories $\cC$ that are of interest to us, morphisms $I \to X$ play the role of \emph{probability measures} on $X$. Thus applying the defining universal property of an infinite tensor product with respect to maps out of $I$ implements the \emph{Kolmogorov extension theorem} in $\cC$: probability measures on an infinite product $X_J$ are in bijection with consistent families of probability measures on the finite products $X_F$ for $F \subseteq J$.
 \end{remark}
 
 \begin{example}
 	\label{infprods_stoch}
 	We now consider infinite tensor products in $\Stoch$, where we would like infinite tensor products to be given by the corresponding infinite products of measurable spaces in the usual sense. Since the Kolmogorov extension theorem does not hold for general (even merely countable) products of measurable spaces~\cite{AJ}, this is not the case without further additional assumptions on the measurable spaces involved. Thus we do not know whether $\Stoch$ has infinite tensor products, although we suspect that it does not; but even if it does, they are in general not the ones that one would like to have for the purposes of probability theory.
 
-	However, the situation improves for countable products in $\BorelStoch$, for which the Kolmogorov extension theorem holds~\cite[Theorem~14.35]{klenke}. In other words, if $\left( (X_i, \Sigma_i) \right)_{i \in \bN}$ is a sequence of standard Borel spaces, then the cartesian product $X_\bN = \prod_{i \in \bN} X_i$ carrying the product $\sigma$-algebra $\Sigma_\bN$ satisfies the universal property of an infinite tensor product with respect to maps out of $I$. In the following, we show that this implies the universal property in general.
+	However, the situation improves for countable products in $\BorelStoch$, for which the Kolmogorov extension theorem holds~\cite[Theorem~14.35]{klenke}. In other words, if $\left( (X_j, \Sigma_j) \right)_{j \in \bN}$ is a sequence of standard Borel spaces, then the cartesian product $X_\bN = \prod_{j \in \bN} X_j$ carrying the product $\sigma$-algebra $\Sigma_\bN$ satisfies the universal property of an infinite tensor product with respect to maps out of $I$. We now show that this implies the universal property in general.
 
 	Suppose that
 	\[
@@ -192,49 +229,26 @@ We will refer to the structure maps $\pi_F : X_J \to X_F$ as \emph{finite margin
 	\]
 	is a family of Markov kernels satisfying the compatibility condition $\pi_{F',F} \circ g_{F'} = g_F$ for all finite $F \subseteq F' \subseteq J$. Then for every $a \in A$, the probability measures $g_F(-|a) : \Sigma_F \to [0,1]$ are a compatible family to which the Kolmogorov extension theorem in the form~\cite[Theorem~14.35]{klenke} applies, and we obtain a unique probability measure $g_J(-|a) : \Sigma_J \to [0,1]$ which has the $g_F(-|a)$ as its finite marginals. It remains to be shown that for every $S \in \Sigma_J$, the map $a \mapsto g_J(S|a)$ is measurable. Since limits of pointwise convergent sequences of measurable real-valued functions are again measurable, the set of $S$ for which this measurability holds is closed under countable disjoint union, and it is clearly closed under complements. We therefore have a $\lambda$-system. Since the map is measurable by assumption whenever $S$ is a measurable cylinder set, and the cylinder sets form a $\pi$-system, the $\pi$-$\lambda$-theorem implies that $a \mapsto g_J(S|a)$ is measurable for all $S$ in the $\sigma$-algebra generated by the measurable cylinder sets, which is exactly the product $\sigma$-algebra $\Sigma_J$.
 
-	In conclusion, $\BorelStoch$ indeed has countable tensor products. It is plausible that there is is another subcategory of $\Stoch$ strictly larger than $\BorelStoch$ which has all infinite tensor products; for example, one can try to construct such a subcategory by imposing compactness or perfectness conditions~\cite[\S{451}]{fremlin4}, for which there is a version of the Kolmogorov extension theorem~\cite[Corollary~454G]{fremlin4}. However, we have so far not been able to find a suitable condition on Markov kernels which would be closed under composition, due to problems of perfect measures under mixtures~\cite{ramachandran}.
+	Since the resulting comparison morphism \Cref{comparison} is an isomorphism by construction---both sides are given by the corresponding products of measurable spaces---it follows that the required preservation condition of infinite tensor products holds as well.
+
+	In conclusion, $\BorelStoch$ indeed has countable tensor products. It is plausible that there is is another subcategory of $\Stoch$ strictly larger than $\BorelStoch$ which has all infinite tensor products; for example, one can try to construct such a subcategory by imposing compactness or perfectness conditions~\cite[\S{451}]{fremlin4}, for which there also is a version of the Kolmogorov extension theorem~\cite[Corollary~454G]{fremlin4}. However, we have so far not been able to find a suitable condition on Markov kernels which would guarantee closure under composition, due to problems with perfect measures not being stable under mixtures~\cite{ramachandran}.
 \end{example}
 
 \begin{example}
 	\label{infprods_finstoch}
-	Infinite tensor products never exist in $\FinStoch$, in the following sense: if the family $(X_i)$ is such that no $X_i$ is empty and infinitely many of them contain at least two elements, then $\bigotimes_i X_i$ does not exist. One way to see this is to use the fact that the hom-sets of $\FinStoch$ are convex sets in the space of matrices, and that composition distributes over these convex combinations, making $\FinStoch$ into a category enriched in convex sets. Since these hom-sets are finite-dimensional, for every $Y$ and $Z$ there is $n \in \bN$ such that among every $n$ morphism $Y \to Z$, one of them can be written as a convex combination of the others. Now suppose that the product $\bigotimes_i X_i$ existed. Then by choosing varying elements of each $X_i$, we can construct uncountably many morphisms $1 \to \bigotimes_i X_i$ whose marginalizations $1 \to X_F$ are all deterministic. Per the above, one of these hypothetical morphisms can be written as a convex combination of finitely many others. By choosing $F \subseteq J$ suitably, we can achieve that the finite marginalizations $1 \to X_F$ are all distinct. Since they are deterministic by construction, and no deterministic morphism in $\FinStoch$ can be written as a convex combination of other deterministic morphisms, we have arrived at a contradiction.
+	Infinite tensor products never exist in $\FinStoch$, in the following sense: if the family $(X_j)_{j \in J}$ is such that no $X_j$ is empty and infinitely many of them contain at least two elements, then $\bigotimes_j X_j$ does not exist. One way to see this is to use the fact that the hom-sets of $\FinStoch$ are convex sets in the space of matrices, and that composition distributes over these convex combinations, making $\FinStoch$ into a category enriched in convex sets. Since these hom-sets are finite-dimensional, for every $Y$ and $Z$ there is $n \in \bN$ such that among every $n$ morphism $Y \to Z$, one of them can be written as a convex combination of the others. Now suppose that the product $\bigotimes_j X_j$ existed. Then by choosing varying elements of each $X_j$, we can construct uncountably many morphisms $1 \to \bigotimes_j X_j$ whose marginalizations $1 \to X_F$ are all deterministic. Per the above, one of these hypothetical morphisms can be written as a convex combination of finitely many others. By choosing $F \subseteq J$ suitably, we can achieve that the finite marginalizations $1 \to X_F$ are all distinct. Since they are deterministic by construction, and no deterministic morphism in $\FinStoch$ can be written as a convex combination of other deterministic morphisms, we have arrived at a contradiction.
 \end{example}
-
-It is natural to require different infinite tensor products to interact well with another. If $X_J$ is an infinite tensor product of a family $(X_i)_{i \in J}$ and we are given an additional object $X_\ast$ for $\ast \not \in J$, then one will want $X_J \otimes X_\ast$ to be the infinite tensor product $X_{J \sqcup \{\ast\}}$ of the original family together with $X_\ast$, with finite marginalization morphisms given by
-\[
-		\pi_{F \setminus \{\ast\}} \otimes \id \: : \: X_J \otimes X_\ast \longrightarrow X_{F \setminus \{\ast\}} \otimes X_\ast
-\]
-for $\ast \in F$, and simply
-\[
-		\pi_F \otimes \discard{X_\ast} : X_J \otimes X_\ast \longrightarrow X_F 
-\]
-in case $\ast \not \in F$. It is straightforward to check that these morphisms exhibit $X_J \otimes X_\ast$ as the infinite tensor product $X_{J \sqcup \{\ast\}}$ if and only if the functor $- \otimes X_\ast$ preserves the defining cofiltered limit of the infinite tensor product $X_J$. This motivates the following definition.
-
-\begin{definition}
-	\label{has_infprods}
-	Let $\cC$ be a semicartesian symmetric monoidal category. We say that $\cC$ \emph{has infinite tensor products} if for every family of objects $(X_i)_{i \in J}$ with $|J| < \kappa$, the infinite tensor product $X_J$ exists, and its defining cofiltered limit is preserved by every functor $Y \otimes -$.
-
-	For $\kappa$ a regular cardinal, we say that $\cC$ \emph{has tensor products of size $<\kappa$} if these conditions hold as soon as $|J| < \kappa$. For $\kappa = \aleph_1$, we also simply say that $\cC$ \emph{has countable tensor products}.
-\end{definition}
-
-\todo[inline]{We could also make the preservation condition part of the definition of infinite tensor product. Thoughts?}
-
-As per the above, the preservation condition in this definition amounts to the requirement that the canonical comparison morphism
-\[
-	X_J \otimes X_\ast \longrightarrow X_{J \sqcup \{\ast\}}
-\]
-must be an isomorphism, as one would expect intuitively from a notion of infinite tensor product. The explicit constructions of \Cref{infprods_cring,infprods_stoch} show that $\CRing_+\op$ has infinite tensor products and that $\BorelStoch$ has countable tensor products, respectively.
 
 \begin{lemma}
 	\label{two_infproducts}
-	Suppose that $\cC$ has tensor products of size $< \kappa$. Let $J = J_1 \sqcup J_2$ be a disjoint union with $|J| < \kappa$, and $(X_i)_{i \in J}$ a family of objects in $\cC$. Suppose that the infinite tensor products $X_{J_1}$ and $X_{J_2}$ exist. Then the object
+	Let $J = J_1 \,\sqcup\, J_2$ be a disjoint union and $(X_i)_{i \in J}$ a family of objects in $\cC$. Suppose that the infinite tensor products $X_{J_1}$ and $X_{J_2}$ exist. Then the object
 	\[
 		X_{J_1} \otimes X_{J_2} 
 	\]
 	is an infinite tensor product $X_J$ with respect to the finite marginalizations morphisms given by, for every finite $F \subseteq J$,
 	\[
 		\begin{tikzcd}[column sep=huge]
-			\rho_F \: : \: X_{J_1} \otimes X_{J_2} \ar{r}{\pi_{F\cap J_1} \otimes \pi_{F\cap J_2}} & X_{F \cap J_1} \otimes X_{F \cap J_2}.
+			\rho_F \: : \: X_{J_1} \otimes X_{J_2} \ar{r}{\pi_{F\cap J_1} \,\otimes\, \pi_{F\cap J_2}} & X_{F \cap J_1} \otimes X_{F \cap J_2}.
 		\end{tikzcd}
 	\]
 \end{lemma}
@@ -247,23 +261,23 @@ must be an isomorphism, as one would expect intuitively from a notion of infinit
 	\[
 		\pi_{F_1} \otimes \id \: : \: X_{J_1} \otimes X_{J_2} \longrightarrow X_{F_1} \otimes X_{J_2}
 	\]
-	exhibit $X_{J_1} \otimes X_{J_2}$ as the cofiltered limit of the $X_{F_1} \otimes X_{J_2}$. The claim follows as a limit of limits is a limit, and it is easy to see that the diagram shapes much up: the poset of finite subsets of $J_1 \sqcup J_2$ is the product of the posets of finite subsets of $J_1$ and $J_2$.
+	exhibit $X_{J_1} \otimes X_{J_2}$ as the cofiltered limit of the $X_{F_1} \otimes X_{J_2}$. The claimed universal property follows since a limit of limits is a limit, and it is easy to see that the diagram shapes match up: the poset of finite subsets of $J_1 \sqcup J_2$ is the product of the posets of finite subsets of $J_1$ and $J_2$. The preservation property with respect to applying a tensoring functor $- \otimes Y$ carries along.
 \end{proof}
 
-More generally, we may consider infinite tensor products of infinite tensor products, $\bigotimes_{k \in K} \bigotimes_{i \in J_k} X_{k,i}$, where now $(J_k)_{k \in K}$ is a family of sets and $(X_{k,i})$ a doubly indexed family of objects. One may think that this doubly infinite tensor product should be isomorphic to the single-step infinite tensor product $\bigotimes_{k \in K, \: i \in J_k} X_{k,i}$. And indeed, if for every finite $F \subseteq \prod_{k \in K} J_k$ we choose any finite $G \subseteq K$ such that $(k,i) \in F$ implies $k \in G$, then we have morphisms
+More generally, we may consider infinite tensor products of infinite tensor products, $\bigotimes_{k \in K} \bigotimes_{j \in J_k} X_{k,j}$, where now $(J_k)_{k \in K}$ is a family of sets and $(X_{k,j})$ a doubly indexed family of objects. One may think that this doubly infinite tensor product should be isomorphic to the single-step infinite tensor product $\bigotimes_{k \in K, \: j \in J_k} X_{k,j}$. And indeed, if for every finite $F \subseteq \prod_{k \in K} J_k$ we choose any finite $G \subseteq K$ such that $(k,j) \in F$ implies $k \in G$, then we have morphisms
 \begin{equation}
 	\label{double_infproduct}
-	\begin{tikzcd}[column sep=huge]
-		\rho_F \: : \: \bigotimes_{k \in K} \bigotimes_{i \in J_k} X_{k,i} \ar{r}{\pi_G} & \bigotimes_{k \in G} \bigotimes_{i \in J_k} X_{k,i} \ar{r}{\bigotimes_{k \in G} \pi_{F \cap J_k}} & \bigotimes_{k \in G, \: i \in F \cap J_k} X_{k,i}
+	\begin{tikzcd}[column sep=1cm]
+		\rho_F \; : \; \bigotimes_{k \in K} \bigotimes_{j \in J_k} X_{k,j} \ar{r}{\pi_G} & \bigotimes_{k \in G} \bigotimes_{j \in J_k} X_{k,j} \ar{rr}{\bigotimes_{k \in G} \pi_{F \cap J_k}} & & \bigotimes_{k \in G, \: j \in F \cap J_k} X_{k,j}
 	\end{tikzcd}
 \end{equation}
-where the object on the right can also be written as $\bigotimes_{(k,i) \in F} X_{k,i}$. It is straightforward to see that this $\rho_F$ does not depend on the particular choice of $G$. We now show that these $\rho_F$'s are finite marginalization morphisms which make the doubly infinite tensor product $\bigotimes_{k \in K} \bigotimes_{i \in J_k} X_{k,i}$ into the single infinite tensor product $\bigotimes_{k \in K, \: i \in J_k} X_{k,i}$.
+where the object on the right can also be written as $\bigotimes_{(k,j) \in F} X_{k,j}$. It is straightforward to see that this $\rho_F$ does not depend on the particular choice of $G$. We now show that these $\rho_F$'s are finite marginalization morphisms which make the doubly infinite tensor product $\bigotimes_{k \in K} \bigotimes_{j \in J_k} X_{k,j}$ into the single infinite tensor product $\bigotimes_{k \in K, \: j \in J_k} X_{k,j}$.
 
 \begin{lemma}
-	Suppose that $\cC$ has tensor products of size $< \kappa$, and let $(J_k)_{k \in K}$ be a family of sets with $|K| < \kappa$ and $|J_k| < \kappa$, and $(X_{k,i})_{i \in J_k, k \in K}$ a doubly indexed family of objects. Then the above $\rho_F$ exhibit the infinite tensor product of infinite tensor products $\bigotimes_{k \in K} \bigotimes_{i \in J_k} X_{k,i}$ as the infinite tensor product $\bigotimes_{k \in K, \: i \in J_k} X_{k,i}$.
+	Suppose that $(J_k)_{k \in K}$ is a family of sets and $(X_{k,j})_{j \in J_k, k \in K}$ a doubly indexed family of objects. If all of the infinite tensor products $\bigotimes_{j \in J_k} X_{j,k}$ and $\bigotimes_{k \in K} \bigotimes_{j \in J_k} X_{k,j}$ exist, then the above morphisms $\rho_F$ exhibit $\bigotimes_{k \in K} \bigotimes_{j \in J_k} X_{k,j}$ as the infinite tensor product $\bigotimes_{k \in K, \: j \in J_k} X_{k,j}$.
 \end{lemma}
 \begin{proof}
-	By repeated application of \Cref{two_infproducts}, the second half of~\Cref{double_infproduct} exhibits $\bigotimes_{k \in G} \bigotimes_{i \in J_k} X_{k,i}$ as the infinite product of the $X_{k,i}$ for $k \in G$ and $i \in J_k$. The claim then follows from a straightforward diagram chase.
+	By repeated application of \Cref{two_infproducts}, the second half of~\Cref{double_infproduct} exhibits $\bigotimes_{k \in G} \bigotimes_{j \in J_k} X_{k,j}$ as the infinite tensor product of the $X_{k,j}$ for $k \in G$ and $j \in J_k$. The relevant universal property as well as its preservation by $- \otimes Y$ then follow from a straightforward diagram chase.
 \end{proof}
 
 \section{Infinite tensor products in Markov categories}
@@ -273,27 +287,25 @@ If a Markov category $\cC$ has infinite tensor products, then one should expect 
 
 \begin{definition}
     \label{defn_kolmogorov_ext}
-    Let $\cC$ be a Markov category and $(X_i)_{i \in J}$ a family of objects. We say that an infinite product $X_J = \bigotimes_{i \in J} X_i$ is a \emph{Kolmogorov product} if the finite marginalization morphisms $\pi_F : X_J \to X_F$ are deterministic, and the universal property is preserved by every functor $Y \otimes -$.
-    
-    We say that $\cC$ \emph{has Kolmogorov products} if every family of objects has a Kolmogorov product. For $\kappa$ a regular cardinal, we say that $\cC$ has \emph{Kolmogorov products of size $<\kappa$} if families of size $<\kappa$ have a Kolmogorov product. For $\kappa = \aleph_1$, we say that $\cC$ has \emph{countable Kolmogorov products}.
+    Let $\cC$ be a Markov category and $(X_j)_{j \in J}$ a family of objects. We say that an infinite tensor product $X_J = \bigotimes_{j \in J} X_j$ is a \emph{Kolmogorov product} if the finite marginalization morphisms $\pi_F : X_J \to X_F$ are deterministic.
 \end{definition}
 
-In $\BorelStoch$, the infinite tensor products constructed in \Cref{infprods_stoch} are Kolmogorov products. In $\CRing_+\op$, the infinite tensor products from \Cref{infprods_cring} are Kolmogorov products as well as long as one equips $\bigotimes_i R_i$ with the tensor product ring structure, since this one is the only one which makes the canonical inclusions $R_i \to \bigotimes_i R_i$ into ring homomorphisms. These examples illustrate an important point: in some Markov categories, such as $\CRing_+\op$, not all isomorphisms are deterministic, and there may even be isomorphic objects which have no deterministic isomorphism~\cite[Remark~10.9]{markov_cats}. In these categories, whether a given object is an infinite tensor product or not generally depends on the specific choice of that object. In particular, there may be infinite tensor products which are not Kolmogorov products. For example in $\CRing_+\op$, we may take the tensor product of abelian groups $\bigotimes_i R_i$ and equip it with a different multiplication than the tensor product of rings one (as long as it has the same unit).
+In $\BorelStoch$, the infinite tensor products constructed in \Cref{infprods_stoch} are Kolmogorov products. In $\CRing_+\op$, the infinite tensor products from \Cref{infprods_cring} are Kolmogorov products as well as long as one equips $\bigotimes_j R_j$ with the tensor product ring structure, since this one is the only one which makes the canonical inclusions $R_j \to \bigotimes_j R_j$ into ring homomorphisms. These examples illustrate the following important point. In some Markov categories, such as $\CRing_+\op$, not all isomorphisms are deterministic, and there may even be isomorphic objects which have no deterministic isomorphism~\cite[Remark~10.9]{markov_cats}. In these categories, whether a given infinite tensor product is a Kolmogorov product or not generally depends on the specific choice of that object. In particular, there may be infinite tensor products which are not Kolmogorov products. For example in $\CRing_+\op$, we may take the tensor product of abelian groups $\bigotimes_j R_j$ and equip it with a different multiplication than the tensor product of rings one (as long as it has the same unit).
 
 \begin{remark}
-	If $\cC$ is positive in the sense of~\cite[Definition~11.22]{markov_cats}, then a morphism $A \to B \otimes C$ is deterministic if and only if both of its marginals are $A \to B$ and $A \to C$ are deterministic~\cite[Corollary~12.15]{markov_cats}. In this case, it follows that the finite marginalizations $\pi_F$ are deterministic if and only if all the single-factor marginalizations $\pi_{\{i\}} : X_J \to X_i$ are. Thus for an infinite tensor product to be a Kolmogorov product, it is then enough to verify that the $\pi_{\{i\}}$ are deterministic.
+	If $\cC$ is positive in the sense of~\cite[Definition~11.22]{markov_cats}, then a morphism $A \to B \otimes C$ is deterministic if and only if both of its marginals are $A \to B$ and $A \to C$ are deterministic~\cite[Corollary~12.15]{markov_cats}. In this case, it follows that the finite marginalizations $\pi_F$ are deterministic if and only if all the single-factor marginalizations $\pi_{\{j\}} : X_J \to X_j$ are. Thus for an infinite tensor product to be a Kolmogorov product, it is then enough to verify that the $\pi_{\{j\}}$ are deterministic.
 \end{remark}
 
 \begin{proposition}
-	Every Kolmogorov product is a categorical product in $\cC_\detc$.	
+	Every Kolmogorov product is a categorical product in the cartesian monoidal subcategory of deterministic morphisms $\cC_\detc$.
 	\label{kolmprod_catdet}
 \end{proposition}
 \begin{proof}
-	For $(X_i)_{i \in J}$ a family of objects with Kolmogorov product $X_J$ and finite marginalizations $\pi_F : X_J \to X_F$, we first show that if we have a compatible family of deterministic morphisms $g_F : A \to X_F$, then also the induced $g_J : A \to X_J$ is deterministic. Drawing the Kolmogorov product $X_J$ as a double wire, we need to prove the determinism equation
+	For $(X_j)_{j \in J}$ a family of objects with Kolmogorov product $X_J$ and finite marginalizations $\pi_F : X_J \to X_F$, we first show that if we have a compatible family of deterministic morphisms $g_F : A \to X_F$, then also the induced $g_J : A \to X_J$ is deterministic. Drawing the Kolmogorov product $X_J$ as a double wire, we need to prove the determinism equation
 	\[
 		\tikzfig{gJ_det}
 	\]
-	By \Cref{two_infproducts}, the codomain object $X_J \otimes X_J$ is itself an infinite tensor product, and it is therefore enough to prove
+	By \Cref{two_infproducts}, the codomain object $X_J \otimes X_J$ is itself an infinite tensor product, and it is therefore enough to prove that for every finite $F \subseteq J$,
 	\[
 		\tikzfig{gJ_det2}
 	\]
@@ -301,37 +313,37 @@ In $\BorelStoch$, the infinite tensor products constructed in \Cref{infprods_sto
 
 	Now since every finite tensor product $X_F$ is a categorical product in $\cC_\detc$, we can use the fact that in every category,
     	\[
-		\lim_{F \subseteq J \text{ finite}} \: \prod_{i \in F} X_i \: \cong \: \prod_{i \in J} X_i,
+		\lim_{F \subseteq J \text{ finite}} \: \prod_{j \in F} X_j \: \cong \: \prod_{j \in J} X_j,
 	\]
-	and this is what was to be shown.
+	and the claim follows.
 \end{proof}
 
-In particular, this proves that the comonoid structure on a Kolmogorov product is determined uniquely: $\cop{\bigotimes_i X_i}$ has to be the diagonal map in $\cC_{\rm det}$, and this condition determines $\bigotimes_i X_i$ up to \emph{deterministic} isomorphism.
+In particular, this proves that \Cref{defn_kolmogorov_ext} determines the comonoid structure on a Kolmogorov product uniquely: $\cop{\bigotimes_j X_j}$ has to be the diagonal morphism in $\cC_\detc$, and this condition determines $\bigotimes_j X_j$ up to \emph{deterministic} isomorphism.
 
 \todo[inline]{Add an example where $\cC_{\rm det}$ has infinite products, but $\cC$ lacks infinite tensor products? Like sets and multivalued functions?}
 
 \todo[inline]{T: sounds good to me, can you put it in?}
 
-The notion of Kolmogorov product describes a notion of infinite collection of random variables where all dependence must be encoded in the finite subsets of the variables. We capture this in the following definition.
+The concept of Kolmogorov product describes a notion of infinite collection of random variables whose joint distribution is encoded in its finite marginals. It is natural to postulate the same for when such an infinite collection is considered to be independent.
 
 \begin{definition}
-	We say that a morphism $p_J : A \to \bigotimes_{i \in J} X_i$ \emph{displays the conditional independence} $\perp_{i \in J}  X_i \mid\mid A$ if each finite marginalization $p_F : A \to \bigotimes_{i \in F}X_i$ displays the conditional independence $\perp_{i \in F} X_i \mid\mid A$.
+	We say that a morphism $p : A \to \bigotimes_{j \in J} X_j$ \emph{displays the conditional independence} $\perp_{j \in J}  X_j \mid\mid A$ if each finite marginalization $p_F : A \to \bigotimes_{j \in F} X_j$ displays the conditional independence $\perp_{j \in F} X_j \mid\mid A$.
 \end{definition}
 
 \section{The zero--one laws}
 
-Throughout this section, $(X_i)_{i \in J}$ is a family of objects in a Markov category $\cC$ with Kolmogorov product $X_J$ and finite marginalizations $\pi_F : X_J \to X_F$.
+Throughout this section, $(X_j)_{j \in J}$ is a family of objects in a Markov category $\cC$ with Kolmogorov product $X_J$ and finite marginalizations $\pi_F : X_J \to X_F$.
 
 \begin{lemma}[The infinite independence lemma]
-	Suppose $p: A \to X_J$ displays the conditional independence $\perp_i X_i \mid\mid A$.
-	Then for every $i \in J$, it also displays the independence $X_j \perp X_{J \setminus \{i\}} \mid\mid A$.
+	Suppose $p: A \to X_J$ displays the conditional independence $\perp_j X_j \mid\mid A$.
+	Then for every $j \in J$, it also displays the independence $X_j \perp X_{J \setminus \{j\}} \mid\mid A$.
 \end{lemma}
 \begin{proof}
 	This is nontrivial because the assumption by definition only involves conditional independence of the finite marginalizations. What we need to prove is that
 	\[
 		\tikzfig{infind_lemma_goal}
 	\]
-	As the codomain is exactly the Kolmogorov product $X_J$, it is enough to prove this equation upon composing the second output with the finite marginalizations $\pi_F : X_{J\setminus\{i\}} \to X_F$. But this is a consequence of the assumption.
+	As the codomain is exactly the Kolmogorov product $X_J$, it is enough to prove this equation upon composing the second output with the finite marginalizations $\pi_F : X_{J\setminus\{j\}} \to X_F$. But this is a consequence of the assumption.
 \end{proof}
 
 \begin{lemma}[The determinism lemma]
@@ -343,7 +355,7 @@ Throughout this section, $(X_i)_{i \in J}$ is a family of objects in a Markov ca
 	\end{equation}
 	displays the conditional independence $X \perp T \mid\mid A$, then the composite $sp: A \to T$ is deterministic.
 \end{lemma}
-This result can be thought of as a partial converse to the condition which characterizes positivity of a Markov category~\cite[Definition~11.22]{markov_cats}.
+This result can be thought of as a partial converse to the condition which characterizes positivity of a Markov category~\cite[Definition~11.22]{markov_cats}. Here and in the following, our notation ``$s$'' indicates that we think of this morphism as a statistic~\cite[Definition~14.2]{markov_cats}.
 \begin{proof}
 	Since the marginals of \Cref{determinismlemma_joint} are exactly $p$ and $sp$, the conditional independence assumption is
 	\[
@@ -358,11 +370,9 @@ This result can be thought of as a partial converse to the condition which chara
 
 Here is our abstract version of Kolmogorov's zero--one law.
 
-\begin{theorem}
+\begin{theorem}[Abstract Kolmogorov zero--one law]
     \label{thm:kolmog}
-    Suppose that $\cC$ is a Markov category, and that $(X_i)_{i \in J}$ is a family of objects with Kolmogorov product $X_J$ and finite marginalizations $\pi_F : X_J \to X_F$.
-    
-    If morphisms $p: A \to X_J$ and deterministic $s : X_J \to T$ are such that for every finite $F \subseteq J$, the joint
+    Suppose that $\cC$ is a Markov category, and that $(X_j)_{j \in J}$ is a family of objects with Kolmogorov product $X_J$ and finite marginalizations $\pi_F : X_J \to X_F$. If morphisms $p: A \to X_J$ and deterministic $s : X_J \to T$ are such that for every finite $F \subseteq J$, the joint
     \[
 	    \tikzfig{kolmog_joint}
     \]
@@ -370,33 +380,32 @@ Here is our abstract version of Kolmogorov's zero--one law.
 \end{theorem}
 Note that this result applies even in the case where $J$ is finite, in which case it amounts to \Cref{determinismlemma}.
 \begin{proof}
-	Assuming $\ast \not \in J$, let us write $X_\ast := T$, so that $X_J \otimes X_\ast$ is the Kolmogorov product of the family $(X_i)_{i \in J \,\sqcup\,\{\ast\}}$. It is clear from the definitions and the assumption that the morphism
+	Assuming $\ast \not \in J$, let us write $X_\ast := T$, so that $X_J \otimes X_\ast$ is the Kolmogorov product of the family $(X_j)_{j \in J \,\sqcup\,\{\ast\}}$. It is clear from the definitions and the assumption that the morphism
     \[
 	\tikzfig{kolmog_joint2}	    
     \]
-    displays the conditional independence $\perp_{i \in J\,\sqcup\,\{\ast\}} X_i \mid\mid A$.
+    displays the conditional independence $\perp_{j \in J\,\sqcup\,\{\ast\}} X_j \mid\mid A$.
     By the infinite independence lemma, this means that it also displays the conditional independence $X_\ast \perp X_J \mid\mid A$.
-    Now the determinism lemma implies exactly what we want, that the composite $sp : A \to T$ is deterministic.
+    Now the determinism lemma implies exactly what we want, namely that the composite $sp : A \to T$ is deterministic.
 \end{proof}
 
-We now move on to our treatment of the Hewitt--Savage zero--one law. It applies to Kolmogorov products where all factors are copies of the same object. So for an object $X$ and the constant family $(X)_{i \in J}$, let us say that the corresponding Kolmogorov product $X_J$ is the \emph{Kolmogorov power} of $X$ by $J$.
+We now move on to our treatment of the Hewitt--Savage zero--one law. It applies to Kolmogorov products where all factors are copies of the same object. So for an object $X$ and the constant family $(X)_{j \in J}$, let us say that the corresponding Kolmogorov product $X_J$ is the \emph{Kolmogorov power} of $X$ by $J$.
 
-A \emph{finite permutation} of the set $J$ is a bijection $\alpha : J \to J$ which fixes all but finitely many elements. Suppose that $\alpha : J \to J$ is a finite permutation or more generally any injection. Then an application of the universal property of the Kolmogorov power shows that $\alpha$ induces a morphism $\hat{\alpha} : X_J \to X_J$ in the obvious way: the morphisms
+A \emph{finite permutation} of the set $J$ is a bijection $\alpha : J \to J$ which fixes all but finitely many elements. Suppose that $\alpha : J \to J$ is a finite permutation or more generally any injection. Then an application of the universal property of the Kolmogorov power shows that $\alpha$ induces a morphism $\hat{\alpha} : X_J \to X_J$ by applying the universal property of $X_J$ to the compatible family of composite morphisms
 \[
 	\begin{tikzcd}
-		X_J \ar{r}{\pi_F} & X_F \ar{r}{\cong} & X_{\alpha(F)}
+		X_J \ar{r}{\pi_F} & X_F \ar{r}{\cong} & X_{\alpha(F)},
 	\end{tikzcd}
 \]
 where the second morphism matches up the factors of the two finite products involved as prescribed by the bijection $\alpha|_F : F \stackrel{\cong}{\longrightarrow} \alpha(F)$. The relevant compatibility condition is straightforward to check. Moreover, $\hat{\alpha}$ is deterministic by \Cref{kolmprod_catdet}.
 
-\begin{theorem}[Hewitt--Savage for Markov categories]
+\begin{theorem}[Abstract Hewitt--Savage zero--one law]
     	\label{thm:hewsav}
-	Suppose that $\cC$ is a causal Markov category and that $X_J$ is a Kolmogorov power of an object $X \in \cC$ with respect to an infinite set $J$.
-    
+	Suppose that $\cC$ is a causal Markov category (\Cref{causal_defn}). Let $X_J$ be a Kolmogorov power of an object $X \in \cC$ with respect to an infinite set $J$.
     	Suppose that morphisms $p: A \to X_J$ and deterministic $s : X_J \to T$ satisfy the following:
     	\begin{enumerate}
-		\item $p$ displays the conditional independence $\perp_i X_i \mid\mid A$.
-		\item For every finite permutation $\alpha : J \to J$ we have $\hat{\alpha} p = p$ and $s \hat{\alpha} = s$. 
+		\item $p$ displays the conditional independence $\perp_j X_j \mid\mid A$.
+		\item For every finite permutation $\alpha : J \to J$, we have $\hat{\alpha} p = p$ and $s \hat{\alpha} = s$. 
     	\end{enumerate}
 	Then the composite $sp : A \to T$ is deterministic.
 \end{theorem}
@@ -405,11 +414,11 @@ In contrast to \Cref{thm:kolmog}, we now have two additional relevant assumption
 
 \begin{lemma}
 	\label{aseqlemma}
-	Let $\cC$ be a causal Markov category (\Cref{causal_defn}). Let $p : A \to X$ and $f,g: X \to Y$ be morphisms with $f$ deterministic and such that
+	Let $\cC$ be a causal Markov category. Let $p : A \to X$ and $f,g: X \to Y$ be morphisms in $\cC$ with $f$ deterministic and such that
 	\[
 		\tikzfig{aseqlemma}
 	\]
-	Then $f =_{p\as} g$.
+	Then $f =_{p\as} g$ (\Cref{defnasequal}).
 \end{lemma}
 \begin{proof}
     Consider the morphism
@@ -431,7 +440,7 @@ In contrast to \Cref{thm:kolmog}, we now have two additional relevant assumption
 	\end{equation}
 	so that the joint is invariant. Here, the first and last equation hold by the invariance assumption, and the second because $\hat{\alpha}$ is deterministic.
 
-	We next show that this equation still holds if $\alpha$ is merely an injection. By the universal property of $X_J \otimes T$ as the infinite tensor product of the family $(X_i)_{i \in J}$ together with $T$, it is enough to prove \Cref{strong_invariance} upon marginalization by $\pi_F \otimes \id$ for all finite $F \subseteq J$. Since we can find a finite permutation $\alpha' : J \to J$ such that $\alpha'|_F = \alpha|_F$, the claim follows from the finite permutation case.
+	We next show that this equation still holds if $\alpha$ is merely an injection. By the universal property of $X_J \otimes T$ as the infinite tensor product of the family $(X_j)_{j \in J}$ together with $T$, it is enough to prove \Cref{strong_invariance} upon marginalization by $\pi_F \otimes \id$ for all finite $F \subseteq J$. Since we can find a finite permutation $\alpha' : J \to J$ such that $\alpha'|_F = \alpha|_F$, the claim follows from the finite permutation case.
     
 	Consider the morphism given by composing \eqref{strong_invariance} with $s$ on the first output. Since these are the same for all injections $\alpha$, \Cref{aseqlemma} tells us that the morphisms $s \hat{\alpha}$ are all $p$-a.s.~equal to $s$, for every injection $\alpha : J \to J$.
 
@@ -457,8 +466,7 @@ In contrast to \Cref{thm:kolmog}, we now have two additional relevant assumption
 We now show how our results specialize to the standard Kolmogorov and Hewitt--Savage zero--one laws in the case of standard Borel spaces. Further down we give another application to continuous maps between topological spaces.
 
 \begin{corollary}[Kolmogorov zero--one law]
-	Suppose $\Omega$ is a standard Borel space with a probability measure $P$ and that $\left(f_i: \Omega \to X_i\right)_{i \in \bN}$ is a sequence of independent random variables taking values in standard Borel spaces $X_i$. Suppose that $T \subseteq \Omega$ is in the coarsest $\sigma$-algebra which makes the $f_i$ measurable, and independent of any finite subset of the $f_i$.
-    Then $P(T)$ is $0$ or $1$.
+	Suppose $\Omega$ is a standard Borel space with a probability measure $P$ and that $\left(f_j: \Omega \to X_j\right)_{j \in \bN}$ is a sequence of independent random variables taking values in standard Borel spaces $X_j$. Suppose that $T \subseteq \Omega$ is in the coarsest $\sigma$-algebra which makes the $f_j$ measurable, and independent of any finite subset of the $f_j$. Then $P(T) \in \{0,1\}$.
 \end{corollary}
 \begin{proof}
 	We want to apply \Cref{thm:kolmog} with $\cC = \BorelStoch$ and $J = \bN$ and $A = I$, the one-element measurable space. Then $P : I \to \Omega$. We write $f_\bN : \Omega \to X_\bN$ for the induced map to the product. In $\Omega$, the coarsest $\sigma$-algebra which makes the $f_i$ measurable coincides with the $\sigma$-algebra consisting of the sets of the form $f_\bN^{-1}(S)$ for measurable $S \subseteq X_J$. Hence the assumption implies that there is measurable $S \subseteq X_J$ such that $T = f_\bN^{-1}(S)$. Then we apply \Cref{thm:kolmog} with $s : X_J \to \{0,1\}$ the indicator function of $S$, which is a measurable map and therefore can also be regarded as a morphism in $\BorelStoch$. We therefore obtain that $sp : I \to \{0,1\}$ is deterministic. But since $sp$ corresponds to the probability measure on $\{0,1\}$ with weight $P(f_\bN^{-1}(S)) = P(T)$ on $\{1\}$ and the complementary weight $1 - P(T)$ on $0$, we conclude that indeed $P(T) \in \{0,1\}$.
@@ -472,18 +480,20 @@ We now show how our results specialize to the standard Kolmogorov and Hewitt--Sa
 
 By interpreting our results in other Markov categories, we obtain other nontrivial (although hardly particularly deep) statements:
 
+\todo[inline]{Describe Kleisli cat of the hyperspace monad, or directly whatever precise category of relations the following takes place in}
+
 \begin{corollary}
-    Let $\{X_i\}_{i \in J}$ be a family of topological spaces, $Y$ a Hausdorff space, and let $f: \prod_i X_i \to Y$ be a continuous function
+    Let $(X_j)_{j \in J}$ be a family of topological spaces, $Y$ a Hausdorff space, and let $f: \prod_j X_j \to Y$ be a continuous function
     which is independent of any finite prefix of the input.
     Then the map $f$ is constant.
 \end{corollary}
 \begin{corollary}
-    Let $X, Y$ be topological spaces, $Y$ Hausdorff, and let $f: \prod_{i\in J} X \to Y$ be a continuous function which is independent of any finite permutation of the input.
+	Let $X$ be a topological space, $Y$ a Hausdorff space, $J$ an infinite set, and let $f: \prod_{j\in J} X \to Y$ be a continuous function which is invariant under any finite permutation of the inputs.
     Then $f$ is constant.
 \end{corollary}
-\begin{proof}
-    The theorems follow from \cref{thm:kolmog} and \cref{thm:hewsav}, applied to the Kleisli category $Kl(H)$ of the hyperspace monad,
-    using the maps $* \to X_i$ and $* \to X$ given by the closed subsets $X_i \subseteq X_i, X \subset X$.
+\begin{proof}[Proof of both]
+	These results follow from \Cref{thm:kolmog,thm:hewsav}, applied to the Kleisli category $\mathrm{Kl}(H)$ of the hyperspace monad $H$,
+	using the morphisms $p : I \to X_J$ corresponding to the trivial closed subset $X_J \subseteq X_J$.
     The conclusion is that the closure of the image, call it $A$, has the following property: $\overline{\{(a,a) \mid a \in A\}} = A \times A$ as subsets of $Y \times Y$.
     But since the diagonal is closed in $Y$, this clearly implies that $A$ must be a singleton.
 \end{proof}
