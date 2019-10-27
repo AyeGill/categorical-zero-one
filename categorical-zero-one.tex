@@ -20,8 +20,7 @@
 \maketitle
 
 \begin{abstract}
-	We state and prove the zero--one laws of Kolmogorov and Hewitt--Savage within the setting of \emph{Markov categories}, a category-theoretic approach to the foundations of probability and statistics. This gives general versions of these results which can be instantiated not only in measure-theoretic probability, where they specialize to the standard ones, but also in other contexts such as categories of closed relations between topological spaces, 
-	\improve{T: this abstract states what we can hopefully achieve. To be adjusted}
+	We state and prove the zero--one laws of Kolmogorov and Hewitt--Savage within the setting of \emph{Markov categories}, a category-theoretic approach to the foundations of probability and statistics. This gives general versions of these results which can be instantiated not only in measure-theoretic probability, where they specialize to the standard ones in the setting of standard Borel spaces, but also in other contexts. For example, applying them to the Kleisli category of the hyperspace monad on topological spaces gives criteria for when maps out of an infinite product of topological spaces are constant.
 \end{abstract}
 
 \tableofcontents
@@ -115,10 +114,37 @@ As per~\cite[Remark~10.12]{markov_cats}, the deterministic morphisms form a symm
 
 In $\FinStoch$, the deterministic morphisms $X \to Y$ are exactly the $\{0,1\}$-valued stochastic matrices. Since these can be identified with honest functions $X \to Y$, we conclude that $\FinStoch_\detc$ is equivalent to the category of finite sets. In $\Stoch$, the deterministic morphisms $f : X \to Y$ are exactly those Markov kernels for which $f(S|x) \in \{0,1\}$ for every $S \in \Sigma_Y$ and $x \in X$. In other words, as the term suggests, the deterministic morphisms are those which do not involve any randomness. In $\CRing_+\op$, the deterministic morphisms $R \to S$ are precisely those morphisms which are represented by additive unital maps $S \to R$, i.e.~the ring homomorphisms. Thus the subcategory of deterministic morphisms is exactly the opposite of the usual category of commutative rings.
 
+
+We introduce two more definitions that we will be using later on.
+
+\begin{definition}[{\cite[Definition~11.30]{markov_cats}}]
+	A Markov category $\cC$ is \emph{causal} if whenever
+	\[
+		\tikzfig{causal1}
+	\]
+	holds for morphisms as indicated, then also
+	\[
+		\tikzfig{causal2}
+	\]
+	\label{causal_defn}
+\end{definition}
+
+It is known that $\Stoch$ is causal~\cite[Example~11.34]{markov_cats}, and therefore so are the subcategories $\BorelStoch$ and $\FinStoch$. We do not know whether $\CRing_+\op$ is causal, although we suspect that~\cite[Example~11.31]{markov_cats} can be modified to show that it is not.
+
+The following definition goes back to Cho and Jacobs~\cite[Definition~5.1]{cho_jacobs}, but also appears as~\cite[Definition~13.1]{markov_cats}.
+
+\begin{definition}
+	Given morphisms $p : A \to X$ and $f,g : X \to Y$ in a Markov category, we say that $f$ and $g$ are \emph{$p$-a.s.~equal} if
+	\[
+		\tikzfig{asequal}
+	\]
+	and we also write this more concisely as $f =_{p\as} g$.
+\end{definition}
+
+
+
 \section{Infinite tensor products in semicartesian monoidal categories}
 \label{infprod_semicartesian}
-
-\todo[inline]{Let's simplify notation by writing $X_J$ and $X_F$ instead of writing $\bigotimes$ every time, as you've already partly done}
 
 Zero--one laws involve infinitely many random variables. In the setting of Markov categories, this means that we need to consider morphisms whose codomain is an ``infinite tensor product'' in a suitable sense. We start in this section by considering infinite tensor products in semicartesian symmetric monoidal categories.
 
@@ -254,10 +280,14 @@ If a Markov category $\cC$ has infinite tensor products, then one should expect 
 
 In $\BorelStoch$, the infinite tensor products constructed in \Cref{infprods_stoch} are Kolmogorov products. In $\CRing_+\op$, the infinite tensor products from \Cref{infprods_cring} are Kolmogorov products as well as long as one equips $\bigotimes_i R_i$ with the tensor product ring structure, since this one is the only one which makes the canonical inclusions $R_i \to \bigotimes_i R_i$ into ring homomorphisms. These examples illustrate an important point: in some Markov categories, such as $\CRing_+\op$, not all isomorphisms are deterministic, and there may even be isomorphic objects which have no deterministic isomorphism~\cite[Remark~10.9]{markov_cats}. In these categories, whether a given object is an infinite tensor product or not generally depends on the specific choice of that object. In particular, there may be infinite tensor products which are not Kolmogorov products. For example in $\CRing_+\op$, we may take the tensor product of abelian groups $\bigotimes_i R_i$ and equip it with a different multiplication than the tensor product of rings one (as long as it has the same unit).
 
+\begin{remark}
+	If $\cC$ is positive in the sense of~\cite[Definition~11.22]{markov_cats}, then a morphism $A \to B \otimes C$ is deterministic if and only if both of its marginals are $A \to B$ and $A \to C$ are deterministic~\cite[Corollary~12.15]{markov_cats}. In this case, it follows that the finite marginalizations $\pi_F$ are deterministic if and only if all the single-factor marginalizations $\pi_{\{i\}} : X_J \to X_i$ are. Thus for an infinite tensor product to be a Kolmogorov product, it is then enough to verify that the $\pi_{\{i\}}$ are deterministic.
+\end{remark}
+
 \begin{proposition}
 	Every Kolmogorov product is a categorical product in $\cC_\detc$.	
+	\label{kolmprod_catdet}
 \end{proposition}
-
 \begin{proof}
 	For $(X_i)_{i \in J}$ a family of objects with Kolmogorov product $X_J$ and finite marginalizations $\pi_F : X_J \to X_F$, we first show that if we have a compatible family of deterministic morphisms $g_F : A \to X_F$, then also the induced $g_J : A \to X_J$ is deterministic. Drawing the Kolmogorov product $X_J$ as a double wire, we need to prove the determinism equation
 	\[
@@ -285,152 +315,162 @@ In particular, this proves that the comonoid structure on a Kolmogorov product i
 The notion of Kolmogorov product describes a notion of infinite collection of random variables where all dependence must be encoded in the finite subsets of the variables. We capture this in the following definition.
 
 \begin{definition}
-	We say that a morphism $p_J : A \to \bigotimes_{i \in J} X_i$ \emph{displays the conditional independence} $\perp_{i \in J}  X_i \:|\: A$ if each finite marginalization $p_F : A \to \bigotimes_{i \in F}X_i$ displays the conditional independence $\perp_{i \in F} X_i \:|\: A$.
+	We say that a morphism $p_J : A \to \bigotimes_{i \in J} X_i$ \emph{displays the conditional independence} $\perp_{i \in J}  X_i \mid\mid A$ if each finite marginalization $p_F : A \to \bigotimes_{i \in F}X_i$ displays the conditional independence $\perp_{i \in F} X_i \mid\mid A$.
 \end{definition}
 
 \section{The zero--one laws}
 
-\begin{theorem}
-    \label{thm:kolmog}
-    Suppose we are given $p: A \to T \tensor \bigotimes_{i \in J} X_i$ satisfying the following conditions:
-    \begin{enumerate}
-        \item $T$ is a deterministic function of $\bigotimes_{i \in J} X_i$.
-        \item For each finite subset $F \subset J$, the marginal $A \to T \tensor \bigotimes_{i \in F}X_i$ displays the independence of $T$ and $\bigotimes_{i \in F} X_i$.
-    \end{enumerate}
-    Then the marginal $A \to T$ is deterministic as well.
-\end{theorem}
+Throughout this section, $(X_i)_{i \in J}$ is a family of objects in a Markov category $\cC$ with Kolmogorov product $X_J$ and finite marginalizations $\pi_F : X_J \to X_F$.
 
-This theorem is a consequence of two lemmas.
 \begin{lemma}[The infinite independence lemma]
-    Suppose $p: A \to \bigotimes X_i$ exhibits the independence of $\{X_i\}$.
-    Then for each $j$, the map $A \to X_j \tensor \bigotimes_{i \neq j}X_i$ exhibits the independence $X_j \bot \tensor_{i\neq j} X_i \mid \mid A$.
-\end{lemma}
-\begin{proof}[Sketch of proof]
-    To prove this, we must compare two maps $A \to X_j \tensor \bigotimes_{i\neq j} X_i \cong \bigotimes_i X_i$.
-    To show that these maps are equal, it suffices to show that all finite marginalizations of them are equal.
-    But this is an immediate consequence of the assumption.
-\end{proof}
-
-
-\begin{lemma}[The determinism lemma]
-    Suppose $p: A \to T \tensor X$ is such that $T$ is a deterministic function of $X$, and $p$ exhibits the independence $T \bot X \mid \mid A$.
-    Then the marginal $A \to T$ is deterministic.
+	Suppose $p: A \to X_J$ displays the conditional independence $\perp_i X_i \mid\mid A$.
+	Then for every $i \in J$, it also displays the independence $X_j \perp X_{J \setminus \{i\}} \mid\mid A$.
 \end{lemma}
 \begin{proof}
-The proof is a string diagram chase:
-First, the assumption that $T$ is a deterministic function of $X$ means precisely that we can find $f$ deterministic so that.
-
-%\tikzfig{determinismlemma1}.
-
-Now we can use the independence of $X$ and $T$, and the axioms, to rewrite this as
-
-%\tikzfig{determinismlemma2}
-
-Applying the map $1_T \tensor f$ to the second and fourth diagram now gives an equality
-
-%\tikzfig{determinismlemma3}
-
-Where we have also applied the determinism of $f$.
-This is precisely the statement that $A \to T \tensor X \to X \labelto{f} T$ is deterministic.
-
-Lastly, we use the equality 
-
-%\tikzfig{determinismlemma4}
-
-To see that the marginal $A \to T \tensor X \to T$ is deterministic as desired.
-
+	This is nontrivial because the assumption by definition only involves conditional independence of the finite marginalizations. What we need to prove is that
+	\[
+		\tikzfig{infind_lemma_goal}
+	\]
+	As the codomain is exactly the Kolmogorov product $X_J$, it is enough to prove this equation upon composing the second output with the finite marginalizations $\pi_F : X_{J\setminus\{i\}} \to X_F$. But this is a consequence of the assumption.
 \end{proof}
 
-
-\begin{proof}[Proof of the theorem]
-    It's clear from the definition that $A \to T \tensor \bigotimes X_i$ exhibits the independence of $\{T, X_1, \dots\}$.
-    By the infinite independence lemma, this means that it also exhibits the independence $T \bot \bigotimes X_i \mid \mid A$.
-    Now the determinism lemma implies exactly what we want, that the marginal $A \to T$ is deterministic.
+\begin{lemma}[The determinism lemma]
+	\label{determinismlemma}
+	Suppose that we have $p: A \to X$ and deterministic $s : X \to T$. If the joint
+	\begin{equation}
+		\label{determinismlemma_joint}
+		\tikzfig{determinismlemma_joint}	
+	\end{equation}
+	displays the conditional independence $X \perp T \mid\mid A$, then the composite $sp: A \to T$ is deterministic.
+\end{lemma}
+This result can be thought of as a partial converse to the condition which characterizes positivity of a Markov category~\cite[Definition~11.22]{markov_cats}.
+\begin{proof}
+	Since the marginals of \Cref{determinismlemma_joint} are exactly $p$ and $sp$, the conditional independence assumption is
+	\[
+		\tikzfig{determinismlemma1}
+	\]
+	Using this equation together with the assumption that $s$ is deterministic, we then compute
+	\[
+		\tikzfig{determinismlemma2}
+	\]
+	which is what was to be shown.
 \end{proof}
 
-\begin{corollary}[Kolmogorov zero to one law]
-    Suppose $\Omega$ is a measure space with a probability measure $P$, $\{f_i: \Omega \to X_i\}$ is a collection of independent random variables,
-    and $T \subset \Omega$ is a subset in the $\sigma$-algebra generated by the $f_i$, such that $1_T$ is independent of any finite subset of the $f_i$.
+Here is our abstract version of Kolmogorov's zero--one law.
+
+\begin{theorem}
+    \label{thm:kolmog}
+    Suppose that $\cC$ is a Markov category, and that $(X_i)_{i \in J}$ is a family of objects with Kolmogorov product $X_J$ and finite marginalizations $\pi_F : X_J \to X_F$.
+    
+    If morphisms $p: A \to X_J$ and deterministic $s : X_J \to T$ are such that for every finite $F \subseteq J$, the joint
+    \[
+	    \tikzfig{kolmog_joint}
+    \]
+    displays the conditional independence $X_F \perp T \mid\mid A$, then the composite $sp : A \to T$ is deterministic as well.
+\end{theorem}
+Note that this result applies even in the case where $J$ is finite, in which case it amounts to \Cref{determinismlemma}.
+\begin{proof}
+	Assuming $\ast \not \in J$, let us write $X_\ast := T$, so that $X_J \otimes X_\ast$ is the Kolmogorov product of the family $(X_i)_{i \in J \,\sqcup\,\{\ast\}}$. It is clear from the definitions and the assumption that the morphism
+    \[
+	\tikzfig{kolmog_joint2}	    
+    \]
+    displays the conditional independence $\perp_{i \in J\,\sqcup\,\{\ast\}} X_i \mid\mid A$.
+    By the infinite independence lemma, this means that it also displays the conditional independence $X_\ast \perp X_J \mid\mid A$.
+    Now the determinism lemma implies exactly what we want, that the composite $sp : A \to T$ is deterministic.
+\end{proof}
+
+We now move on to our treatment of the Hewitt--Savage zero--one law. It applies to Kolmogorov products where all factors are copies of the same object. So for an object $X$ and the constant family $(X)_{i \in J}$, let us say that the corresponding Kolmogorov product $X_J$ is the \emph{Kolmogorov power} of $X$ by $J$.
+
+A \emph{finite permutation} of the set $J$ is a bijection $\alpha : J \to J$ which fixes all but finitely many elements. Suppose that $\alpha : J \to J$ is a finite permutation or more generally any injection. Then an application of the universal property of the Kolmogorov power shows that $\alpha$ induces a morphism $\hat{\alpha} : X_J \to X_J$ in the obvious way: the morphisms
+\[
+	\begin{tikzcd}
+		X_J \ar{r}{\pi_F} & X_F \ar{r}{\cong} & X_{\alpha(F)}
+	\end{tikzcd}
+\]
+where the second morphism matches up the factors of the two finite products involved as prescribed by the bijection $\alpha|_F : F \stackrel{\cong}{\longrightarrow} \alpha(F)$. The relevant compatibility condition is straightforward to check. Moreover, $\hat{\alpha}$ is deterministic by \Cref{kolmprod_catdet}.
+
+\begin{theorem}[Hewitt--Savage for Markov categories]
+    	\label{thm:hewsav}
+	Suppose that $\cC$ is a causal Markov category and that $X_J$ is a Kolmogorov power of an object $X \in \cC$ with respect to an infinite set $J$.
+    
+    	Suppose that morphisms $p: A \to X_J$ and deterministic $s : X_J \to T$ satisfy the following:
+    	\begin{enumerate}
+		\item $p$ displays the conditional independence $\perp_i X_i \mid\mid A$.
+		\item For every finite permutation $\alpha : J \to J$ we have $\hat{\alpha} p = p$ and $s \hat{\alpha} = s$. 
+    	\end{enumerate}
+	Then the composite $sp : A \to T$ is deterministic.
+\end{theorem}
+
+In contrast to \Cref{thm:kolmog}, we now have two additional relevant assumptions: $\cC$ is causal and $J$ is infinite. We first prove a useful auxiliary observation.
+
+\begin{lemma}
+	\label{aseqlemma}
+	Let $\cC$ be a causal Markov category (\Cref{causal_defn}). Let $p : A \to X$ and $f,g: X \to Y$ be morphisms with $f$ deterministic and such that
+	\[
+		\tikzfig{aseqlemma}
+	\]
+	Then $f =_{p\as} g$.
+\end{lemma}
+\begin{proof}
+    Consider the morphism
+    \[
+	    \tikzfig{aseqlemma1}
+    \]
+    Applying the assumed equation together with determinism of $f$ shows that marginalizing over the first output gives the same morphism $A \to Y \otimes Y$ as marginalizing over the second output. Therefore, applying the causality property of \Cref{causal_defn} with $h_1$ and $h_2$ the two marginalizations, we can conclude the equality
+    \[
+	\tikzfig{aseqlemma2}
+    \]
+    Marginalizing this further over the middle output and truncating the redundant pieces proves the desired equation.
+\end{proof}
+
+\begin{proof}[Proof of \Cref{thm:hewsav}]
+	Letting a finite permutation $\sigma : J \to J$ act on the $X_J$ part of the joint of $X_J$ and $T$ gives
+	\begin{equation}
+		\label{strong_invariance}
+		\tikzfig{hewsav1}
+	\end{equation}
+	so that the joint is invariant. Here, the first and last equation hold by the invariance assumption, and the second because $\hat{\alpha}$ is deterministic.
+
+	We next show that this equation still holds if $\alpha$ is merely an injection. By the universal property of $X_J \otimes T$ as the infinite tensor product of the family $(X_i)_{i \in J}$ together with $T$, it is enough to prove \Cref{strong_invariance} upon marginalization by $\pi_F \otimes \id$ for all finite $F \subseteq J$. Since we can find a finite permutation $\alpha' : J \to J$ such that $\alpha'|_F = \alpha|_F$, the claim follows from the finite permutation case.
+    
+	Consider the morphism given by composing \eqref{strong_invariance} with $s$ on the first output. Since these are the same for all injections $\alpha$, \Cref{aseqlemma} tells us that the morphisms $s \hat{\alpha}$ are all $p$-a.s.~equal to $s$, for every injection $\alpha : J \to J$.
+
+	Now let $J = J_1 \,\sqcup\, J_2$ be a decomposition of $J$ into two disjoint subsets having the cardinality of $J$; here is where it is relevant that $J$ is infinite. Let $\tau_1, \tau_2: J \to J$ be injections with images $J_1$ and $J_2$, respectively. Then we claim that
+	\[
+		\tikzfig{hewsav2}
+	\]
+	By \Cref{two_infproducts}, it is enough to prove this upon postcomposing with two finite marginalizations $\pi_{F_1}$ and $\pi_{F_2}$. But then using the fact that $\tau_1$ and $\tau_2$ have disjoint image, this follows from the independence assumption, which has
+	\[
+		\tikzfig{hewsav3}
+	\]
+	as a special case.
+    
+	Putting things together, we can now compute
+	\[
+		\tikzfig{hewsav4}
+	\]
+	which is what was to be shown.
+\end{proof}
+
+\section{Examples}
+
+We now show how our results specialize to the standard Kolmogorov and Hewitt--Savage zero--one laws in the case of standard Borel spaces. Further down we give another application to continuous maps between topological spaces.
+
+\begin{corollary}[Kolmogorov zero--one law]
+	Suppose $\Omega$ is a standard Borel space with a probability measure $P$ and that $\left(f_i: \Omega \to X_i\right)_{i \in \bN}$ is a sequence of independent random variables taking values in standard Borel spaces $X_i$. Suppose that $T \subseteq \Omega$ is in the coarsest $\sigma$-algebra which makes the $f_i$ measurable, and independent of any finite subset of the $f_i$.
     Then $P(T)$ is $0$ or $1$.
 \end{corollary}
 \begin{proof}
-    Consider the composite $I \labelto{P} \Omega \labelto{1_T, \{f_i\}} \{0,1\} \tensor \bigotimes_i X_i$.
-    Then independence of the $f_i$ means precisely that this map exhibits the independence of $\{X_i\}$ given $I$ in the above sense.
-    Moreover, $T(\omega)$ is determined by the values of $f_i(\omega)$, so $T$ factors as a map $\prod_i X_i \to \{0,1\}$, and
-    this map is measurable.
-    Hence we can apply the theorem, and conclude that the map $I \labelto{P} \Omega \labelto{T} \{0,1\}$ is deterministic - but this means it's just a constant map,
-    which precisely means that $T$ is true or false with probability $1$.
+	We want to apply \Cref{thm:kolmog} with $\cC = \BorelStoch$ and $J = \bN$ and $A = I$, the one-element measurable space. Then $P : I \to \Omega$. We write $f_\bN : \Omega \to X_\bN$ for the induced map to the product. In $\Omega$, the coarsest $\sigma$-algebra which makes the $f_i$ measurable coincides with the $\sigma$-algebra consisting of the sets of the form $f_\bN^{-1}(S)$ for measurable $S \subseteq X_J$. Hence the assumption implies that there is measurable $S \subseteq X_J$ such that $T = f_\bN^{-1}(S)$. Then we apply \Cref{thm:kolmog} with $s : X_J \to \{0,1\}$ the indicator function of $S$, which is a measurable map and therefore can also be regarded as a morphism in $\BorelStoch$. We therefore obtain that $sp : I \to \{0,1\}$ is deterministic. But since $sp$ corresponds to the probability measure on $\{0,1\}$ with weight $P(f_\bN^{-1}(S)) = P(T)$ on $\{1\}$ and the complementary weight $1 - P(T)$ on $0$, we conclude that indeed $P(T) \in \{0,1\}$.
 \end{proof}
 
-We can also prove a version of the Hewitt-Savage theorem
-\begin{definition}
-    Let $\alpha: J \to J$ be any map.
-    Then it induces a map 
-    \[\hat{\alpha}: \bigotimes_{i\in J}X_i \to \bigotimes_{i \in J}X_{\alpha(i)},\]
-    which we may suggestively write as $(x_i)_{i\in J} \mapsto (x_{\alpha(i)})_{i\in J}$.
-    
-    It is clear that this map is always deterministic. Moreover, if $\alpha$ is a bijection, this map is an isomorphism.
-\end{definition}
+\begin{problem}
+	Is there a Markov category $\cC$ with countable Kolmogorov products such that \Cref{thm:kolmog} specializes to the standard Kolmogorov zero--one law in its general form?
+\end{problem}
 
-\begin{theorem}[Hewitt-Savage for Markov categories]
-    \label{thm:hewsav}
-    Let $\cC$ be a causal Markov category with infinite tensor products. Let $A \to \cC$ be a map in $\cC$, $J$ an infinite set, and let $f: \bigotimes_{i \in J}X \to T$ be a deterministic map.
-    Suppose for each finite permutation $\sigma: J \to J$, we have $f \circ \hat{\sigma} = f$ - in other words, $f$ is independent of finite permutations of the inputs.
-    Then the composite $A \to \tensor_J A \to \tensor_J X \to T$ is deterministic.
-\end{theorem}
-Again, we factor part of the proof into a lemma.
-\begin{lemma}
-    Let $\cC$ be a causal markov category, and let $f,g: B \to X$ be maps, $f$ deterministic.
-    Let $p: A \to B$ be any map.
-    Suppose the composites 
-    \[A \to B \to B \tensor B \labelto{f \tensor g} X \tensor X\]
-    and
-    \[A \to B \to B \tensor B \labelto{f \tensor f} X \tensor X\]
-    agree. Then $f = g$ $p$-almost everywhere.
-\end{lemma}
-\begin{proof}[Sketch of sketch of proof]
-    Consider the map
-    $A \labelto{p} B \to B \tensor B \labelto{f \tensor g} X \tensor X \labelto{copy_{X \tensor X}} X \tensor X \tensor X \tensor X$.
-    Whether we marginalize on the first or second factor of $X$, we get equal morphisms, because we may replace the first part of this with
-    $A \to B \labelto{f} B \to X \tensor X \tensor X \tensor X$ by using the assumptions and determinism.
+\todo[inline]{describe the application of \Cref{thm:hewsav} to $\BorelStoch$}
 
-    Then applying causality, with $f = p$, $g= (f \tensor g) \circ copy_B$, $h_1 = (del_X \tensor 1_X)$, $h_2  = (1_X \tensor del_X)$.
-    Marginalizing the resulting (equal) diagrams, one of them is 
-    \[A \to B \to B \tensor B \labelto{f, 1_B} B \tensor B,\]
-    one of them is 
-    \[A \to B \to B \tensor B \labelto{g,1_B} B \tensor B,\]
-    and this is precisely what must hold for them to agree $p$-a.e.
-\end{proof}
-
-\begin{proof}[Proof of theorem]
-    Consider the map 
-
-    \[e: A \to \tensor_J A \labelto{\tensor p} (\tensor_J X) \to (\tensor_J X) \tensor (\tensor_J X) \to T \tensor (\tensor_J X)\]
-
-    Denote by $e_\sigma$ the composite of $e$ with $1_T \tensor \hat{\sigma}$
-    Note that if $\sigma$ is a finite permutation, $e_\sigma = e$. To see this, note that we may add a $\hat{\sigma}$ before the $f$ as well, by assumption.
-    Now we can use the determinism of the $\hat{\sigma}$s, and the clear fact that 
-    \[A \to \tensor A \to \tensor B \labelto{\hat{\sigma}} \tensor B = A \to \tensor A \to \tensor B\]
-
-    Now let $\sigma$ instead be an injection. Then for each finite subset $F \subset J$, we can find a finite permutation of $J$, $\sigma_0$, such that $\sigma|_F = \sigma_0|_F$.
-    Then on this marginal, $e_\sigma = e_{\sigma_0} = e$, hence $e_\sigma = e$ in general.
-
-    Let $J = J_0 \sqcup J_1$ be a decomposition of $J$ into two disjoint subsets with the cardinality of $J$ (here we use $J$ infinite).
-    Let $\tau_0, \tau_1: J \to J$ be injections with image $J_0,J_1$ respectively.
-
-    Now consider the map $a_\sigma: A \to T \tensor T$ given by composing $e_\sigma$ with $t$.
-    By the above, they all agree.
-    By the lemma, we see that the maps $\tensor_J X \labelto{\hat{\sigma}} \tensor_J X \to T$ are all $\tensor_J p$ a.e. equal.
-    Applying this to $\tau_0,\tau_1$, we get that the map $A \to T$ must be deterministic.
-\end{proof}
-In the last step, the idea is that precomposing with $\hat{\tau_0}$ and $\hat{\tau_1}$ is essentially picking out two disjoint subsets and using them to determine $T$.
-Since all the variables are independent, these two are clearly independent, but also equal (by the preceding argument). Hence they are deterministic, but they also agree with the original map.
-
-\section{Examples}
-As noted, theorems \cref{thm:kolmog} and \cref{thm:hewsav}, when intepreted in the Markov category $\mathsf{Stoch}$, recover the classical Kolmogorov and Hewitt-Savage zero to one laws.
-\improve{Maybe move those examples to here? Also figure out where to put proof that $Kl(H)$ has infinite tensor product and Kolmogorov extension. (And introduce $H$)}
-
-By intepreting them in other Markov categories, we obtain other nontrivial (although hardly particularly deep) statements:
+By interpreting our results in other Markov categories, we obtain other nontrivial (although hardly particularly deep) statements:
 
 \begin{corollary}
     Let $\{X_i\}_{i \in J}$ be a family of topological spaces, $Y$ a Hausdorff space, and let $f: \prod_i X_i \to Y$ be a continuous function
@@ -448,6 +488,16 @@ By intepreting them in other Markov categories, we obtain other nontrivial (alth
     But since the diagonal is closed in $Y$, this clearly implies that $A$ must be a singleton.
 \end{proof}
 
+\todo[inline]{I agree with the speculation, but it's probably a bit too vague for the paper in its present state, so I've removed it}
+
+\bibliographystyle{plain}
+\bibliography{categorical-zero-one}
+
+\end{document}
+
+
+
+
 
 \section{Speculation}
 \todo[inline]{not sure if this section is any good}
@@ -462,9 +512,3 @@ In this case, it would be desirable to be able to apply this theorem, given a co
 (which may be required to satisfy some condition like continuity in the product topology), without begin required to invent the larger category $\sf{Stoch}$.
 
 For instance, maybe there is a Markov category with objects the profinite sets, which can be obtained from $\sf{FinStoch}$ by some formal construction (maybe even simply as the pro-category), which admits infinite tensor products, and where one can profitably interpret this theorem.
-
-
-\bibliographystyle{plain}
-\bibliography{categorical-zero-one}
-
-\end{document}
