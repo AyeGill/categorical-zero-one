@@ -1,0 +1,43 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=bn] (0) at (-4.5, 0) {};
+		\node [style=bn] (1) at (4.5, -1.25) {};
+		\node [style=none] (2) at (-4.5, -2) {};
+		\node [style=morphism] (3) at (-4.5, -1) {$p$};
+		\node [style=morphism] (4) at (-6.25, 1.25) {$\pi_{\tau_1(F_1)}$};
+		\node [style=morphism] (5) at (-2.75, 1.25) {$\pi_{\tau_2(F_2)}$};
+		\node [style=none] (6) at (-6.25, 2.5) {};
+		\node [style=none] (7) at (-2.75, 2.5) {};
+		\node [style=none] (8) at (-6.25, 1) {};
+		\node [style=none] (9) at (-2.75, 1) {};
+		\node [style=none] (10) at (4.5, -2) {};
+		\node [style=none] (11) at (2.75, -0.25) {};
+		\node [style=none] (12) at (6.25, -0.25) {};
+		\node [style=morphism] (13) at (2.75, 0) {$p$};
+		\node [style=morphism] (14) at (6.25, 0) {$p$};
+		\node [style=morphism] (15) at (2.75, 1.5) {$\pi_{\tau_1(F_1)}$};
+		\node [style=morphism] (16) at (6.25, 1.5) {$\pi_{\tau_2(F_2)}$};
+		\node [style=none] (17) at (2.75, 2.5) {};
+		\node [style=none] (18) at (6.25, 2.5) {};
+		\node [style=none] (19) at (0, 0) {$=$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (9.center) to (5);
+		\draw (8.center) to (4);
+		\draw (4) to (6.center);
+		\draw (7.center) to (9.center);
+		\draw [style=double line, in=-180, out=-90] (8.center) to (0);
+		\draw [style=double line, in=-90, out=0] (0) to (9.center);
+		\draw [style=double line] (0) to (3);
+		\draw (3) to (2.center);
+		\draw [in=-180, out=-90] (11.center) to (1);
+		\draw (1) to (10.center);
+		\draw [in=-90, out=0] (1) to (12.center);
+		\draw [style=double line] (12.center) to (14);
+		\draw [style=double line] (11.center) to (13);
+		\draw [style=double line] (13) to (15);
+		\draw (15) to (17.center);
+		\draw (18.center) to (16);
+		\draw [style=double line] (16) to (14);
+	\end{pgfonlayer}
+\end{tikzpicture}

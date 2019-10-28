@@ -11,10 +11,27 @@
 \usepackage{xspace}
 \usepackage{braket}
 \usepackage{tikz-cd}
-\usepackage{cleveref}
 
 \usepackage[colorinlistoftodos,textsize=tiny]{todonotes}
 
+% cleveref configuration
+\usepackage{cleveref}
+\Crefname{equation}{}{}	% refer to equations simply by equation number
+
+% categories of probability
+\DeclareMathOperator{\Meas}{Meas}
+\DeclareMathOperator{\Pol}{Pol}
+\DeclareMathOperator{\Stoch}{\mathsf{Stoch}}
+\DeclareMathOperator{\FinStoch}{\mathsf{FinStoch}}
+\DeclareMathOperator{\BorelStoch}{\mathsf{BorelStoch}}
+
+% structure morphisms
+\newcommand{\id}{\mathsf{id}}
+\newcommand{\cop}[1]{\mathsf{copy}_{#1}}
+\newcommand{\discard}[1]{\mathsf{del}_{#1}}
+
+% other stuff
+\newcommand{\as}{\textrm{-}\mathrm{a.s.}}	% almost surely
 
 %compatibility - prefer \bZ etc
 \newcommand{\Z}{\mathbb{Z}}
@@ -74,10 +91,6 @@
 \DeclareMathOperator{\Part}{Part}
 \DeclareMathOperator{\Cospan}{Cospan}
 
-\DeclareMathOperator{\Meas}{Meas}
-\DeclareMathOperator{\Pol}{Pol}
-\DeclareMathOperator{\Stoch}{\mathsf{Stoch}}
-\DeclareMathOperator{\FinStoch}{\mathsf{FinStoch}}
 \DeclareMathOperator{\LCH}{LCH}
 \DeclareMathOperator{\CRingSp}{CRingSp}
 \DeclareMathOperator{\gr}{gr}
