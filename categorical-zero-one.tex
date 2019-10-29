@@ -410,13 +410,15 @@ Note that this result applies even in the case where $J$ is finite, in which cas
 
 We now move on to our treatment of the Hewitt--Savage zero--one law. It applies to Kolmogorov products where all factors are copies of the same object. So for an object $X$ and the constant family $(X)_{j \in J}$, let us say that the corresponding Kolmogorov product $X_J$ is the \emph{Kolmogorov power} of $X$ by $J$.
 
-A \emph{finite permutation} of the set $J$ is a bijection $\alpha : J \to J$ which fixes all but finitely many elements. Suppose that $\alpha : J \to J$ is a finite permutation or more generally any injection. Then an application of the universal property of the Kolmogorov power shows that $\alpha$ induces a morphism $\hat{\alpha} : X_J \to X_J$ by applying the universal property of $X_J$ to the compatible family of composite morphisms
+A \emph{finite permutation} of the set $J$ is a bijection $\alpha : J \to J$ which fixes all but finitely many elements. Suppose that $\alpha : J \to J$ is a finite permutation or more generally any injection. Then an application of the universal property of the Kolmogorov power shows that $\alpha$ induces a morphism $\hat{\alpha} : X_J \to X_{\alpha(J)}$ by applying the universal property of $X_J$ to the compatible family of composite morphisms
 \[
 	\begin{tikzcd}
 		X_J \ar{r}{\pi_F} & X_F \ar{r}{\cong} & X_{\alpha(F)},
 	\end{tikzcd}
 \]
-where the second morphism matches up the factors of the two finite products involved as prescribed by the bijection $\alpha|_F : F \stackrel{\cong}{\longrightarrow} \alpha(F)$. The relevant compatibility condition is straightforward to check. Moreover, $\hat{\alpha}$ is deterministic by \Cref{kolmprod_catdet}.
+where the second morphism matches up the factors of the two finite products involved as prescribed by the bijection $\alpha|_F : F \stackrel{\cong}{\longrightarrow} \alpha(F)$. Here we are using the fact that each finite subset of $\alpha(J)$ has the form $\alpha(F)$ for a unique finite $F \subset J$ (namely the preimage).
+The relevant compatibility condition is straightforward to check. Moreover, $\hat{\alpha}$ is deterministic by \Cref{kolmprod_catdet}.
+
 
 \begin{theorem}[Abstract Hewitt--Savage zero--one law]
     	\label{thm:hewsav}
@@ -488,14 +490,26 @@ We now show how our results specialize to the standard Kolmogorov and Hewitt--Sa
 	Suppose $\Omega$ is a standard Borel space with a probability measure $P$ and that $\left(f_j: \Omega \to X_j\right)_{j \in \bN}$ is a sequence of independent random variables taking values in standard Borel spaces $X_j$. Suppose that $T \subseteq \Omega$ is in the coarsest $\sigma$-algebra which makes the $f_j$ measurable, and independent of any finite subset of the $f_j$. Then $P(T) \in \{0,1\}$.
 \end{corollary}
 \begin{proof}
-	We want to apply \Cref{thm:kolmog} with $\cC = \BorelStoch$ and $J = \bN$ and $A = I$, the one-element measurable space. Then $P : I \to \Omega$. We write $f_\bN : \Omega \to X_\bN$ for the induced map to the product. In $\Omega$, the coarsest $\sigma$-algebra which makes the $f_i$ measurable coincides with the $\sigma$-algebra consisting of the sets of the form $f_\bN^{-1}(S)$ for measurable $S \subseteq X_J$. Hence the assumption implies that there is measurable $S \subseteq X_J$ such that $T = f_\bN^{-1}(S)$. Then we apply \Cref{thm:kolmog} with $s : X_J \to \{0,1\}$ the indicator function of $S$, which is a measurable map and therefore can also be regarded as a morphism in $\BorelStoch$. We therefore obtain that $sp : I \to \{0,1\}$ is deterministic. But since $sp$ corresponds to the probability measure on $\{0,1\}$ with weight $P(f_\bN^{-1}(S)) = P(T)$ on $\{1\}$ and the complementary weight $1 - P(T)$ on $0$, we conclude that indeed $P(T) \in \{0,1\}$.
+	We want to apply \Cref{thm:kolmog} with $\cC = \BorelStoch$ and $J = \bN$ and $A = I$, the one-element measurable space. Then $P : I \to \Omega$. We write $f_\bN : \Omega \to X_\bN$ for the induced map to the product. In $\Omega$, the coarsest $\sigma$-algebra which makes the $f_i$ measurable coincides with the $\sigma$-algebra consisting of the sets of the form $f_\bN^{-1}(S)$ for measurable $S \subseteq X_J$. Hence the assumption implies that there is measurable $S \subseteq X_J$ such that $T = f_\bN^{-1}(S)$. Then we apply \Cref{thm:kolmog} with $s : X_J \to \{0,1\}$ the indicator function of $S$, which is a measurable map and therefore can also be regarded as a morphism in $\BorelStoch$, and $p = f_\bN P$. We therefore obtain that $sp : I \to \{0,1\}$ is deterministic. But since $sp$ corresponds to the probability measure on $\{0,1\}$ with weight $P(f_\bN^{-1}(S)) = P(T)$ on $\{1\}$ and the complementary weight $1 - P(T)$ on $0$, we conclude that indeed $P(T) \in \{0,1\}$.
 \end{proof}
 
 \begin{problem}
 	Is there a Markov category $\cC$ with countable Kolmogorov products such that \Cref{thm:kolmog} specializes to the standard Kolmogorov zero--one law in its general form?
 \end{problem}
 
-\todo[inline]{describe the application of \Cref{thm:hewsav} to $\BorelStoch$}
+\begin{corollary}[Hewitt-savage zero--one law]
+    Suppose $\Omega$ is a standard Borel space with probability measure $P$, and let $\left(f_j: \Omega \to X\right)_{j\in \bN}$ be a sequence of independent, identically distributed random variables taking values in a standard Borel space $X$.
+    Suppose $S \subset \prod_{j \in \bN} X = X_\bN$ is measurable in the product $\sigma$-algebra, and suppose moreover that, for each finite permutation $\alpha: \bN \to \bN$, $\hat{\alpha}(S) = S$ (in other words, $S$ is invariant under finite permutations of the variables).
+    Then $P(f_\bN\inv(S)) \in \{0,1\}$ - here $f_\bN$ again denotes the induced map $\Omega \to X_\bN.$
+\end{corollary}
+\begin{proof}
+    The proof is similar to the previous proof. This time we want to apply \Cref{thm:hewsav} with $\cC = \BorelStoch$, $J = \bN$, $A = I$.
+    Again, we have $P: I \to \Omega$.
+    As before, we let $s: X_\bN \to \{0,1\}$ be the indicator function of $S$, and we let $p = f_\bN P$.
+    The i.i.d assumption on the $f_j$ implies that $\hat{\alpha}p = p$, and the assumption on $S$ implies $s\hat{\alpha} = s$ for finite permutations $\alpha$.
+    Hence we can apply \Cref{thm:hewsav}. This again implies that the map $sp: I \to \{0,1\}$ is deterministic, which, just as before, means 
+    $P(f_\bN\inv(S))$ is either $0$ or $1$.
+\end{proof} 
 
 By interpreting our results in other Markov categories, we obtain other nontrivial (although hardly particularly deep) statements:
 
