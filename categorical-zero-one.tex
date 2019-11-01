@@ -51,6 +51,8 @@ Throughout, $\cC$ is a symmetric monoidal category. To simplify notation, we gen
 
 In \Cref{infprod_semicartesian}, $\cC$ denotes more concretely a semicartesian strict symmetric monoidal category. In \Cref{infprod_markov} and after, $\cC$ denotes a Markov category in the sense of \Cref{markov_cat}. $J$ is a set used for indexing products of objects; the definitions and results of this paper are nontrivial only when $J$ is infinite. $F$ denotes either an arbitrary finite set or more concretely a finite subset of $J$.
 
+\paragraph*{Acknowledgments.} We thank Paolo Perrone for discussions leading to \Cref{poset_case}.
+
 \section{Background on Markov categories}\label{background}
 
 A symmetric monoidal category $\cC$ is \emph{semicartesian} if the monoidal unit $I \in \cC$ is terminal. Equivalently, it is a monoidal category equipped with morphisms
@@ -289,11 +291,21 @@ More generally, we may consider infinite tensor products of infinite tensor prod
 where the object on the right can also be written as $\bigotimes_{(k,j) \in F} X_{k,j}$. It is straightforward to see that this $\rho_F$ does not depend on the particular choice of $G$. We now show that these $\rho_F$'s are finite marginalization morphisms which make the doubly infinite tensor product $\bigotimes_{k \in K} \bigotimes_{j \in J_k} X_{k,j}$ into the single infinite tensor product $\bigotimes_{k \in K, \: j \in J_k} X_{k,j}$.
 
 \begin{lemma}
+	\label{infprod_operadic}
 	Suppose that $(J_k)_{k \in K}$ is a family of sets and $(X_{k,j})_{j \in J_k, k \in K}$ a doubly indexed family of objects. If all of the infinite tensor products $\bigotimes_{j \in J_k} X_{j,k}$ and $\bigotimes_{k \in K} \bigotimes_{j \in J_k} X_{k,j}$ exist, then the above morphisms $\rho_F$ exhibit $\bigotimes_{k \in K} \bigotimes_{j \in J_k} X_{k,j}$ as the infinite tensor product $\bigotimes_{k \in K, \: j \in J_k} X_{k,j}$.
 \end{lemma}
 \begin{proof}
 	By repeated application of \Cref{two_infproducts}, the second half of~\Cref{double_infproduct} exhibits $\bigotimes_{k \in G} \bigotimes_{j \in J_k} X_{k,j}$ as the infinite tensor product of the $X_{k,j}$ for $k \in G$ and $j \in J_k$. The relevant universal property as well as its preservation by $- \otimes Y$ then follow from a straightforward diagram chase.
 \end{proof}
+
+\begin{example}[Perrone]
+	\label{poset_case}
+	Suppose that $\cC$ is a partially ordered set, considered as a category with $X \geq Y$ if and only if the morphism $X \to Y$ exists.\footnote{This direction of the ordering is opposite to the usual convention, but necessary for the following to work on the nose.} Then the monoidal structure makes $\cC$ into an ordered commutative monoid, which we write additively, where the functoriality of the monoidal structure amounts to the assumption that addition is monotone,
+	\[
+		X \geq Y \quad\: \Longrightarrow \quad\: X + Z \geq Y + Z.
+	\]
+	Furthermore, the monoidal structure is semicartesian if and only if $X \geq 0$ for every $X$. One can then apply \Cref{infprod_operadic} to show that $\cC$ has infinite tensor products if and only if $\cC$ is a \emph{finitary complete monoid} in the sense of Goldstern and Karner~\cite[Section~2.2]{karner}.
+\end{example}
 
 \section{Infinite tensor products in Markov categories}
 \label{infprod_markov}
