@@ -360,7 +360,7 @@ In particular, this proves that \Cref{defn_kolmogorov_ext} determines the comono
     The Cartesian product of sets gives it a symmetric monoidal structure, if we set \[(f \tensor g)(x_1,x_2) = f(x_1) \times g(x_2) \subset Y_1 \times Y_2,\] for $f:X_1 \to Y_1, g: X_2 \to Y_2$.
     This is a semicartesian monoidal structure, and we can give it a Markov category structure by setting
     $\cop{X}(x) = \{(x,x)\} \subset X \times X$.
-    Then the deterministic morphisms are precisely those sending each point into a singleton set, and there is an obvious isomorphism of categories
+    Then the deterministic morphisms are precisely those sending each point into a singleton set, and there is an isomorphism of categories
     $\SetMulti_\detc \cong \sf{Set}$.
     Of course, $\sf{Set}$ actually has all infinite products, but they do not form Kolmogorov products, or even infinite tensor products in $\sf{SetMulti}$.
     To see this, consider the family $X_n = \{0,1\}$ for $n \in \bN$.
@@ -577,7 +577,7 @@ As a simple example, we can consider the following Markov category:
 
     It is also a surjection - given a family $(V_F) \in \lim H(\prod_{j \in J} X_j)$, simply set
     \[V = \{x \in \prod_{j\in J} X_j \mid  \pi_F(x) \in V_F \forall F\}\]
-    This is an intersection of closed subsets, hence closed, and it is clearly sent to $(V_F)$.
+    This is an intersection of closed subsets, hence closed, and it is sent to $(V_F)$.
 
     Finally, we must verify that it's open.
     It suffices to show that it carries subbasis open sets $A_U = \{V \subset \prod X_j \text{ closed} \mid V \cap U \neq \emptyset\}$ to open subsets of the limit.
@@ -602,7 +602,7 @@ As a simple example, we can consider the following Markov category:
 	These results follow from \Cref{thm:kolmog,thm:hewsav} appliedto $\Kl(H)$.
 	using the morphisms $p : I \to X_J$ corresponding to the trivial closed subset $X_J \subseteq X_J$.
     The conclusion is that the closure of the image, call it $A$, has the following property: $\cl(\{(a,a) \mid a \in A\}) = A \times A$ as subsets of $Y \times Y$.
-    But since the diagonal is closed in $Y$, this clearly implies that $A$ must be a singleton.
+    But since the diagonal is closed in $Y$, this implies that $A$ must be a singleton.
 \end{proof}
 
 
