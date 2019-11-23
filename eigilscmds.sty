@@ -6,11 +6,22 @@
 \usepackage{amsthm}
 \usepackage{listings}
 \usepackage{mathtools}
-\usepackage{hyperref}
 \usepackage{mathrsfs}
 \usepackage{xspace}
 \usepackage{braket}
 \usepackage{tikz-cd}
+
+% color of links
+\definecolor{myurlcolor}{rgb}{0,0,0.4}
+\definecolor{mycitecolor}{rgb}{0,0.5,0}
+\definecolor{myrefcolor}{rgb}{0.5,0,0}
+\usepackage[pagebackref,draft=false]{hyperref}
+\hypersetup{colorlinks,
+linkcolor=myrefcolor,
+citecolor=mycitecolor,
+urlcolor=myurlcolor}
+\renewcommand*{\backref}[1]{$\downarrow$\,#1}
+\usepackage[capitalize]{cleveref}
 
 \usepackage[colorinlistoftodos,textsize=tiny]{todonotes}
 
@@ -21,6 +32,8 @@
 % categories of probability
 \DeclareMathOperator{\Meas}{Meas}
 \DeclareMathOperator{\Pol}{Pol}
+\DeclareMathOperator{\FinSet}{\mathsf{FinSet}}
+\DeclareMathOperator{\FinSetMulti}{\mathsf{FinSetMulti}}
 \DeclareMathOperator{\SetMulti}{\mathsf{SetMulti}}
 \DeclareMathOperator{\Stoch}{\mathsf{Stoch}}
 \DeclareMathOperator{\FinStoch}{\mathsf{FinStoch}}

@@ -7,8 +7,8 @@
 		\node [style=none] (4) at (-3.5, 1.5) {};
 		\node [style=none] (5) at (-2.5, 1.5) {};
 		\node [style=none] (6) at (-3, -2) {$A$};
-		\node [style=none] (7) at (-3.75, 2) {$X_j$};
-		\node [style=none] (8) at (-1.75, 2) {$X_{J\setminus\{j\}}$};
+		\node [style=none] (7) at (-3.75, 2) {$X_i$};
+		\node [style=none] (8) at (-1.75, 2) {$X_{J\setminus\{i\}}$};
 		\node [style=bn] (9) at (4, -1.25) {};
 		\node [style=none] (10) at (4, -2.25) {};
 		\node [style=none] (11) at (4, -2.75) {$A$};
@@ -24,8 +24,8 @@
 		\node [style=bn] (21) at (3.25, 2) {};
 		\node [style=none] (22) at (2.25, 2.5) {};
 		\node [style=none] (23) at (5.75, 2.5) {};
-		\node [style=none] (24) at (2.25, 3) {$X_j$};
-		\node [style=none] (25) at (5.75, 3) {$X_{J\setminus\{j\}}$};
+		\node [style=none] (24) at (2.25, 3) {$X_i$};
+		\node [style=none] (25) at (5.75, 3) {$X_{J\setminus\{i\}}$};
 		\node [style=none] (26) at (0, 0) {$=$};
 	\end{pgfonlayer}
 	\begin{pgfonlayer}{edgelayer}
