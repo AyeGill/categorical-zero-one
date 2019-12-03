@@ -604,6 +604,44 @@ With $\Top$ the category of topological spaces and continuous maps, we consider 
 
     It follows that $\prod_i X_i$ is an infinite tensor product in $\Kl(H)$; the preservation condition is easily verified since adding another factor to this product again gives the infinite product. The Kolmogorov product condition is similarly immediate to verify.
 \end{proof}
+\begin{proposition}
+    $\Kl(H)$ is causal.
+\end{proposition}
+\begin{proof}
+    We are given spaces $A, X, Y, Z$, and continuous maps $f:A \to HX, g: X \to HY, h_1,h_2: Y \to HZ$.
+    We assume that two maps $X \to H(W \times Z)$ are equal.
+    They are given by
+    \[a \mapsto \cl\left(\bigcup_{x \in f(a), y \in g(x)} h_1(y) \times \{y\}\right),\ x \mapsto \cl\left(\bigcup_{x \in f(a), y \in g(x)} h_2(y) \times \{y\}\right)\]
+    Of course, equality of these maps simply means that the right-hand sides agree for each $x$.
+
+    Let us rewrite and name this set as
+    \[S := \cl\left(\{(z,y) \mid z \in h_1(y), y \in \cup_{x \in f(a)} g(x)\}  \right) = \cl\left(\{(z,y) \mid z \in h_2(y), y \in \cup_{x \in f(a)} g(x)\}  \right) \]
+
+    The desired conclusion is that the sets
+    \[\cl\left(\bigcup_{x \in f(a), y \in g(x)} h_1(y) \times \{y\} \times \{x\}\right),\ \cl\left(\bigcup_{x \in f(a), y \in g(x)} h_2(y) \times \{y\} \times \{x\}\right)\]
+    agree. Let us rewrite them as
+    \[\cl\left(\{(z,y,x) \mid z \in h_1(y), y\in g(x), x\in f(a)\}\right),\ \cl\left(\{(z,y,x) \mid z \in h_2(y), y\in g(x), x\in f(a)\}\right)\]
+
+    To show this identity, it suffices to show that 
+    \[\{(z,y,x) \mid z \in h_1(y), y\in g(x), x\in f(a)\} \subseteq \cl\left(\{(z,y,x) \mid z \in h_2(y), y\in g(x), x\in f(a)\}\right)\]
+    (and the converse inclusion).
+
+    Let us take a point $(z_0,y_0,x_0)$ left-hand set, and consider an open neighborhood $U_1 \times U_2 \times U_3$, for open subsets of $Z,Y,X$ respectively.
+    Our goal is to construct $(z,y,x) \in U_1\times U_2 \times U_3$ so that $x \in f(a), y \in g(x), z \in h_2(y)$.
+
+    The assumptions on $(z_0,y_0,x_0)$ implies that the point $(z_0,y_0)$ is in $S$.
+    Hence by the other expression of $S$, we can find a point $x$ so that $x \in f(a), y_0 \in g(x) \cap U_2, z_0 \in h_2(y_0) \cap U_1$.
+    The issue is now to fix this so that $x \in f(a) \cap U_3$.
+
+    Consider the set $\{y \mid h_2(y) \cap U_1 \neq \emptyset\}$.
+    This is an open set which contains our $y_0$ above. Let $U_2'$ be the (nonempty!) intesection of this set with $U_2$.
+    Now consider $\{x \mid g(x) \cap U_2' \neq \emptyset\}$. This is again an open set which cantains $x_0$. Let $U_3'$ be the intersection of this with $U_3$.
+    Now since $x_0 \in f(a)$, any open neighborhood of $x_0$ intersects $f(a)$ (since it's closed).
+    So choose $x_1 \in f(a) \cap U_3', y_1 \in U_2' \cap g(x) \cap U_2',$ and finally $z_1 \in h_2(y) \cap U_1$.
+    (Each possible by the construction of the previous element). By construction we have $(z_1,y_1,x_1) \in U_1 \times U_2 \times U_3$, exactly as desired.
+    The other inclusion follows by a symmetric argument.
+\end{proof}
+
 
 We can therefore instantiate our \Cref{thm:kolmog,thm:hewsav} in $\Kl(H)$, which gives the following results as special cases.
 
@@ -620,7 +658,7 @@ We can therefore instantiate our \Cref{thm:kolmog,thm:hewsav} in $\Kl(H)$, which
 \end{corollary}
 \begin{proof}[Proof of both]
 	These results follow from \Cref{thm:kolmog,thm:hewsav} applied to $\Kl(H)$,
-	using the morphism $p : I \to X_J$ corresponding to the trivial closed subset $X_J \subseteq X_J$.
+    using the morphism $p : I \to X_J$ corresponding to the trivial closed subset $X_J \subseteq X_J$.
 	The conclusion is that the closure of its image, call it $A$, satisfies
 	\[
 		\cl(\{(a,a) \mid a \in A\}) = A \times A
