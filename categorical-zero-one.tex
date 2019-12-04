@@ -7,8 +7,8 @@
 \input{comonoids.tikzstyles}
 
 % draft packages
-\usepackage{todonotes}
-\usepackage{showkeys}
+%\usepackage{todonotes}
+%\usepackage{showkeys}
 
 \author{Tobias Fritz and Eigil Fjeldgren Rischel}
 \title{The zero--one laws of Kolmogorov and Hewitt--Savage in categorical probability}
@@ -141,9 +141,10 @@ We state some more definitions that we will be using later on.
 		\tikzfig{causal1}
 	\]
 	holds for morphisms as indicated, then also
-	\[
+	\begin{equation}
+		\label{causal2}
 		\tikzfig{causal2}
-	\]
+	\end{equation}
 	\label{causal_defn}
 \end{definition}
 
@@ -367,7 +368,6 @@ In particular, this proves that \Cref{defn_kolmogorov_ext} determines the comono
     $\SetMulti_\detc \cong \sf{Set}$.
 
     Of course, $\sf{Set}$ has all infinite products. But perhaps surprisingly, these products are not Kolmogorov products, or even infinite tensor products in $\sf{SetMulti}$.
-    \todo[inline]{T: I think we shouldn't use our $X_J$ notation in the following example, precisely because we don't have infinite tensor products}
     To see this, consider for example the family $(X_n)_{n\in\bN}$ with $X_n = \{0,1\}$ for all $n$. 
     A map $* \to \prod_{n\in \bN} \{0,1\}$ is just a nonempty subset of this infinite product.
     Given such a subset $U$, the finite marginals $* \to \prod_{n \in F} \{0,1\}$ for $F \subset \bN$ are the images of $U$ under the projection map.
@@ -622,25 +622,31 @@ We can therefore instantiate our \Cref{thm:kolmog} in $\Kl(H)$, which gives the 
     But since the diagonal is closed in $Y$, this clearly implies that $A$ must be a singleton.
 \end{proof}
 
-However, we cannot instantiate the Hewitt-Savage 0-1 law, because $\Kl(H)$ is not in fact causal, as the following example shows.
-\begin{example}
-    Let $A = \{*\}, X = Y = Z = [0,1]$.
-    Let $f: A \to HX$ send $*$ to $X$, and define
-    \[g(x) =  \begin{cases} [0,1/2] & x < \frac{1}{3}\\ \{1/2\} & \frac{1}{3} < x < \frac{2}{3}\\ [1/2,1] & x > \frac{1}{2}\end{cases}\]
-    \[h_1(y) = [0,1]\]
-    \[h_2(y) = \begin{cases}[0,1] & y \neq \frac{1}{2}\\ \{0\} &  y = \frac{1}{2}\end{cases}\]
+However, we cannot instantiate the Hewitt-Savage zero--one law in $\Kl(H)$, since this Markov category is in fact not causal, as the following example shows.
 
-One can verify that these are indeed continuous maps.
-To check the hypothesis of the statement of causality, we must verify that two maps $A \to Y \times Z$ agree - these are just closed subsets of $[0,1]^2$
-From the definition of the composition, we see that any point $(y,z)$ with $y \in g(x)$ for some $x$ and $z \in h_1(y)$ must lie in the set corresponding to $h_1$,
+\begin{example}
+	Let $A = \{*\}$ and $X = Y = Z = [0,1]$ with the usual topology.
+    Let $f: A \to HX$ send $*$ to $X$, and define
+    \[g(x) :=  \begin{cases} [0,1/2] & x < \frac{1}{3}\\ \{1/2\} & \frac{1}{3} < x < \frac{2}{3}\\ [1/2,1] & x > \frac{1}{2}\end{cases}\]
+    \[
+    	h_1(y) := [0,1], \qquad h_2(y) = \begin{cases}[0,1] & y \neq \frac{1}{2}\\ \{0\} &  y = \frac{1}{2}\end{cases}
+    \]
+    Using the definition of the hyperspace topology, it is straightforward to see that these maps are continuous. To check the hypothesis of the statement of causality, we must verify that the resulting two maps $A \to Y \times Z$ agree; these are just closed subsets of $[0,1]^2$. From the definition of the composition, we see that any point $(y,z)$ with $y \in g(x)$ for some $x$ and $z \in h_1(y)$ must lie in the set corresponding to $h_1$,
 and similarly for $h_2$.
 Hence the set corresponding to $h_1$ contains all points, while the set corresponding to $h_2$ contains all points with $y \neq 1/2$.
-But the closure of $\{(y,z) \mid y \neq 1/2\}$ in $[0,1]^2$ is everything, so both sets must equal the whole space.
+But the closure of $\{(y,z) \mid y \neq 1/2\}$ in $[0,1]^2$ is the whole space, so that both sets are indeed equal to the whole space.
 
 Hence the hypothesis is satisfied.
-But one can verify that the point $(x,y,z) = (1/2,1/2,1)$ is in the subset of $X \times Y \times Z$ corresponding to $h_1$, but not $h_2$.
+But one can verify that the point $(x,y,z) = (1/2,1/2,1)$ is in the subset of $X \times Y \times Z$ corresponding to the $h_1$ side of \eqref{causal2}, but not so for the $h_2$ side.
 \end{example}
 
+We end with an open problem.
+
+\begin{problem}
+	Find an interesting causal Markov category which has all Kolmogorov products.
+\end{problem}
+
+Strangely enough, the only example that we know of so far are monoidal posets, namely the finitary complete monoids of \Cref{poset_case}. For these, the causality axiom holds trivially since any two parallel morphisms are equal.
 
 \bibliographystyle{plain}
 \bibliography{categorical-zero-one}
