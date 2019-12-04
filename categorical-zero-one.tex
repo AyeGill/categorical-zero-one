@@ -602,85 +602,8 @@ With $\Top$ the category of topological spaces and continuous maps, we consider 
 
     It follows that $\prod_i X_i$ is an infinite tensor product in $\Kl(H)$; the preservation condition is easily verified since adding another factor to this product again gives the infinite product. The Kolmogorov product condition is similarly immediate to verify.
 \end{proof}
-\begin{proposition}\label{prop:klh-causal}
-    $\Kl(H)$ is causal.
-\end{proposition}
-The proof of this proposition is fairly technical and not very illuminating. We recommend skipping to \Cref{vietoris_kolmogorov} below on a first reading.
-We will use the notation of \cite{hyperspace} through the proof.
 
-First, we will need a quick lemma.
-\begin{lemma}\label{lem:extraclosure}
-    Let $f: X \to HY$ and $g: Y \to HZ$ be continuous functions
-    Consider the map $HX \to HZ$ given by composing $f$ and $g$ in $\Kl(H)$, yielding a map $X \to HZ$, then lifting this using the monad structure.
-    By definition, this map sends a closed $A \subset X$ to
-    \[\cl \left(\bigcup_{a \in A} \cl\left(\bigcup_{b \in f(a)} g(b)\right)\right)\] 
-    
-    In fact, this equals \[\cl\left(\bigcup_{a \in A}\bigcup_{b \in f(a)} g(b)\right)\]
-\end{lemma}
-The point of this lemma is that the iterated closures that arise when composing maps in $\Kl(H)$ can be mostly ignored, although we do have to take a closure at the end.
-\begin{proof}
-    Let $\hat{f},\hat{g}$ denote the induced maps $HX \to HY, HY \to HZ$.
-    Since both of the sets we are comparing are closed, it suffices to show that they intersect the same collection of open sets.
-    We use the notation $\braket{U,V}$ from \cite{hyperspace}, which is defined for two subsets of the same space to be $1$ if they intersect and $0$ otherwise.\footnote{we generalize slightly and use this notation even when $V$ is not closed, although $U$ is still always open.}
-
-    Now we calculate, for a given open $U \subset Z$
-    \[\braket{U , \hat{g}(\hat{f}(A))} = \braket{U , \cl(\cup_{y \in \hat{f}(A)}g(y))} = \braket{ U, \cup_{y \in \hat{f}(A)}g(y)}\]
-    Here we first insert the definition of $\hat{g}$, then use the fact that $U$ is open.
-    
-    Now the statement that this union intersects $U$ means just that at least one of the sets in the union does.
-    So we get
-    \[=\braket{g\inv(\Hit(U)) , \hat{f}(A)}\]
-    Note that $g\inv(\Hit(U))$ is still an open set, by continuity.
-    Applying these arguments again, we find
-    \[=\braket{f\inv(\Hit(g\inv(\Hit(U)))) , A} = \braket{\Hit(g\inv(\Hit(U))) , f(A)}\]
-    where $f(A) \subset HY$ is simply the direct image of $A$.
-    The statement that $f(A)$ intersects $\Hit(g\inv(\Hit(U)))$ means that for at least one $a\in A$, $f(a)$ is in $\Hit(g\inv(\Hit(U)))$, i.e it intersects $g\inv(\Hit(U))$.
-    So we can pass to
-    \[= \braket{g\inv(\Hit(U)) , \cup_{x \in A} f(x)}\]
-    And by the same argument, to
-    \[= \braket{U , \cup_{x \in A}\cup_{y\in f(x)}g(x)} = \braket{U , \cl \cup_{x \in A}\cup_{y\in f(x)}g(x)}\]
-    which is exactly what we wanted.
-\end{proof}
-
-\begin{proof}[Proof of \Cref{prop:klh-causal}]
-    We are given spaces $A, X, Y, Z$, and continuous maps $f:A \to HX, g: X \to HY, h_1,h_2: Y \to HZ$.
-    We assume that two maps $X \to H(W \times Z)$ are equal.
-    They are given by
-    \[a \mapsto \cl\left(\bigcup_{x \in f(a), y \in g(x)} h_1(y) \times \{y\}\right),\ x \mapsto \cl\left(\bigcup_{x \in f(a), y \in g(x)} h_2(y) \times \{y\}\right)\]
-    Of course, equality of these maps simply means that the right-hand sides agree for each $x$.
-    Here we have implictly used \Cref{lem:extraclosure} to get rid of extra closures.
-
-    Let us rewrite and name this set as
-    \[S := \cl\left(\{(z,y) \mid z \in h_1(y), y \in \cup_{x \in f(a)} g(x)\}  \right) = \cl\left(\{(z,y) \mid z \in h_2(y), y \in \cup_{x \in f(a)} g(x)\}  \right) \]
-
-    The desired conclusion is that the sets
-    \[\cl\left(\bigcup_{x \in f(a), y \in g(x)} h_1(y) \times \{y\} \times \{x\}\right),\ \cl\left(\bigcup_{x \in f(a), y \in g(x)} h_2(y) \times \{y\} \times \{x\}\right)\]
-    agree. Let us rewrite them as
-    \[\cl\left(\{(z,y,x) \mid z \in h_1(y), y\in g(x), x\in f(a)\}\right),\ \cl\left(\{(z,y,x) \mid z \in h_2(y), y\in g(x), x\in f(a)\}\right)\]
-    (Where we have again used \Cref{lem:extraclosure}).
-
-    To show this identity, it suffices to show that 
-    \[\{(z,y,x) \mid z \in h_1(y), y\in g(x), x\in f(a)\} \subseteq \cl\left(\{(z,y,x) \mid z \in h_2(y), y\in g(x), x\in f(a)\}\right)\]
-    (and the converse inclusion).
-
-    Let us take a point $(z_0,y_0,x_0)$ in the left-hand set, and consider an open neighborhood $U_1 \times U_2 \times U_3$, for open subsets of $Z,Y,X$ respectively.
-    Our goal is to construct $(z,y,x) \in U_1\times U_2 \times U_3$ so that $x \in f(a), y \in g(x), z \in h_2(y)$.
-
-    The assumptions on $(z_0,y_0,x_0)$ implies that the point $(z_0,y_0)$ is in $S$.
-    Hence by the other expression of $S$, we can find points $x_1,y_1,z_1$ so that $x_1 \in f(a), y_1 \in g(x) \cap U_2, z_1 \in h_2(y_1) \cap U_1$.
-    The issue is now to fix this so that $x \in f(a) \cap U_3$.
-
-    Consider the set $\{y \mid h_2(y) \cap U_1 \neq \emptyset\}$.
-    This is an open set which contains our $y_1$ above. Let $U_2'$ be the (nonempty!) intesection of this set with $U_2$.
-    Now consider $\{x \mid g(x) \cap U_2' \neq \emptyset\}$. This is again an open set which contains $x_1$. Let $U_3'$ be the intersection of this with $U_3$.
-    Now since $x_1 \in f(a)$, any open neighborhood of $x_1$ intersects $f(a)$ (since it's closed).
-    So choose $x_2 \in f(a) \cap U_3', y_2 \in U_2' \cap g(x_2) \cap U_2',$ and finally $z_2 \in h_2(y_2) \cap U_1$.
-    (Each possible by the construction of the previous element). By construction we have $(z_2,y_2,x_2) \in U_1 \times U_2 \times U_3$, exactly as desired.
-    The other inclusion follows by a symmetric argument.
-\end{proof}
-
-
-We can therefore instantiate our \Cref{thm:kolmog,thm:hewsav} in $\Kl(H)$, which gives the following results as special cases.
+We can therefore instantiate our \Cref{thm:kolmog} in $\Kl(H)$, which gives the following result as a special case.
 
 \begin{corollary}
     Let $(X_i)_{i \in J}$ be a family of topological spaces, $Y$ a Hausdorff space, and let $f: \prod_i X_i \to Y$ be a continuous function
@@ -688,13 +611,8 @@ We can therefore instantiate our \Cref{thm:kolmog,thm:hewsav} in $\Kl(H)$, which
     Then $f$ is constant.
     \label{vietoris_kolmogorov}
 \end{corollary}
-\begin{corollary}
-	Let $X$ be a topological space, $Y$ a Hausdorff space, $J$ an infinite set, and let $f: \prod_{i\in J} X \to Y$ be a continuous function which is invariant under any finite permutation of the inputs.
-    Then $f$ is constant.
-    \label{vietoris_hewitt_savage}
-\end{corollary}
-\begin{proof}[Proof of both]
-	These results follow from \Cref{thm:kolmog,thm:hewsav} applied to $\Kl(H)$,
+\begin{proof}
+	These results follow from \Cref{thm:kolmog} applied to $\Kl(H)$,
     using the morphism $p : I \to X_J$ corresponding to the trivial closed subset $X_J \subseteq X_J$.
 	The conclusion is that the closure of its image, call it $A$, satisfies
 	\[
@@ -703,6 +621,30 @@ We can therefore instantiate our \Cref{thm:kolmog,thm:hewsav} in $\Kl(H)$, which
 	as subsets of $Y \times Y$.
     But since the diagonal is closed in $Y$, this clearly implies that $A$ must be a singleton.
 \end{proof}
+
+However, we cannot instantiate the Hewitt-Savage 0-1 law, because $\Kl(H)$ is not in fact causal, as the following example shows.
+\begin{example}
+    Let $A = \{*\}, X = Y = Z = [0,1]$.
+    Let $f: A \to HX$ send $*$ to $X$, and define
+\begin{equation}
+g(x) =  \begin{cases} [0,1/2] & x < \frac{1}{3}\\ \{1/2\} & \frac{1}{3} < x < \frac{2}{3}\\ [1/2,1] & x > \frac{1}{2}\end{cases}
+\end{equation}
+\begin{equation}
+h_1(y) = [0,1]
+\end{equation}
+\begin{equation}
+h_2(y) = \begin{cases}[0,1] & y \neq \frac{1}{2}\\ \{0\} &  y = \frac{1}{2}\end{cases}\end{equation}
+
+One can verify that these are indeed continuous maps.
+To check the hypothesis of the statement of causality, we must verify that two maps $A \to Y \times Z$ agree - these are just closed subsets of $[0,1]^2$
+From the definition of the composition, we see that any point $(y,z)$ with $y \in g(x)$ for some $x$ and $z \in h_1(y)$ must lie in the set corresponding to $h_1$,
+and similarly for $h_2$.
+Hence the set corresponding to $h_1$ contains all points, while the set corresponding to $h_2$ contains all points with $y \neq 1/2$.
+But the closure of $\{(y,z) \mid y \neq 1/2}$ in $[0,1]^2$ is everything, so both sets must equal the whole space.
+
+Hence the hypothesis is satisfied.
+But one can verify that the point $(x,y,z) = (1/2,1/2,1)$ is in the subset of $X \times Y \times Z$ corresponding to $h_1$, but not $h_2$.
+\end{example}
 
 
 \bibliographystyle{plain}
