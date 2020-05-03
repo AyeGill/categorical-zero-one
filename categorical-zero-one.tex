@@ -88,7 +88,7 @@ Returning to the general theory, in terms of string diagrams the unique morphism
 \[
 	\tikzfig{terminal}
 \]
-The projection maps $\id \otimes \discard{Y} : X \otimes Y \to X$ and $\discard{Y} \otimes \id : X \otimes Y \to Y$, which are the ones from~\eqref{projections}, are correspondingly written as
+The projection maps $\id \otimes \discard{Y} : X \otimes Y \to X$ and $\discard{X} \otimes \id : X \otimes Y \to Y$, which are the ones from~\eqref{projections}, are correspondingly written as
 \[
 	\tikzfig{marginals}
 \]
@@ -148,18 +148,45 @@ We state some more definitions that we will be using later on.
 	\label{causal_defn}
 \end{definition}
 
-It is known that $\Stoch$ is causal~\cite[Example~11.34]{markov_cats}, and therefore so are the subcategories $\BorelStoch$ and $\FinStoch$. We do not know whether $\CRing_+\op$ is causal, although we suspect that~\cite[Example~11.31]{markov_cats} can be modified to show that it is not.
+It is known that $\Stoch$ is causal~\cite[Example~11.34]{markov_cats}, and
+therefore so are the subcategories $\BorelStoch$ and $\FinStoch$.
+\todo[inline]{Added as per reviewer's suggestion, but unsure if it's a good
+  inclusion or not.}
+\begin{example}
+$\CRing_{+}^{\op}$ is \emph{not} causal.
+To see this, consider the ring $\mathbb{Z}[\epsilon]/(\epsilon^{2})$.
+Elements have the form $a + b\epsilon$, with $a,b\in\bZ$, and multiplication is
+defined by the convention $\epsilon^{2} = 0$.
+Consider the additive maps given by
+\begin{equation}
+  f(a + b\epsilon) = & b\\
+  g(a + b \epsilon) = & b\\
+  h_{1}(a+ b \epsilon) = & a + b \epsilon\\
+  h_{2}(a + b \epsilon) = & 0
+\end{equation}
+Since $gf = 0$, it's clear that the hypothesis holds, so if $\CRing_{+}^{\op}$
+were causal, we would have the equation
+$g(f(h_{1}(x)y)z) = g(f(h_{2}(x)y)z)$ for all
+$x,y,z \in \bZ[\epsilon]/(\epsilon^{2})$.
+However, this clearly fails if $z = \epsilon$, $y=1$ and $x = \epsilon$.
+\end{example}
+
 
 The following definition goes back to Cho and Jacobs~\cite[Definition~5.1]{cho_jacobs}. A more detailed investigation of its properties can be found in~\cite[Section~13]{markov_cats}.
 
 \begin{definition}
 	\label{defnasequal}
-	Given morphisms $p : A \to X$ and $f,g : X \to Y$ in a Markov category, we say that $f$ and $g$ are \emph{$p$-a.s.~equal} if
+	Given morphisms $p : A \to X$ and $f,g : X \to Y$ in a Markov category, we
+    say that $f$ and $g$ are \emph{$p$-a.s.~equal} (or $p$-\emph{almost surely}.~equal) if
 	\[
 		\tikzfig{asequal}
 	\]
 	and we also write this more concisely as $f =_{p\as} g$.
-\end{definition}
+  \end{definition}
+
+  This term comes from measure theory, and should be interpreted as meaning
+  ``for all $a\in A$, if $x \in X$ is sampled according to $p(a)$, the
+  probability that $f(x) \neq g(x)$ is zero''.
 
 We finally introduce a straightforward generalization of~\cite[Defnition~12.12]{markov_cats} from binary conditional independence to $n$-ary conditional independence.
 
@@ -324,7 +351,11 @@ In $\BorelStoch$, the infinite tensor products constructed in \Cref{infprods_sto
 	If the Markov category $\cC$ is positive in the sense of~\cite[Definition~11.22]{markov_cats}, then a morphism $A \to B \otimes C$ is deterministic if and only if both of its marginals $A \to B$ and $A \to C$ are deterministic~\cite[Corollary~12.15]{markov_cats}. In this case, it follows that the finite marginalizations $\pi_F$ are deterministic if and only if all the single-factor marginalizations $\pi_{\{i\}} : X_J \to X_i$ are. Thus for an infinite tensor product to be a Kolmogorov product, it is then enough to verify that the $\pi_{\{i\}}$ are deterministic.
 \end{remark}
 
-Using the multiplicativity of the comonoid structure of~\eqref{multiplicativity}, we see that \Cref{two_infproducts,infprod_operadic} hold also for Kolmogorov products.
+Using the multiplicativity of the comonoid structure
+of~\eqref{multiplicativity}, we see that \Cref{two_infproducts,infprod_operadic}
+hold also for Kolmogorov products, in the sense that tensoring together
+Kolmogorov products, or taking Kolmogorov products of Kolmogorov products, results
+again in a Kolmogorov product.
 
 \begin{proposition}
 	Every Kolmogorov product is a categorical product in the cartesian monoidal subcategory of deterministic morphisms $\cC_\detc$.
@@ -348,7 +379,11 @@ Using the multiplicativity of the comonoid structure of~\eqref{multiplicativity}
 	and the claim follows.
 \end{proof}
 
-In particular, this proves that \Cref{defn_kolmogorov_ext} determines the comonoid structure on a Kolmogorov product uniquely: $\cop{\bigotimes_i X_i}$ has to be the equal to the corresponding diagonal in $\cC_\detc$, and \Cref{kolmprod_catdet} determines $\bigotimes_i X_i$ up to \emph{deterministic} isomorphism.
+In particular, this proves that \Cref{defn_kolmogorov_ext} determines the
+comonoid structure on a Kolmogorov product uniquely: $\cop{\bigotimes_i X_i}$
+has to be the equal to the corresponding diagonal in $\cC_\detc$, and
+\Cref{kolmprod_catdet} determines $\bigotimes_i X_i$ up to \emph{deterministic}
+isomorphism.
 
 \begin{example}
     \label{setmulti}
@@ -356,7 +391,10 @@ In particular, this proves that \Cref{defn_kolmogorov_ext} determines the comono
     	\begin{equation}
 		\label{relational_composition}
 		(g\circ f)(x) := \bigcup_{y \in f(x)} g(y).
-	\end{equation}
+      \end{equation}
+    $\SetMulti$ could also be described as the Kleisli category of the
+    \emph{nonempty powerset monad}, which sends a set $X$ to $\cP(X) \setminus \emptyset$.
+
     See also \cite[Example~2.6]{markov_cats} for a treatment of the full subcategory $\FinSetMulti$ on finite sets.
     The Cartesian product of sets gives it a symmetric monoidal structure, if for $f : X_1 \to Y_1$ and $g: X_2 \to Y_2$ we set
 	\[
@@ -387,6 +425,7 @@ The concept of Kolmogorov product describes a notion of infinite collection of r
 Throughout this section, $(X_i)_{i \in J}$ is a family of objects in a Markov category $\cC$ with Kolmogorov product $X_J$ and finite marginalizations $\pi_F : X_J \to X_F$.
 
 \begin{lemma}[The infinite independence lemma]
+  \label{infindeplemma}
 	Suppose $p: A \to X_J$ displays the conditional independence $\perp_i X_i \mid\mid A$.
 	Then for every $i \in J$, it also displays the independence $X_i \perp X_{J \setminus \{i\}} \mid\mid A$.
 \end{lemma}
@@ -442,7 +481,7 @@ Note that this result applies even in the case where $J$ is finite, in which cas
 	\tikzfig{kolmog_joint2}	    
     \]
     displays the conditional independence $\perp_{i \in J\,\sqcup\,\{\ast\}} X_i \mid\mid A$.
-    By the infinite independence lemma, this means that it also displays the conditional independence $X_\ast \perp X_J \mid\mid A$.
+    By the infinite independence lemma, \cref{infindeplemma}, this means that it also displays the conditional independence $X_\ast \perp X_J \mid\mid A$.
     Now the determinism lemma implies exactly what we want, namely that the composite $sp : A \to T$ is deterministic.
 \end{proof}
 
@@ -533,15 +572,22 @@ We now show how our results specialize to the standard Kolmogorov and Hewitt--Sa
 	We want to apply \Cref{thm:kolmog} with $\cC = \BorelStoch$ and $J = \bN$ and $A = I$, the one-element measurable space. Then $P : I \to \Omega$. We write $f_\bN : \Omega \to X_\bN$ for the induced map to the product measurable space. In $\Omega$, the coarsest $\sigma$-algebra which makes the $f_i$ measurable coincides with the $\sigma$-algebra consisting of the sets of the form $f_\bN^{-1}(S)$ for measurable $S \subseteq X_J$. Hence the assumption implies that there is measurable $S \subseteq X_J$ such that $T = f_\bN^{-1}(S)$. Then we apply \Cref{thm:kolmog} with $s : X_J \to \{0,1\}$ the indicator function of $S$, which is a measurable map and therefore can also be regarded as a morphism in $\BorelStoch$, and with $p = f_\bN P$. We therefore obtain that $sp : I \to \{0,1\}$ is deterministic. But since $sp$ corresponds to the probability measure on $\{0,1\}$ with weight $P(f_\bN^{-1}(S)) = P(T)$ on $\{1\}$ and the complementary weight $1 - P(T)$ on $0$, we conclude that indeed $P(T) \in \{0,1\}$.
 \end{proof}
 
+We note that the standard Kolmogorov zero--one law holds for any measurable
+spaces, not just for standard Borel spaces - hence this is a strictly less
+general statement. As discussed in \cref{infprods_stoch}, it seems unlikely that
+the general statement can be proven by applying our machinery to the category
+$\Stoch$ of measurable spaces and Markov kernels. This leads to the following problem:
+
 \begin{problem}
 	Is there a Markov category $\cC$ with countable Kolmogorov products such that \Cref{thm:kolmog} specializes to the standard Kolmogorov zero--one law in its general form applicable to all measurable spaces?
-\end{problem}
+  \end{problem}
 
 \begin{corollary}[Hewitt-savage zero--one law]
     Suppose $\Omega$ is a standard Borel space with probability measure $P$, and let $\left(f_i: \Omega \to X\right)_{i\in \bN}$ be a sequence of independent, identically distributed random variables taking values in a standard Borel space $X$.
     Suppose $S \subseteq \prod_{i \in \bN} X = X_\bN$ is measurable in the product $\sigma$-algebra, and suppose moreover that, for each finite permutation $\sigma: \bN \to \bN$, we have $\hat{\sigma}(S) = S$ (in other words, $S$ is invariant under finite permutations of the variables).
     Then $P(f_\bN\inv(S)) \in \{0,1\}$, where $f_\bN$ again denotes the induced map $\Omega \to X_\bN$.
-\end{corollary}
+  \end{corollary}
+
 \begin{proof}
     The proof is similar to the previous proof. This time we want to apply \Cref{thm:hewsav} with $\cC = \BorelStoch$, $J = \bN$, $A = I$.
     Again, we have $P: I \to \Omega$.
@@ -627,13 +673,15 @@ However, we cannot instantiate the Hewitt-Savage zero--one law in $\Kl(H)$, sinc
 \begin{example}
 	Let $A = \{*\}$ and $X = Y = Z = [0,1]$ with the usual topology.
     Let $f: A \to HX$ send $*$ to $X$, and define
-    \[g(x) :=  \begin{cases} [0,1/2] & x < \frac{1}{3}\\ \{1/2\} & \frac{1}{3} < x < \frac{2}{3}\\ [1/2,1] & x > \frac{1}{2}\end{cases}\]
+    \[g(x) :=  \begin{cases} [0,1/2] & x < \frac{1}{3}\\ \{1/2\} & \frac{1}{3} \leq x \leq \frac{2}{3}\\ [1/2,1] & x > \frac{1}{3}\end{cases}\]
     \[
     	h_1(y) := [0,1], \qquad h_2(y) = \begin{cases}[0,1] & y \neq \frac{1}{2}\\ \{0\} &  y = \frac{1}{2}\end{cases}
     \]
     Using the definition of the hyperspace topology, it is straightforward to see that these maps are continuous. To check the hypothesis of the statement of causality, we must verify that the resulting two maps $A \to Y \times Z$ agree; these are just closed subsets of $[0,1]^2$. From the definition of the composition, we see that any point $(y,z)$ with $y \in g(x)$ for some $x$ and $z \in h_1(y)$ must lie in the set corresponding to $h_1$,
 and similarly for $h_2$.
-Hence the set corresponding to $h_1$ contains all points, while the set corresponding to $h_2$ contains all points with $y \neq 1/2$.
+Hence the set corresponding to $h_1$ contains all points, while the set
+corresponding to $h_2$ contains as a subset all points $(y,z)$ with $y\neq 1/2$,
+as well as $(1/2,0)$.
 But the closure of $\{(y,z) \mid y \neq 1/2\}$ in $[0,1]^2$ is the whole space, so that both sets are indeed equal to the whole space.
 
 Hence the hypothesis is satisfied.
@@ -646,7 +694,7 @@ We end with an open problem.
 	Find an interesting causal Markov category which has all Kolmogorov products.
 \end{problem}
 
-Strangely enough, the only examples that we know of so far are of two kinds: first, cartesian monoidal categories (meaning that $\cC = \cC_\det$) with all products; and second, the finitary complete monoids of \Cref{poset_case} which are monoidal posets. For the former, the universal property of the monoidal structure implies that the causality axiom holds. For the latter, it holds trivially since any two parallel morphisms are equal.
+Strangely enough, the only examples that we know of so far are of two kinds: first, cartesian monoidal categories (meaning that $\cC = \cC_{\det}$) with all products; and second, the finitary complete monoids of \Cref{poset_case} which are monoidal posets. For the former, the universal property of the monoidal structure implies that the causality axiom holds. For the latter, it holds trivially since any two parallel morphisms are equal.
 
 \bibliographystyle{plain}
 \bibliography{categorical-zero-one}
