@@ -110,7 +110,7 @@ Our goal is to use semicartesian monoidal categories in order to develop aspects
 	\label{markov_cat}
 \end{definition}
 
-There is a strictification result~\cite[Theorem~10.16]{markov_cats} which guarantees that $\cC$ can be assumed to be strict monoidal, as we do throughout.
+There is a strictification result~\cite[Theorem~10.17]{markov_cats} which guarantees that $\cC$ can be assumed to be strict monoidal, as we do throughout.
 
 We think of the comultiplication~\Cref{comultiplication} as a copying operation. The coassociativity and counitality conditions guarantee that copying with any number of output wires is well-defined, and we draw it likewise as a single black dot with any number of outgoing wires, like this:
 \[
@@ -129,13 +129,13 @@ We think of the comultiplication~\Cref{comultiplication} as a copying operation.
 	\]
 \end{definition}
 
-As per~\cite[Remark~10.12]{markov_cats}, the deterministic morphisms form a symmetric monoidal subcategory $\cC_\detc \subseteq \cC$ which contains all structure morphisms of $\cC$, including the comultiplications themselves. The fact that all morphisms are comonoid homomorphisms implies that $\cC_\detc$ is actually cartesian monoidal.
+As per~\cite[Remark~10.13]{markov_cats}, the deterministic morphisms form a symmetric monoidal subcategory $\cC_\detc \subseteq \cC$ which contains all structure morphisms of $\cC$, including the comultiplications themselves. The fact that all morphisms are comonoid homomorphisms implies that $\cC_\detc$ is actually cartesian monoidal.
 
 In $\FinStoch$, the deterministic morphisms $X \to Y$ are exactly the $\{0,1\}$-valued stochastic matrices. Since these can be identified with honest functions $X \to Y$, we conclude that $\FinStoch_\detc$ is equivalent to $\FinSet$. In $\Stoch$, the deterministic morphisms $f : X \to Y$ are exactly those Markov kernels for which $f(S|x) \in \{0,1\}$ for every $S \in \Sigma_Y$ and $x \in X$. In other words, as the term suggests, the deterministic morphisms are those which do not involve any randomness; in $\BorelStoch$, the deterministic morphisms can be identified with the measurable functions. In $\CRing_+\op$, the deterministic morphisms $R \to S$ are precisely those morphisms which are represented by additive unital maps $S \to R$ which are in addition multiplicative, i.e.~the ring homomorphisms. Thus the subcategory of deterministic morphisms is exactly the opposite of the usual category of commutative rings.
 
 We state some more definitions that we will be using later on.
 
-\begin{definition}[{\cite[Definition~11.30]{markov_cats}}]
+\begin{definition}[{\cite[Definition~11.31]{markov_cats}}]
 	A Markov category $\cC$ is \emph{causal} if whenever
 	\[
 		\tikzfig{causal1}
@@ -148,7 +148,7 @@ We state some more definitions that we will be using later on.
 	\label{causal_defn}
 \end{definition}
 
-It is known that $\Stoch$ is causal~\cite[Example~11.34]{markov_cats}, and
+It is known that $\Stoch$ is causal~\cite[Example~11.35]{markov_cats}, and
 therefore so are the subcategories $\BorelStoch$ and $\FinStoch$.
 
 \begin{example}
@@ -345,7 +345,7 @@ If a Markov category $\cC$ has infinite tensor products, then one should expect 
     Let $\cC$ be a Markov category and $(X_i)_{i \in J}$ a family of objects. We say that an infinite tensor product $X_J = \bigotimes_{i \in J} X_i$ is a \emph{Kolmogorov product} if the finite marginalization morphisms $\pi_F : X_J \to X_F$ are deterministic.
 \end{definition}
 
-In $\BorelStoch$, the infinite tensor products constructed in \Cref{infprods_stoch} are Kolmogorov products. In $\CRing_+\op$, the infinite tensor products from \Cref{infprods_cring} are Kolmogorov products as well, provided that one equips $\bigotimes_i R_i$ with the tensor product ring structure, since this one is the only one which makes the canonical inclusions $R_j \to \bigotimes_i R_i$ into ring homomorphisms. These examples illustrate the following important point. In some Markov categories, such as $\CRing_+\op$, not all isomorphisms are deterministic, and there may even be isomorphic objects which have no deterministic isomorphism~\cite[Remark~10.9]{markov_cats}. In these categories, whether a given infinite tensor product is a Kolmogorov product or not generally depends on the specific choice of that object. In particular, there may be infinite tensor products which are not Kolmogorov products. For example in $\CRing_+\op$, we may take the tensor product of abelian groups $\bigotimes_i R_i$ and equip it with a different multiplication than the tensor product of rings one (as long as it has the same unit).
+In $\BorelStoch$, the infinite tensor products constructed in \Cref{infprods_stoch} are Kolmogorov products. In $\CRing_+\op$, the infinite tensor products from \Cref{infprods_cring} are Kolmogorov products as well, provided that one equips $\bigotimes_i R_i$ with the tensor product ring structure, since this one is the only one which makes the canonical inclusions $R_j \to \bigotimes_i R_i$ into ring homomorphisms. These examples illustrate the following important point. In some Markov categories, such as $\CRing_+\op$, not all isomorphisms are deterministic, and there may even be isomorphic objects which have no deterministic isomorphism~\cite[Remark~10.10]{markov_cats}. In these categories, whether a given infinite tensor product is a Kolmogorov product or not generally depends on the specific choice of that object. In particular, there may be infinite tensor products which are not Kolmogorov products. For example in $\CRing_+\op$, we may take the tensor product of abelian groups $\bigotimes_i R_i$ and equip it with a different multiplication than the tensor product of rings one (as long as it has the same unit).
 
 \begin{remark}
 	If the Markov category $\cC$ is positive in the sense of~\cite[Definition~11.22]{markov_cats}, then a morphism $A \to B \otimes C$ is deterministic if and only if both of its marginals $A \to B$ and $A \to C$ are deterministic~\cite[Corollary~12.15]{markov_cats}. In this case, it follows that the finite marginalizations $\pi_F$ are deterministic if and only if all the single-factor marginalizations $\pi_{\{i\}} : X_J \to X_i$ are. Thus for an infinite tensor product to be a Kolmogorov product, it is then enough to verify that the $\pi_{\{i\}}$ are deterministic.
