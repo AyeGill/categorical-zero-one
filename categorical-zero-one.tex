@@ -150,25 +150,25 @@ We state some more definitions that we will be using later on.
 
 It is known that $\Stoch$ is causal~\cite[Example~11.34]{markov_cats}, and
 therefore so are the subcategories $\BorelStoch$ and $\FinStoch$.
-\todo[inline]{Added as per reviewer's suggestion, but unsure if it's a good
-  inclusion or not.}
+
 \begin{example}
 $\CRing_{+}^{\op}$ is \emph{not} causal.
 To see this, consider the ring $\mathbb{Z}[\epsilon]/(\epsilon^{2})$.
 Elements have the form $a + b\epsilon$, with $a,b\in\bZ$, and multiplication is
 defined by the convention $\epsilon^{2} = 0$.
 Consider the additive maps given by
-\begin{equation}
-  f(a + b\epsilon) = & b\\
-  g(a + b \epsilon) = & b\\
-  h_{1}(a+ b \epsilon) = & a + b \epsilon\\
-  h_{2}(a + b \epsilon) = & 0
-\end{equation}
+\begin{align*}
+	f(a + b\epsilon) = {}& b\\
+	g(a + b \epsilon) = {}& b\\
+	h_{1}(a+ b \epsilon) = {}& a + b \epsilon\\
+	h_{2}(a + b \epsilon) = {}& 0
+\end{align*}
 Since $gf = 0$, it's clear that the hypothesis holds, so if $\CRing_{+}^{\op}$
 were causal, we would have the equation
 $g(f(h_{1}(x)y)z) = g(f(h_{2}(x)y)z)$ for all
 $x,y,z \in \bZ[\epsilon]/(\epsilon^{2})$.
 However, this clearly fails if $z = \epsilon$, $y=1$ and $x = \epsilon$.
+\todo[inline]{It would be nice to have such an example. But this one doesn't work, since these additive maps are not unit-preserving.}
 \end{example}
 
 
@@ -177,7 +177,7 @@ The following definition goes back to Cho and Jacobs~\cite[Definition~5.1]{cho_j
 \begin{definition}
 	\label{defnasequal}
 	Given morphisms $p : A \to X$ and $f,g : X \to Y$ in a Markov category, we
-    say that $f$ and $g$ are \emph{$p$-a.s.~equal} (or $p$-\emph{almost surely}.~equal) if
+	say that $f$ and $g$ are \emph{$p$-a.s.~equal} (or $p$-\emph{almost surely equal}) if
 	\[
 		\tikzfig{asequal}
 	\]
@@ -185,8 +185,8 @@ The following definition goes back to Cho and Jacobs~\cite[Definition~5.1]{cho_j
   \end{definition}
 
   This term comes from measure theory, and should be interpreted as meaning
-  ``for all $a\in A$, if $x \in X$ is sampled according to $p(a)$, the
-  probability that $f(x) \neq g(x)$ is zero''.
+  that for all those values of $X$ which can occur as outputs of $p$, feeding these values to $f$ and $g$ as inputs is guaranteed to result in the same distribution; at the same time, the behavior of $f$ and $g$ may be different on those input values which do not occur as outputs of $p$.
+  \todo[inline]{I've rephrased this in order to make sure that we don't create the impression of making a technically precise statement}
 
 We finally introduce a straightforward generalization of~\cite[Defnition~12.12]{markov_cats} from binary conditional independence to $n$-ary conditional independence.
 
@@ -544,9 +544,10 @@ In contrast to \Cref{thm:kolmog}, we now have two relevant assumptions in additi
 	Consider the morphism given by composing \eqref{strong_invariance} with $s$ on the first output. Since these are the same for all injections $\sigma$, \Cref{aseqlemma} tells us that the morphisms $s \hat{\sigma}$ are all $p$-a.s.~equal to $s$, for every injection $\sigma : J \to J$.
 
 	Now let $J = J_1 \,\sqcup\, J_2$ be a decomposition of $J$ into two disjoint subsets having the same cardinality as $J$; this is the step which relies on $J$ being infinite. Let $\tau_1, \tau_2: J \to J$ be injections with images $J_1$ and $J_2$, respectively. Then we claim that
-	\[
+	\begin{equation}
+		\label{hewsav2}
 		\tikzfig{hewsav2}
-	\]
+	\end{equation}
 	By \Cref{two_infproducts}, it is enough to prove this upon postcomposing with two finite marginalizations $\pi_{F_1}$ and $\pi_{F_2}$. But then using the fact that $\tau_1$ and $\tau_2$ have disjoint image, this follows from the independence assumption, which has
 	\[
 		\tikzfig{hewsav3}
@@ -573,7 +574,7 @@ We now show how our results specialize to the standard Kolmogorov and Hewitt--Sa
 \end{proof}
 
 We note that the standard Kolmogorov zero--one law holds for any measurable
-spaces, not just for standard Borel spaces - hence this is a strictly less
+spaces, not just for standard Borel spaces, and hence this is a strictly less
 general statement. As discussed in \cref{infprods_stoch}, it seems unlikely that
 the general statement can be proven by applying our machinery to the category
 $\Stoch$ of measurable spaces and Markov kernels. This leads to the following problem:
@@ -621,12 +622,13 @@ With $\Top$ the category of topological spaces and continuous maps, we consider 
     	\[
 		\alpha \: : \: H\!\left(\prod_{i\in J} X_i\right) \longrightarrow \lim_{F \subseteq J} \, H\!\left(\prod_{i \in J} X_i\right)
 	\]
-	We show that this is an injection. Thus we start with distinct closed subsets $C, D \subseteq \prod X_i$. We assume without loss of generality that $C \not\subseteq D$, and choose $x \in C \setminus D$.
+	We prove that this is a homeomorphism, showing first that it is an injection. Thus we start with distinct closed subsets $C, D \subseteq \prod X_i$. We assume without loss of generality that $C \not\subseteq D$, and choose $x \in C \setminus D$.
     Then let $U \ni x$ be an open neighborhood of $x$ not intersecting $D$.
-    Since $U$ is open in the product topology, we can assume that there is some finite subset $F \subset J$ so that 
-    	\[
-		y = (y_i) \in U \quad\Longleftrightarrow\quad y_i \in \pi_i(U) \:\;\forall i\in F.
-	\]
+    By making $U$ smaller if necessary, we can assume without loss of generality that $U$ is a basic open in the product topology, meaning that there is a finite $F$ so that
+    \begin{equation}
+	    \label{basicU}
+		y = (y_i) \in U \quad\Longleftrightarrow\quad y_i \in \pi_i(U) \:\; \forall i \in F.
+    \end{equation}
     Then $\pi_F(x) \in \pi_F(U)$, which is disjoint from $\pi_F(D)$. Hence $\alpha(C) \neq \alpha(D)$.
 
     We show that $\alpha$ is also surjective. Given a family $(C_F) \in \lim_F H\!\left(\prod_{i \in F} X_i\right)$, simply set
@@ -636,10 +638,8 @@ With $\Top$ the category of topological spaces and continuous maps, we consider 
 	This is an intersection of closed subsets, hence closed, and the finite marginalizations clearly send it to the given family $(C_F)$.
 
 	Finally, we must verify that $\alpha$ is an open map.
-	It suffices to show that it carries a subbasic open set $\mathrm{Hit}(U) = \{C \subseteq \prod X_i \text{ closed} \mid C \cap U \neq \emptyset\}$ to an open subset of the limit. For a given point $C \in \mathrm{Hit}(U)$, it is enough to find an open neighborhood contained in $\mathrm{Hit}(U)$. But then by making $U$ smaller if necessary, we can assume without loss of generality that $U$ is a basic open in the product topology, meaning that there is a finite $F$ so that
-	\[
-		y = (y_i) \in U \quad\Longleftrightarrow\quad y_i \in \pi_i(U) \:\; \forall i \in F.
-	\]
+	It suffices to show that it carries a subbasic open set $\mathrm{Hit}(U) = \{C \subseteq \prod X_i \text{ closed} \mid C \cap U \neq \emptyset\}$ to an open subset of the limit. For a given point $C \in \mathrm{Hit}(U)$, it is enough to find an open neighborhood contained in $\mathrm{Hit}(U)$. 
+	But then again by choosing smaller $U$ if necessary, so that $C \cap U \neq \emptyset$ still holds, we can assume~\eqref{basicU} without loss of generality.
     Then
 	\[
 		\alpha(A_U) = \pi_F\inv\left(\left\{V \subseteq \prod_{j \in F} X_F \text{ closed} \:\Bigg|\: V \cap \pi_F(U) \neq \emptyset\right\}\right),

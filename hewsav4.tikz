@@ -38,7 +38,7 @@
 		\node [style=morphism] (36) at (7, 0.5) {$\hat{\tau}_2$};
 		\node [style=morphism] (37) at (5, 1.75) {$s$};
 		\node [style=morphism] (38) at (7, 1.75) {$s$};
-		\node [style=none] (39) at (3, 0) {$=$};
+		\node [style=none] (39) at (3, 0) {$\stackrel{\eqref{hewsav2}}{=}$};
 		\node [style=none] (40) at (5, 2.5) {};
 		\node [style=none] (41) at (7, 2.5) {};
 		\node [style=none] (42) at (9, 0) {$=$};
