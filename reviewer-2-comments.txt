@@ -1,0 +1,74 @@
+The main complaint that I have about the writing is most probably cultural. I
+dare say this because I have experience with coauthors from different cultures,
+in particular mathematicians vs. computer scientists. It seems to me that there
+is a cultivated writing style among mathematicians which tends to “hide things
+from the reader” as if it would be too simple to just explicitly say everything.
+I am not fond of this style. Related to it, I think, is that the paper is not
+self-contained, and skips almost all preliminaries (both regarding string
+diagrams and other things). To ideally follow everything, one would need to read
+at least also [6]. I did not do that, and I am not really an expert on most of
+the things touched-upon in this paper, but I have worked (some time ago) on some
+symmetric monodical categories, and on probability in a categorical context. I
+am also familiar with some of the fast-growing body of work on string
+diagrammatic results. Having said that, still I could actually follow almost all
+arguments in the proofs, which adds to my being in favour of accepting the
+paper. But to my taste, it would be better and easily doable to reintroduce
+basic concepts here, spell all out, and have a self-contained paper. Perhaps the
+authors can consider such a suggestion, though at the end I leave it up to their
+taste and decision.
+
+E: I think there's something to be said for introducing more of the
+preliminaries. But this is a more substantial change, so I'm leaving it here for now.
+
+For people not familiar with certain notions, e.g. the mentioned law (3), or the
+comultiplication itself, it is good to give these notions / laws names when they
+are defined, and not refer to them by names (never mentioned in the definition)
+later.
+
+E: This might be a reasonable point, maybe go through the paper and see if we
+use any words that are worth explaining here.
+
+I have the feeling that many of your examples are/build on Kleisli categories,
+but you do not mention / explore that. You only mention it in the last example…
+where I do not see particular relevance as well.
+
+E: Worth adding a comment on maybe - maybe give as a class of examples, you have
+a theorem on this in your big reference paper, I think?
+
+
+also the examples could be more detailed (e.g. Ex. 2.3 could explicitly define
+composition and the symmetric monodical structure)
+
+E: I tried doing this and found it a bit clunky (since example 2.3 is already
+pretty heavy), but worth thinking about.
+
+
+It would only take couple of sentences on p.4 to introduce / explain string
+diagrams. * p.4, typo: Y should be X in the second projection map.
+
+E: Not sure if this makes ense?
+
+
+E: I have not considered the rest of the comments yet:
+
+one should spell out \hat\sigma better
+
+“the invariance assumption” — again, naming only pops in here.. it would help to
+refer to the assumption (2.), one could also decorate the equalities with the
+reasons why they hold.
+
+p.19 “Then we claim that” — this equality also needs a label and reference, and
+can be referred to in the third equality at the end of the proof (p.20)
+
+
+I am not sure I can appreciate the example of the Kleisli category for the
+Vietoris monad on Top … but if others do, that’s OK for me. To my taste, some
+motivation would be welcome. I do admit that Corollary 6.5. is amazing 😃.
+
+
+p.22 (here the writing is not as beautiful somehow, maybe also because of the
+“concrete nature of the things”) — the first displayed equivalence could be
+labelled and referred to alter — so that it does not repeat twice.
+
+I would prefer a discussion (even if it includes a discussion of an open
+problem) to ending with an open problem.
