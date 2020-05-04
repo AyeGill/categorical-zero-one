@@ -153,25 +153,24 @@ therefore so are the subcategories $\BorelStoch$ and $\FinStoch$.
 
 \begin{example}
 $\CRing_{+}^{\op}$ is \emph{not} causal.
-To see this, consider the ring $\mathbb{Z}[t]$.
-Consider the additive maps given by
+To see this, consider the ring $\mathbb{Z}[t]$, where the following counterexample similar to~\cite[Example~11.33]{markov_cats} can be formulated.
+Consider the additive maps given as the additive extensions of
 \begin{align*}
-	f(t^{n}) = {}& \begin{cases}t & n \geq 1 \\ 1 & n= 0\end{cases}\\
-	g(t^{n}) = {}& \begin{cases}t^{n-1} & n \geq 1 \\ 1 & n = 0 \end{cases}\\
-	h_{1}(t^{n}) = {}& t^{n}\\
-	h_{2}(t^{n}) = {}& t^{n+1}
+	f(t^{n}) = {}& \begin{cases}t^{n-1} & n \geq 1 \\ 1 & n = 0 \end{cases}\\[3pt]
+	g(t^{n}) = {}& \begin{cases}t & n \geq 1 \\ 1 & n= 0\end{cases}\\[3pt]
+	h_{1}(t^{n}) = {}& t^{n}\\[3pt]
+	h_{2}(t^{n}) = {}& 1
 \end{align*}
-Now $gf(t^{n}) = 1$, $h_{1}(p(t))q(t) = p(t)q(t)$, and
-$h_{2}(p(t))q(t) = tp(t)q(t)$.
-So it's easy to verify that the hypotehis holds.
-If $\CRing_{+}^{\op}$ were causal, we would have
-$g(f(h_{1}(p(t))q(t))r(t)) = g(f(h_{2}(p(t))q(t))r(t))$.
-But this clearly fails for e.g $p(t)=q(t)=r(t) = t$.
-$g(f(h_{1}(1)1)t) = 1$, but $g(f(h_{2}(1)1)t) = t$.
-
-\todo[inline]{It would be nice to have such an example. But this one doesn't
-  work, since these additive maps are not unit-preserving.}
-\todo[inline]{I've adapted this from the similar example in your reference paper.}
+On the basis monomials $t^n$, we have $(fg)(t^n) = 1$, and therefore
+\[
+	(fg)(h_1(t^n)t^m) = 1 = (fg)(h_2(t^n)t^m)
+\]
+for all $n,m \in \mathbb{N}$, so that the hypothesis holds.
+If $\CRing_{+}^{\op}$ were causal, then we would also have
+\[
+	f(g(h_{1}(t^n) t^m) t^\ell) = f(g(h_{2}(t^n) t^m) t^\ell)
+\]
+for all $n,m,\ell \in \mathbb{N}$. But this clearly fails for $n = \ell = 1$ and $m = 0$.
 \end{example}
 
 
