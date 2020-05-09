@@ -30,7 +30,7 @@
 \emph{Markov categories} are an approach to the foundations of probability and statistics based on category theory, proposed first by Golubtsov~\cite{golubtsov}, rediscovered recently independently by Cho and Jacobs~\cite{cho_jacobs}, and developed extensively by the first author in \cite{markov_cats}. The basic observation is that Markov kernels can be composed sequentially and in parallel, making them into a symmetric monoidal category $\Stoch$. One can then find axioms which make a symmetric monoidal category behave similarly to the actual category of Markov kernels, and then state and prove results from probability and statistics in this general abstract context.
 
 This represents a \emph{synthetic} approach to probability, in contrast with the usual measure-theoretic approach (which can be called \emph{analytic}). Instead of defining \emph{what} the words probability, distribution, random variable, etc, \emph{mean}, we instead state by which operations these objects can be combined and related to each other, and which properties they are supposed to satisfy.
-We can draw an analogy to the Euclidean approach to geometry: here, points and lines are described only in terms of their relationships with one another; while in the analytic approach often attributed to Descartes, where geometric objects are defined concretely in terms of more primitive notions like sets and real numbers.
+We can draw an analogy to the Euclidean approach to geometry: here, points and lines are described only in terms of their relationships with one another; while in the analytic approach often attributed to Descartes, geometric objects are defined concretely in terms of more primitive notions like sets and real numbers.
 
 In this paper, we give a treatment of the zero--one laws of Kolmogorov and of Hewitt--Savage in the setting of Markov categories. This adds further support to the hypothesis that Markov categories are an adequate setting for the foundations of probability and statistics, adding to the existing treatments of Bayesian updating, almost sure equality, conditional independence, and theorems on sufficient statistics~\cite{cho_jacobs,markov_cats}.
 
@@ -79,7 +79,7 @@ which are natural in $X$ and $Y$ and coincide with the monoidal structure isomor
 	\[
 		f \: : \: \Sigma_Y \times X \longrightarrow [0,1], \quad (S,x) \longmapsto f(S|x)
 	\]
-	assigning to every $x \in X$ a probability measure $f(-|x) : \Sigma_Y \to [0,1]$ in such a way that for every $S \in \Sigma_Y$, the function $x \mapsto f(S|x)$ is measurable. Intuitively, $f$ assigns to every $x \in X$ a random element of $Y$. Composition is again defined by a variant of the Chapman--Kolmogorov equation, and the symmetric monoidal structure is defined in terms of the usual product of measurable spaces. The monoidal unit $I$ is given by any one-element set with its unique $\sigma$-algebra. As a special case, morphisms $I \to (X,\Sigma_X)$ can be identified with probability measures $\Sigma_X \to [0,1]$.
+	assigning to every $x \in X$ a probability measure $f(-|x) : \Sigma_Y \to [0,1]$ in such a way that for every $S \in \Sigma_Y$, the function $x \mapsto f(S|x)$ is measurable. Intuitively, one can think of $f$ as assigning to every $x \in X$ a random element of $Y$. Composition is again defined by a variant of the Chapman--Kolmogorov equation, and the symmetric monoidal structure is defined in terms of the usual product of measurable spaces. The monoidal unit $I$ is given by any one-element set with its unique $\sigma$-algebra. As a special case, morphisms $I \to (X,\Sigma_X)$ can be identified with probability measures $\Sigma_X \to [0,1]$.
 
 	There is a well-known subclass of particularly well-behaved measurable spaces, the \emph{standard Borel spaces}, or equivalently Polish spaces equipped with their Borel $\sigma$-algebras. We write $\BorelStoch \subseteq \Stoch$ for the full subcategory of standard Borel spaces with Markov kernels. Since finite products of standard Borel spaces are again standard Borel, $\BorelStoch$ is again semicartesian symmetric monoidal.
 \end{example}
@@ -582,7 +582,7 @@ the general statement can be proven by applying our machinery to the category
 $\Stoch$ of measurable spaces and Markov kernels. This leads to the following problem:
 
 \begin{problem}
-	Is there a Markov category $\cC$ with countable Kolmogorov products such that \Cref{thm:kolmog} specializes to the standard Kolmogorov zero--one law in its general form applicable to all measurable spaces?
+	Is there a Markov category $\cC$ with countable Kolmogorov products such that \Cref{thm:kolmog} specializes to the standard Kolmogorov zero--one law, in its general form applicable to all measurable spaces?
   \end{problem}
 
 \begin{corollary}[Hewitt-savage zero--one law]
@@ -703,20 +703,3 @@ Strangely enough, the only examples that we know of so far are of two kinds: fir
 
 \end{document}
 
-
-
-
-
-\section{Speculation}
-\todo[inline]{not sure if this section is any good}
-It would good to have a way of using this theorem without assuming that the category in question has these infinite tensor products.
-We can always make sense of the notion of an infinite independent collection of random variables (just a collection of maps $I \to X_i$).
-Of course to talk about an outcome or a function which depends on the outcome of all the $X_i$, we need a map $\prod_i X_i \to T$ of some type.
-But since this map is deterministic, we may want to talk about it without admitting it to our category of Markov kernels.
-
-As an example, the probability theory of finite or countable sets is much simpler than the probability theory of infinite sets, since the whole edifice of $\sigma$-algebras can be done away with.
-This is a reason to prefer $\sf{FinStoch}$ over the full $\sf{Stoch}$.
-In this case, it would be desirable to be able to apply this theorem, given a collection of finite variables $I \to X_i$ and a function $\prod_i X_i \to Y$
-(which may be required to satisfy some condition like continuity in the product topology), without begin required to invent the larger category $\sf{Stoch}$.
-
-For instance, maybe there is a Markov category with objects the profinite sets, which can be obtained from $\sf{FinStoch}$ by some formal construction (maybe even simply as the pro-category), which admits infinite tensor products, and where one can profitably interpret this theorem.
