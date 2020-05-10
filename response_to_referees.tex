@@ -26,11 +26,9 @@
 
 \section*{Referee 1}
 
-We have been quite surprised by the length and the amount of detail of this report, and it is exciting that the referee has invested so much work into it. Unfortunately we disagree with the referee on most counts.
+We have been quite surprised by the length and the amount of detail of this report, and it is exciting that the referee has invested so much work into it. The referee's suggestion of putting more emphasis on our infinite tensor products and Kolmogorov products has been helpful for us, and we have shifted the emphasis a bit.
 
-\todo[inline]{Comment first on the referee's suggestion to change the emphasis to infinite tensor products}
-
-To illustrate the general incoherence of the referee's report, we start by commenting on the summary report and then moving on the material in the attached PDF.
+At the same time, we strongly disagree with the referee on essentially all other counts. In particular, the details below will explain that all ``errors'' pointed out in the report are the referee's errors, not ours. We start by commenting on the summary report and then move on to the material in the attached PDF.
 
 \begin{enumerate}[label=(\alph*).]
 	\item The referee writes:
@@ -49,13 +47,13 @@ To illustrate the general incoherence of the referee's report, we start by comme
 On the comments in the PDF:
 
 \begin{enumerate}[resume,label=(\alph*).]
-	\item The referee's proposed formulation of Definition 3.1 is along the lines of our Definition 4.1.\footnote{With the only difference between the preservation by the functors $-\otimes Y$, which we get to in the next item.} Both require the Kolmogorov product to the limit of the finite products $\bigotimes_{i \in F} X_i$ in $\cC$ and in $\cC_{\det}$. So it is not clear to us what the referee's point is. 
+	\item The referee's proposed new formulation of Definition 3.1 is along the lines of our Definition 4.1.\footnote{With the only difference between the preservation by the functors $-\otimes Y$, which we get to in the next item.} In both definitions, the Kolmogorov product is the limit of the finite products $\bigotimes_{i \in F} X_i$ in both $\cC$ and in $\cC_{\det}$. So it is not clear to us what the referee's point is. 
 
 		Perhaps the referee's suggestion is to replace Definition 3.1 by Definition 4.1. We do not want to do this, since the latter only applies in Markov categories, while the former more generally makes sense in semicartesian monoidal categories.
 		\begin{displayquote}
 			and hence every ``infinite tensor product'' is Kolmogorov.
 		\end{displayquote}
-		This is true in categories like $\Stoch$ and $\BorelStoch$, but not in general. We had already explained this point after Definition 4.1.
+		This is true in categories like $\Stoch$ and $\BorelStoch$, but not in general. We had already explained this point after Definition 4.1. In conclusion, the distinction between infinite tensor products (in semicartesian monoidal categories, Section 3) and Kolmogorov products (in Markov categories, Section 4) is important and should not be swept under the rug.
 	\item Quoting from p.7,
 		\begin{displayquote}
 			I did not incorporate the property of preservation of lim $\mathcal{D}$ by the endofunctor
@@ -85,26 +83,26 @@ On the comments in the PDF:
 			$T \subseteq \Omega$, is incorrect, because if $T$ is just a subset of $\Omega$, then I can just choose
 			it to be any nonmeasurable set of $\Omega$.
 		\end{displayquote}
-		It is a mystery to us how it is possible to read over half of a sentence, where the relevant measurability assumption is stated in clear and explicit terms.
+		It is a mystery to us how it is possible to read over half of a sentence: the relevant measurability assumption was stated in clear and explicit terms directly after $T \subseteq \Omega$.
 		\begin{displayquote}
 			If you
 			meant to say that $T$ is a measurable set in $\Omega$, the whole problem statement is an
 			elementary result in measure theory, and certainly not the Kolmogorov zero-one
 			law.
 		\end{displayquote}
-		If $T$ was an \emph{arbitrary} measurable set in $\Omega$, then the statement would clearly be the false. In any case, our statement of the Kolmogorov zero--one law has been and is exactly the classical one, and it is so classical that it should not require a reference.
+		If $T$ was an \emph{arbitrary} measurable set in $\Omega$, then the statement would quite obviously be false. In any case, our statement of the Kolmogorov zero--one law has been and is exactly the classical one, and it is so classical that it should not require a reference.
 	\item p.9, item (2): Even if most categorical foundations in algebra and geometry required monoidal closure (which is obviously not the case, take e.g.~abelian categories), we do not see how this would be an argument for monoidal closure in the context of probability theory.
 	\item p.9, item (4): Standard usage of the term ``diagram'' in category theory does not have any association with graph homomorphisms. In standard parlance as we use it, ``diagram'' is just any functor from a small category into the category under consideration.\footnote{See e.g.~\href{https://ncatlab.org/nlab/show/diagram\#CategoryShapedDiagramFunctorially}{https://ncatlab.org/nlab/show/diagram\#CategoryShapedDiagramFunctorially}.}
 	\item p.11:
 		\begin{displayquote}
 			\textbf{Theorem 4.1.} The weak limit of the functor $\mathcal{D}' : \mathscr{J} \to \Stoch$ exists. Moreover, the weak limit of the functor $\mathcal{D}'$ is never a limit in $\Stoch$ except for trivial cases.
 		\end{displayquote}
-		It is not clear to us what ``the weak limit'' means, since weak limits are rarely unique (up to unique iso), and in particular uniqueness does not hold in the case under consideration. We agree that the referee's construction indeed produces a weak limit that is not a limit. But the fact that that particular weak limit is not a limit says nothing about whether the functor has a limit or not.
+		It is not clear to us what ``the weak limit'' means, since weak limits are rarely unique (up to unique iso), and in particular uniqueness does not hold in the case under consideration. That being said, we agree that the referee's construction indeed produces a weak limit that is not a limit. But the fact that that particular weak limit is not a limit says nothing about whether the functor has a limit or not.
 \end{enumerate}
 
 \section*{Referee 2}
 
-We thank the referee for a number of suggestions which have led to an improvement of the presentation. It is good to know for us that the paper is not so easy to follow at times. While an exposition of string diagrams and Markov categories would perhaps be a bit too much for this paper, we hope that these shortcomings can be addressed in a possible future textbook treatment of the subject.
+We thank the referee for a number of suggestions which have led to an improvement of the presentation. It is good to know for us that the paper is not so easy to follow at times, and we have implemented . While an exposition of string diagrams and Markov categories would perhaps be a bit too much for this paper, we hope that these shortcomings can be addressed in a possible future textbook treatment of the subject.
 
 %\bibliographystyle{plain}
 %\bibliography{categorical-zero-one}
