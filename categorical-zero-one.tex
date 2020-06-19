@@ -72,6 +72,11 @@ A symmetric monoidal category $\cC$ is \emph{semicartesian} if the monoidal unit
 \end{equation}
 which are natural in $X$ and $Y$ and coincide with the monoidal structure isomorphisms whenever $X = I$ or $Y = I$. In the probability context, these morphisms can be interpreted as marginalizations, or equivalently as discarding the value of the variable $Y$ or $X$.
 
+\begin{example}
+  Any Cartesian monoidal category is obviously semicartesian. In the probabilistic setting that we are considering, this corresponds to a situation in which there is no randomness
+  (in such a category, all morphisms are deterministic, cf. \cref{determ_def}). Hence it is somewhat uninteresting from our point of view.
+\end{example}
+
 Here are the main examples of semicartesian symmetric monoidal categories that we will be considering.
 
 \begin{example}
@@ -138,7 +143,7 @@ There is a strictification result~\cite[Theorem~10.17]{markov_cats} which guaran
 We think of the comultiplication~\Cref{comultiplication} as a copying operation. The coassociativity and counitality conditions guarantee that copying with any number of output wires is well-defined, and we draw it likewise as a single black dot with any number of outgoing wires, like this:
 \[
 	\tikzfig{triple_copy}
-\]
+  \]
 
 \Cref{finstoch,cring,stoch} are all Markov categories in a canonical way. In $\FinStoch$ and $\Stoch$, the comultiplication morphisms are given indeed by copying, i.e.~by those stochastic matrices or Markov kernels which map an element $x \in X$ to the Dirac delta measure at $(x,x) \in X \times X$. We refer to~\cite[Example~2.5 and Section~4]{markov_cats} for the technical details. In $\CRing_+\op$, we define the comultiplication of an object $R \in \CRing_+\op$ to be represented by the multiplication map $R \otimes R \to R$. The multiplicativity condition~\eqref{multiplicativity} then amounts to the fact that the multiplication on a tensor product of commutative rings $R \otimes S$ is given by the defining equation
 \[
@@ -147,7 +152,7 @@ We think of the comultiplication~\Cref{comultiplication} as a copying operation.
 
 The following definition is among the central notions of the theory of Markov categories.
 
-\begin{definition}[{\cite[Definition~10.1]{markov_cats}}]
+\begin{definition}[{\cite[Definition~10.1]{markov_cats}}]\label{determ_def}
 	Let $\cC$ be a Markov category. A morphism $f : X \to Y$ in $\cC$ is \emph{deterministic} if it is a comonoid homomorphism,
 	\[
 		\tikzfig{multiplication_natural}	
